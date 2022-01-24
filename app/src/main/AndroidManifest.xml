@@ -11,7 +11,8 @@
         android:theme="@style/Theme.ExpressPurchase">
         <activity
             android:name=".Settings"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

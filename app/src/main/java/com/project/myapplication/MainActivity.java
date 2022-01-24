@@ -11,12 +11,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView settingsTv;
+    CardView settingsCv;
 
     Button button;
     SharedPreferences sharedPreferences;
@@ -73,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        settingsTv = findViewById(R.id.settingsTextView);
+        settingsCv = findViewById(R.id.settingsCardView);
 
-        settingsTv.setOnClickListener(new View.OnClickListener() {
+        settingsCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Settings.class);
