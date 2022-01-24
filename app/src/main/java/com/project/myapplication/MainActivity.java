@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     CardView settingsCv;
 
-    Button button;
     SharedPreferences sharedPreferences;
 
     public static DrawerLayout mDrawerLayout;
@@ -77,16 +76,6 @@ public class MainActivity extends AppCompatActivity {
         settingsCv = findViewById(R.id.settingsCardView);
 
         settingsCv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Settings.class);
-                startActivity(intent);
-            }
-        });
-
-        button = findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Settings.class);
