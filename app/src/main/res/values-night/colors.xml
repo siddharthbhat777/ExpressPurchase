@@ -9,6 +9,7 @@
     <color name="white">#000000</color>
     <color name="grey">#757575</color>
     <color name="dark_grey">#434242</color>
+    <color name="price_color">#03E80C</color>
     <color name="purple">#69057A</color>
     <color name="dark_orange">#FF6F00</color>
     <color name="light_orange">#F3AB74</color>

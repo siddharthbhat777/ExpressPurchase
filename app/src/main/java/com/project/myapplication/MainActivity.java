@@ -15,7 +15,29 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    ExpressPurchaseAdapter adapter;
+
+    RecyclerView recyclerViewItems;
 
     CardView settingsCv;
 
@@ -82,5 +104,32 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        recyclerViewItems = findViewById(R.id.itemsRV);
+        recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
+
+        FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
+                        .build();
+
+        adapter = new ExpressPurchaseAdapter(options);
+        recyclerViewItems.setAdapter(adapter);
+        recyclerViewItems.setHasFixedSize(true);
+        recyclerViewItems.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+        //adapter.getSnapshots();
+        //adapter.onDataChanged();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

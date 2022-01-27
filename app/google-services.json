@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1060018672946",
+    "firebase_url": "https://expresspurchasedatabase-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "expresspurchasedatabase",
+    "storage_bucket": "expresspurchasedatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060018672946:android:96cc3b9e663a69ca2af32b",
+        "android_client_info": {
+          "package_name": "com.project.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060018672946-40ipgpeomre764gse0dpeo9phc95gg8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzZEQ2jFYZyhOE_pUHXhtOsS0ByrEh3Ow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060018672946-40ipgpeomre764gse0dpeo9phc95gg8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
