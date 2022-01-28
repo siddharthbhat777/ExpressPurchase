@@ -1,30 +1,34 @@
 package com.project.myapplication;
 
 public class ExpressPurchaseModel {
-    private String itemHeading;
+    private String itemName;
     private String itemPrice;
     private String itemImage;
     private String gender;
     private String age;
     private String category;
+    private String salesman;
+    private String description;
 
     ExpressPurchaseModel(){}
 
-    public ExpressPurchaseModel(String itemHeading, String itemPrice, String itemImage, String gender, String age, String category) {
-        this.itemHeading = itemHeading;
+    public ExpressPurchaseModel(String itemName, String itemPrice, String itemImage, String gender, String age, String category, String salesman, String description) {
+        this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemImage = itemImage;
         this.gender = gender;
         this.age = age;
         this.category = category;
+        this.salesman = salesman;
+        this.description = description;
     }
 
-    public String getItemHeading() {
-        return itemHeading;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setItemHeading(String itemHeading) {
-        this.itemHeading = itemHeading;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getItemPrice() {
@@ -65,5 +69,21 @@ public class ExpressPurchaseModel {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(String salesman) {
+        this.salesman = salesman;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

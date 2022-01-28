@@ -3,10 +3,12 @@ package com.project.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -25,6 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
@@ -113,10 +118,24 @@ public class MainActivity extends AppCompatActivity {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
                         .build();
 
+        FirebaseDatabase.getInstance("https://expresspurchasedatabase-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").child("items").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Fucking Error", task.getException());
+                    Toast.makeText(MainActivity.this, "Fucking Error", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+
         adapter = new ExpressPurchaseAdapter(options);
         recyclerViewItems.setAdapter(adapter);
-        recyclerViewItems.setHasFixedSize(true);
-        recyclerViewItems.setNestedScrollingEnabled(false);
+        //https://expresspurchasedatabase-default-rtdb.asia-southeast1.firebasedatabase.app/
+        //recyclerViewItems.setHasFixedSize(true);
+        //recyclerViewItems.setNestedScrollingEnabled(false);
     }
 
     @Override
