@@ -2,17 +2,17 @@ package com.project.myapplication;
 
 public class ExpressPurchaseModel {
     private String itemName;
-    private String itemPrice;
+    private int itemPrice;
     private String itemImage;
     private String gender;
-    private String age;
+    private int age;
     private String category;
     private String salesman;
     private String description;
 
     ExpressPurchaseModel(){}
 
-    public ExpressPurchaseModel(String itemName, String itemPrice, String itemImage, String gender, String age, String category, String salesman, String description) {
+    public ExpressPurchaseModel(String itemName, int itemPrice, String itemImage, String gender, int age, String category, String salesman, String description) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemImage = itemImage;
@@ -31,11 +31,11 @@ public class ExpressPurchaseModel {
         this.itemName = itemName;
     }
 
-    public String getItemPrice() {
+    public int getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(String itemPrice) {
+    public void setItemPrice(int itemPrice) {
         this.itemPrice = itemPrice;
     }
 
@@ -55,11 +55,11 @@ public class ExpressPurchaseModel {
         this.gender = gender;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

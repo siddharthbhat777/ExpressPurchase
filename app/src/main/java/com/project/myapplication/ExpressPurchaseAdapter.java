@@ -5,19 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.core.Context;
 import com.squareup.picasso.Picasso;
 
 public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurchaseModel, ExpressPurchaseAdapter.expressPurchaseViewHolder> {
-
-    Context context;
 
     public ExpressPurchaseAdapter(@NonNull FirebaseRecyclerOptions<ExpressPurchaseModel> options) {
         super(options);
@@ -26,13 +22,8 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
     @Override
     protected void onBindViewHolder(@NonNull expressPurchaseViewHolder holder, int position, @NonNull ExpressPurchaseModel model) {
         holder.itemNameTV.setText(model.getItemName());
-        holder.itemPriceTV.setText(model.getItemPrice());
+        holder.itemPriceTV.setText(String.valueOf(model.getItemPrice()));
         Picasso.get().load(model.getItemImage()).into(holder.itemImageIV);
-    }
-
-    @Override
-    public void onDataChanged() {
-        super.onDataChanged();
     }
 
     @NonNull

@@ -118,32 +118,15 @@ public class MainActivity extends AppCompatActivity {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
                         .build();
 
-        FirebaseDatabase.getInstance("https://expresspurchasedatabase-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").child("items").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Fucking Error", task.getException());
-                    Toast.makeText(MainActivity.this, "Fucking Error", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
 
         adapter = new ExpressPurchaseAdapter(options);
         recyclerViewItems.setAdapter(adapter);
-        //https://expresspurchasedatabase-default-rtdb.asia-southeast1.firebasedatabase.app/
-        //recyclerViewItems.setHasFixedSize(true);
-        //recyclerViewItems.setNestedScrollingEnabled(false);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         adapter.startListening();
-        //adapter.getSnapshots();
-        //adapter.onDataChanged();
     }
 
     @Override
