@@ -21,17 +21,28 @@
             android:layout_marginTop="12dp"
             android:layout_marginRight="24dp"
             android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/white"
+            android:background="@color/black"
+            android:backgroundTint="@color/white_card"
             app:cardCornerRadius="48sp"
-            app:cardMaxElevation="20dp"
+            app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:background="@drawable/single_item_card_view"
+                android:orientation="horizontal"
+                android:visibility="visible" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white_card">
 
                 <ImageView
                     android:id="@+id/itemImage"
@@ -45,15 +56,21 @@
 
                 <TextView
                     android:id="@+id/itemName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="173dp"
+                    android:layout_height="83dp"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="48dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
                     android:padding="8dp"
                     android:text="Title_Heading"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/itemImage"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,12 +105,11 @@
                     android:id="@+id/itemAddToCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:backgroundTint="@color/black"
                     android:text="+ Add to cart"
                     android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/itemImage"
                     app:layout_constraintTop_toBottomOf="@+id/itemPrice" />
 
