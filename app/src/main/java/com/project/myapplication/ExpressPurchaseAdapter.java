@@ -1,10 +1,12 @@
 package com.project.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,10 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.core.Context;
 import com.squareup.picasso.Picasso;
 
 public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurchaseModel, ExpressPurchaseAdapter.expressPurchaseViewHolder> {
+
+    Context context;
 
     public ExpressPurchaseAdapter(@NonNull FirebaseRecyclerOptions<ExpressPurchaseModel> options) {
         super(options);
@@ -45,6 +48,18 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
                 MainActivity.mDrawerLayout.getContext().startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onDataChanged() {
+        //MainActivity holder = new MainActivity();
+        //holder.findViewById(R.id.loadingLayout).setVisibility(View.GONE);
+        /*@Override
+        public void onDataChanged() {
+            if (progressBar != null) {
+                progressBar.setVisibility(View.GONE);
+            }
+        }*/
     }
 
     @NonNull
