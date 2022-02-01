@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewItems;
 
-    CardView settingsCv;
+    CardView settingsCv, aboutCv, walletCv;
 
     SharedPreferences sharedPreferences;
 
@@ -103,11 +103,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         settingsCv = findViewById(R.id.settingsCardView);
+        aboutCv = findViewById(R.id.aboutCardView);
+        walletCv = findViewById(R.id.walletCardView);
 
         settingsCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Settings.class);
+                startActivity(intent);
+            }
+        });
+
+        aboutCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, About.class);
                 startActivity(intent);
             }
         });

@@ -19,4 +19,5 @@
     <color name="black_to_light_grey">@color/black</color>
     <color name="drawer">#DFDBDB</color>
     <color name="activity_background">#DFDBDB</color>
+    <color name="image_background_tint">#ABDFDBDB</color>
 </resources>
