@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
 
+        findViewById(R.id.main_bg_img).setVisibility(View.INVISIBLE);
+
         // Setup Actionbar / Toolbar
         mToolbar = (Toolbar) findViewById(R.id.action_bar);
         setSupportActionBar(mToolbar);
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 findViewById(R.id.loadingLayout).setVisibility(View.GONE);
+                findViewById(R.id.main_bg_img).setVisibility(View.VISIBLE);
             }
 
             @Override

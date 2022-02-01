@@ -12,15 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/main_bg_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00000000"
+            android:foreground="@color/image_background_tint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
+            app:srcCompat="@drawable/app_icon_no_bg" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/loadingLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/action_bar">
 
             <ImageView
                 android:id="@+id/app_icon_loading"
