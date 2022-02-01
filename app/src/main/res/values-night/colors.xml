@@ -16,4 +16,7 @@
     <color name="yellow">#FFC107</color>
     <color name="blue">#2196F3</color>
     <color name="white_card">#272626</color>
+    <color name="black_to_light_grey">#DFDBDB</color>
+    <color name="drawer">#272626</color>
+    <color name="activity_background">@color/white</color>
 </resources>
