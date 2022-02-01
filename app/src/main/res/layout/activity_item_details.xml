@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/about_bg_img"
+        android:id="@+id/item_details_bg_img"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:background="#00FFFFFF"
