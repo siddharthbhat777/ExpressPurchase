@@ -20,4 +20,6 @@
     <color name="drawer">#DFDBDB</color>
     <color name="activity_background">#DFDBDB</color>
     <color name="image_background_tint">#ABDFDBDB</color>
+    <color name="edit_text_hint">#474242</color>
+    <color name="search_background">#272626</color>
 </resources>

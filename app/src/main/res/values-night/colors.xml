@@ -20,4 +20,6 @@
     <color name="drawer">#272626</color>
     <color name="activity_background">#272626</color>
     <color name="image_background_tint">#AB272626</color>
+    <color name="edit_text_hint">#ACA3A3</color>
+    <color name="search_background">#DFDBDB</color>
 </resources>
