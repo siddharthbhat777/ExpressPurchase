@@ -3,9 +3,12 @@ package com.project.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +38,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -49,6 +53,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText searchEditText;
+    ArrayList<ExpressPurchaseModel> searchArrayList;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -98,6 +105,30 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
         //getSupportActionBar().setLogo(R.drawable.action_bar_logo);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //searching option
+        searchArrayList = new ArrayList<>();
+        searchEditText = findViewById(R.id.searchEditText);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().isEmpty()) {
+                    search(s.toString());
+                } else {
+                    search("");
+
+                }            }
+        });
 
         // Setup Navigation Drawer Layout
         mDrawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout);
@@ -165,6 +196,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void search(String s) {
+        FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("itemName").startAt(s).endAt(s + "\uf8ff"), ExpressPurchaseModel.class)
+                        .build();
+        adapter = new ExpressPurchaseAdapter(options);
+        adapter.startListening();
+        recyclerViewItems.setAdapter(adapter);
     }
 
     private void initchipgroup() {
