@@ -51,6 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -126,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     search(s.toString());
                 } else {
                     search("");
-
-                }            }
+                }
+            }
         });
 
         // Setup Navigation Drawer Layout
@@ -199,9 +200,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void search(String s) {
+        s = s.toLowerCase();
         FirebaseRecyclerOptions<ExpressPurchaseModel> options =
                 new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("itemName").startAt(s).endAt(s + "\uf8ff"), ExpressPurchaseModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("search").startAt(s).endAt(s + "\uf8ff"), ExpressPurchaseModel.class)
                         .build();
         adapter = new ExpressPurchaseAdapter(options);
         adapter.startListening();

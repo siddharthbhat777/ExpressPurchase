@@ -10,10 +10,11 @@ public class ExpressPurchaseModel {
     private String category;
     private String salesman;
     private String description;
+    private String search;
 
     ExpressPurchaseModel(){}
 
-    public ExpressPurchaseModel(String itemName, int itemPrice, String itemImage, String gender, int age, int inStock, String category, String salesman, String description) {
+    public ExpressPurchaseModel(String itemName, int itemPrice, String itemImage, String gender, int age, int inStock, String category, String salesman, String description, String search) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemImage = itemImage;
@@ -23,6 +24,7 @@ public class ExpressPurchaseModel {
         this.category = category;
         this.salesman = salesman;
         this.description = description;
+        this.search = search;
     }
 
     public String getItemName() {
@@ -95,5 +97,13 @@ public class ExpressPurchaseModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }
