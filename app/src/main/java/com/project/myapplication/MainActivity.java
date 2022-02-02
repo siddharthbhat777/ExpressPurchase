@@ -29,6 +29,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,10 +57,19 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
 
+    ChipGroup chipGroup;
+    //list for categorry
+    ArrayList<>
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //creating method for better understanding !
+        initchipgroup();
+
 
         //Status Bar Color
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.purple));
@@ -147,6 +158,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void initchipgroup() {
+        chipGroup = findViewById(R.id.chipGroup);
+
+        creatingitemfromlist();
+
+    }
+
+    private void creatingitemfromlist() {
+        for (int i = 1; i <= list.size(); i++) {
+
+            Chip lChip = new Chip(this);
+            lChip.setText(list.get(i - 1).getName());
+            lChip.setTextColor(getResources().getColor(R.color.white));
+            lChip.setChipBackgroundColor(getResources().getColorStateList(R.color.black));
+
+            chipGroup.addView(lChip, chipGroup.getChildCount());
+
+
+        }
     }
 
     @Override
