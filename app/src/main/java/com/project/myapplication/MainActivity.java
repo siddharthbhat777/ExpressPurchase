@@ -3,6 +3,7 @@ package com.project.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -56,7 +57,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     EditText searchEditText;
-    ArrayList<ExpressPurchaseModel> searchArrayList;
+    CardView voiceSearchCardView;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -107,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().setLogo(R.drawable.action_bar_logo);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        //searching option
-        searchArrayList = new ArrayList<>();
+        //manual searching option
         searchEditText = findViewById(R.id.searchEditText);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -127,6 +127,23 @@ public class MainActivity extends AppCompatActivity {
                     search(s.toString());
                 } else {
                     search("");
+                }
+            }
+        });
+
+        //voice search option
+        voiceSearchCardView = findViewById(R.id.searchCardView);
+        voiceSearchCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say your desired item name!");
+                try {
+                    startActivityForResult(intent, 1);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -208,6 +225,18 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ExpressPurchaseAdapter(options);
         adapter.startListening();
         recyclerViewItems.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK & null != data) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                searchEditText.setText(result.get(0));
+            }
+        }
     }
 
     private void initchipgroup() {
