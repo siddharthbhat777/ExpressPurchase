@@ -14,21 +14,18 @@
         android:theme="@style/Theme.ExpressPurchase">
         <activity
             android:name=".About"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:exported="false"/>
         <activity
             android:name=".ItemDetails"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:exported="false"/>
         <activity
             android:name=".Settings"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.ExpressPurchase">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

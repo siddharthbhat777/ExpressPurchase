@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -35,6 +36,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +49,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ExpressPurchaseAdapter adapter;
 
@@ -59,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     ChipGroup chipGroup;
     //list for categorry
-    ArrayList<>
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,22 +170,31 @@ public class MainActivity extends AppCompatActivity {
     private void initchipgroup() {
         chipGroup = findViewById(R.id.chipGroup);
 
-        creatingitemfromlist();
+        getData();
+        //creatingitemfromlist();
 
     }
 
-    private void creatingitemfromlist() {
-        for (int i = 1; i <= list.size(); i++) {
+    private void getData() {
+        db.collection("categories").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentSnapshot snapshot : value.getDocuments()){
+                    String categoryName = snapshot.getString("categoryName");
+                    creatingitemfromlist(categoryName);
+                }
+            }
+        });
+    }
+
+    private void creatingitemfromlist(String categoryName) {
 
             Chip lChip = new Chip(this);
-            lChip.setText(list.get(i - 1).getName());
+            lChip.setText(categoryName);
             lChip.setTextColor(getResources().getColor(R.color.white));
             lChip.setChipBackgroundColor(getResources().getColorStateList(R.color.black));
 
             chipGroup.addView(lChip, chipGroup.getChildCount());
-
-
-        }
     }
 
     @Override
