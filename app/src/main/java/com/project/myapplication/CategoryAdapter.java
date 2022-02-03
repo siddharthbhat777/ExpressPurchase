@@ -43,21 +43,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 selectedPosition = position;
-
                 item_click.onClick(position, list.get(position));
 
                 notifyDataSetChanged();  // notify
-
             }
 
         });
 
         if (selectedPosition != position) {
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#ffffff"));
-            holder.textView.setTextColor(Color.parseColor("#000000"));
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#000000"));
+            holder.textView.setTextColor(Color.parseColor("#ffffff"));//#000000
         } else {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#69057A"));
-            holder.textView.setTextColor(Color.parseColor("#ffffff"));
+            holder.textView.setTextColor(Color.parseColor("#ffffff"));//#ffffff
         }
     }
 
@@ -76,8 +74,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
             cardView = itemView.findViewById(R.id.categoryView);
             textView = itemView.findViewById(R.id.text);
-
-
         }
     }
 }

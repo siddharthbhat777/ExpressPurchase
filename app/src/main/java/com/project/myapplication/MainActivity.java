@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
     ExpressPurchaseAdapter adapter;
 
-    CategoryAdapter cadapter;
+    CategoryAdapter categoryAdapter;
     ArrayList<CategoryModel> list;
 
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initchips();
+        initChips();
 
         //Status Bar Color
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.purple));
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
     }
 
-    private void initchips() {
+    private void initChips() {
 
         rv_chip = findViewById(R.id.chipGroup);
         rv_chip.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
@@ -217,18 +217,18 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 list.clear();
-                list.add(new CategoryModel("ALL"));
+                list.add(new CategoryModel("All"));
                 for (DocumentSnapshot snapshot : value.getDocuments()) {
                     CategoryModel model = snapshot.toObject(CategoryModel.class);
                     list.add(model);
                 }
-                cadapter.notifyDataSetChanged();
+                categoryAdapter.notifyDataSetChanged();
             }
         });
 
 
-        cadapter = new CategoryAdapter(this, list, this);
-        rv_chip.setAdapter(cadapter);
+        categoryAdapter = new CategoryAdapter(this, list, this);
+        rv_chip.setAdapter(categoryAdapter);
     }
 
 
@@ -270,12 +270,12 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
     @Override
     public void onClick(int position, CategoryModel name) {
 //        Toast.makeText(getApplicationContext(), name.getCategoryName(), Toast.LENGTH_SHORT).show();
-        showcategorywisedata(name);
+        showCategoryWiseData(name);
     }
 
-    private void showcategorywisedata(CategoryModel model) {
+    private void showCategoryWiseData(CategoryModel model) {
 
-        if (model.getCategoryName().equals("ALL")) {
+        if (model.getCategoryName().equals("All")) {
 
             FirebaseRecyclerOptions<ExpressPurchaseModel> options =
                     new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
