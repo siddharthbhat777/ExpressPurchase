@@ -13,11 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
         <activity
+            android:name=".ShoppingCartActivity"
+            android:exported="false" />
+        <activity
             android:name=".About"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ItemDetails"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Settings"
             android:exported="false"

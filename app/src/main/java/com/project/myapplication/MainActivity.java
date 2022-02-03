@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -300,8 +303,21 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
             adapter = new ExpressPurchaseAdapter(options);
             adapter.startListening();
             recyclerViewItems.setAdapter(adapter);
-
-
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_right_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }
