@@ -22,4 +22,5 @@
     <color name="image_background_tint">#AB272626</color>
     <color name="edit_text_hint">#ACA3A3</color>
     <color name="search_background">#3D3B3B</color>
+    <color name="tag_color">#69057A</color>
 </resources>

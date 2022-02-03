@@ -81,13 +81,20 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         findViewById(R.id.main_bg_img).setVisibility(View.INVISIBLE);
 
         // Setup Actionbar / Toolbar
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         mToolbar = (Toolbar) findViewById(R.id.action_bar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
         //getSupportActionBar().setLogo(R.drawable.action_bar_logo);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //manual searching option
         searchEditText = findViewById(R.id.searchEditText);
@@ -144,13 +151,13 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
+//
+//        mDrawerLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mDrawerToggle.syncState();
+//            }
+//        });
 
         settingsCv = findViewById(R.id.settingsCardView);
         aboutCv = findViewById(R.id.aboutCardView);

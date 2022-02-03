@@ -51,11 +51,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         });
 
         if (selectedPosition != position) {
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#000000"));
-            holder.textView.setTextColor(Color.parseColor("#ffffff"));//#000000
+            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.black));//#ffffff
+            holder.textView.setTextColor(context.getResources().getColor(R.color.white));//#000000
         } else {
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#69057A"));
-            holder.textView.setTextColor(Color.parseColor("#ffffff"));//#ffffff
+            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.tag_color));
+            holder.textView.setTextColor(context.getResources().getColor(R.color.black));//#ffffff
         }
     }
 
