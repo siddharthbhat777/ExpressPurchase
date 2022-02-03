@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,35 +19,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -75,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
 
     ChipGroup chipGroup;
-    //list for categorry
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Setup Navigation Drawer Layout
-        mDrawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
 
             @Override
@@ -243,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
         chipGroup = findViewById(R.id.chipGroup);
 
         getData();
-        //creatingitemfromlist();
 
     }
 
@@ -251,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         db.collection("categories").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                for (DocumentSnapshot snapshot : value.getDocuments()){
+                for (DocumentSnapshot snapshot : value.getDocuments()) {
                     String categoryName = snapshot.getString("categoryName");
                     creatingitemfromlist(categoryName);
                 }
@@ -261,12 +243,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void creatingitemfromlist(String categoryName) {
 
-            Chip lChip = new Chip(this);
-            lChip.setText(categoryName);
-            lChip.setTextColor(getResources().getColor(R.color.white));
-            lChip.setChipBackgroundColor(getResources().getColorStateList(R.color.black));
+        Chip lChip = new Chip(this);
+        lChip.setText(categoryName);
+        lChip.setTextColor(getResources().getColor(R.color.white));
+        lChip.setChipBackgroundColor(getResources().getColorStateList(R.color.black));
 
-            chipGroup.addView(lChip, chipGroup.getChildCount());
+        chipGroup.addView(lChip, chipGroup.getChildCount());
+
+        //adding on click on all the chip items
+        chiponclick(lChip);
+
+    }
+
+    private void chiponclick(Chip chip2) {
+        chip2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Showing Result for "+chip2.getText().toString()+" Category", Toast.LENGTH_SHORT).show();
+                FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                        new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                                .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("category").equalTo(chip2.getText().toString()), ExpressPurchaseModel.class)
+                                .build();
+                adapter = new ExpressPurchaseAdapter(options);
+                adapter.startListening();
+                recyclerViewItems.setAdapter(adapter);
+            }
+        });
     }
 
     @Override
