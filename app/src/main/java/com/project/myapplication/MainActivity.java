@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     ExpressPurchaseAdapter adapter;
 
+
+
     RecyclerView recyclerViewItems;
 
     CardView settingsCv, aboutCv, walletCv;
@@ -190,6 +192,14 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 findViewById(R.id.loadingLayout).setVisibility(View.GONE);
                 findViewById(R.id.main_bg_img).setVisibility(View.VISIBLE);
+
+                FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                        new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                                .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
+                                .build();
+                adapter = new ExpressPurchaseAdapter(options);
+                adapter.startListening();
+                recyclerViewItems.setAdapter(adapter);
             }
 
             @Override
@@ -233,12 +243,39 @@ public class MainActivity extends AppCompatActivity {
         db.collection("categories").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                chipGroup.removeAllViews();
+                createallitem(); // all chip
+
                 for (DocumentSnapshot snapshot : value.getDocuments()) {
                     String categoryName = snapshot.getString("categoryName");
-                    creatingitemfromlist(categoryName);
+                    creatingitemfromlist(categoryName); // other category chip
                 }
             }
         });
+    }
+
+    private void createallitem() {
+
+        Chip allchip = new Chip(this);
+        allchip.setText("All");
+        allchip.setTextColor(getResources().getColor(R.color.white));
+        allchip.setChipBackgroundColor(getResources().getColorStateList(R.color.black));
+
+        chipGroup.addView(allchip, chipGroup.getChildCount());
+
+        allchip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                        new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                                .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
+                                .build();
+                adapter = new ExpressPurchaseAdapter(options);
+                adapter.startListening();
+                recyclerViewItems.setAdapter(adapter);
+            }
+        });
+
     }
 
     private void creatingitemfromlist(String categoryName) {
@@ -259,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
         chip2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Showing Result for "+chip2.getText().toString()+" Category", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Showing Result for " + chip2.getText().toString() + " Category", Toast.LENGTH_SHORT).show(); // uncomment this toast if u  want to show on chip click
                 FirebaseRecyclerOptions<ExpressPurchaseModel> options =
                         new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
                                 .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("category").equalTo(chip2.getText().toString()), ExpressPurchaseModel.class)
