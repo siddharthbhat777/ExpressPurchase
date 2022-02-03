@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,7 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryClickInterface {
 
     EditText searchEditText;
     CardView voiceSearchCardView;
@@ -47,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     ExpressPurchaseAdapter adapter;
 
+    CategoryAdapter cadapter;
+    ArrayList<CategoryModel> list;
 
 
     RecyclerView recyclerViewItems;
@@ -60,17 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
 
-    ChipGroup chipGroup;
+    RecyclerView rv_chip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        //creating method for better understanding !
-        initchipgroup();
-
+        initchips();
 
         //Status Bar Color
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.purple));
@@ -207,7 +203,34 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
+    private void initchips() {
+
+        rv_chip = findViewById(R.id.chipGroup);
+        rv_chip.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
+        rv_chip.setHasFixedSize(true);
+        list = new ArrayList<>();
+
+        db.collection("categories").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                list.add(new CategoryModel("ALL"));
+                for (DocumentSnapshot snapshot : value.getDocuments()) {
+                    CategoryModel model = snapshot.toObject(CategoryModel.class);
+                    list.add(model);
+                }
+                cadapter.notifyDataSetChanged();
+            }
+        });
+
+
+        cadapter = new CategoryAdapter(this, list, this);
+        rv_chip.setAdapter(cadapter);
+    }
+
 
     private void search(String s) {
         s = s.toLowerCase();
@@ -232,82 +255,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initchipgroup() {
-        chipGroup = findViewById(R.id.chipGroup);
-
-        getData();
-
-    }
-
-    private void getData() {
-        db.collection("categories").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                chipGroup.removeAllViews();
-                createallitem(); // all chip
-
-                for (DocumentSnapshot snapshot : value.getDocuments()) {
-                    String categoryName = snapshot.getString("categoryName");
-                    creatingitemfromlist(categoryName); // other category chip
-                }
-            }
-        });
-    }
-
-    private void createallitem() {
-
-        Chip allchip = new Chip(this);
-        allchip.setText("All");
-        allchip.setTextColor(getResources().getColor(R.color.white));
-        allchip.setChipBackgroundColor(getResources().getColorStateList(R.color.black));
-
-        chipGroup.addView(allchip, chipGroup.getChildCount());
-
-        allchip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                        new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                                .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
-                                .build();
-                adapter = new ExpressPurchaseAdapter(options);
-                adapter.startListening();
-                recyclerViewItems.setAdapter(adapter);
-            }
-        });
-
-    }
-
-    private void creatingitemfromlist(String categoryName) {
-
-        Chip lChip = new Chip(this);
-        lChip.setText(categoryName);
-        lChip.setTextColor(getResources().getColor(R.color.white));
-        lChip.setChipBackgroundColor(getResources().getColorStateList(R.color.black));
-
-        chipGroup.addView(lChip, chipGroup.getChildCount());
-
-        //adding on click on all the chip items
-        chiponclick(lChip);
-
-    }
-
-    private void chiponclick(Chip chip2) {
-        chip2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Showing Result for " + chip2.getText().toString() + " Category", Toast.LENGTH_SHORT).show(); // uncomment this toast if u  want to show on chip click
-                FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                        new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                                .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("category").equalTo(chip2.getText().toString()), ExpressPurchaseModel.class)
-                                .build();
-                adapter = new ExpressPurchaseAdapter(options);
-                adapter.startListening();
-                recyclerViewItems.setAdapter(adapter);
-            }
-        });
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -318,5 +265,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public void onClick(int position, CategoryModel name) {
+//        Toast.makeText(getApplicationContext(), name.getCategoryName(), Toast.LENGTH_SHORT).show();
+        showcategorywisedata(name);
+    }
+
+    private void showcategorywisedata(CategoryModel model) {
+
+        if (model.getCategoryName().equals("ALL")) {
+
+            FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                    new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                            .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
+                            .build();
+            adapter = new ExpressPurchaseAdapter(options);
+            adapter.startListening();
+            recyclerViewItems.setAdapter(adapter);
+        } else {
+
+            FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                    new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                            .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("category").equalTo(model.getCategoryName()), ExpressPurchaseModel.class)
+                            .build();
+            adapter = new ExpressPurchaseAdapter(options);
+            adapter.startListening();
+            recyclerViewItems.setAdapter(adapter);
+
+
+        }
     }
 }
