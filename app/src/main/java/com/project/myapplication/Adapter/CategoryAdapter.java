@@ -1,7 +1,6 @@
-package com.project.myapplication;
+package com.project.myapplication.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.project.myapplication.Interfaces.CategoryClickInterface;
+import com.project.myapplication.Model.CategoryModel;
+import com.project.myapplication.R;
 
 import java.util.ArrayList;
 

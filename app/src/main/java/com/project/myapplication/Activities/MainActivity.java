@@ -1,4 +1,4 @@
-package com.project.myapplication;
+package com.project.myapplication.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +34,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.project.myapplication.Adapter.CategoryAdapter;
+import com.project.myapplication.Interfaces.CategoryClickInterface;
+import com.project.myapplication.Model.CategoryModel;
+import com.project.myapplication.Adapter.ExpressPurchaseAdapter;
+import com.project.myapplication.Model.ExpressPurchaseModel;
+import com.project.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.Locale;

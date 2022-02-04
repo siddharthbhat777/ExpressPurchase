@@ -1,4 +1,4 @@
-package com.project.myapplication;
+package com.project.myapplication.Model;
 
 public class CategoryModel {
     String categoryName;
