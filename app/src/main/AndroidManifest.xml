@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
         <activity
+            android:name=".WalletActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShoppingCartActivity"
             android:exported="false" />
         <activity

@@ -30,7 +30,7 @@
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/night_thumb_true.xml" value="0.290625" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/search_layout_shape.xml" value="0.2005" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/single_item_card_view.xml" value="0.21796875" />
-        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/action_bar.xml" value="0.264" />
+        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/action_bar.xml" value="0.176" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_about.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_item_details.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_main.xml" value="0.16" />
@@ -38,6 +38,7 @@
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_shopping_cart.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_test.xml" value="0.2" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_test2.xml" value="0.205859375" />
+        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_wallet.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/fragment_navigation_drawer.xml" value="0.27447916666666666" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/single_category.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/single_item_main_recycler_view.xml" value="0.2" />
