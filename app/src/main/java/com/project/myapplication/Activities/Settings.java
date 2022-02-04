@@ -1,4 +1,4 @@
-package com.project.myapplication;
+package com.project.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
+
+import com.project.myapplication.R;
 
 public class Settings extends AppCompatActivity {
 

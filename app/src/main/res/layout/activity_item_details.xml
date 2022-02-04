@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_background"
-    tools:context=".ItemDetails">
+    tools:context=".Activities.ItemDetails">
 
     <include
         android:id="@+id/action_bar"
@@ -114,7 +114,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/itemNameInside" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+                android:id="@+id/addtocart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
@@ -155,7 +155,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardView">
+                app:layout_constraintTop_toBottomOf="@id/addtocart">
 
                 <Button
                     android:id="@+id/button2"
