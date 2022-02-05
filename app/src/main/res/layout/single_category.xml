@@ -4,9 +4,9 @@
     android:id="@+id/categoryView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="7dp"
+    android:layout_margin="8dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="18dp"
+    app:cardCornerRadius="32dp"
     app:cardPreventCornerOverlap="true">
 
     <RelativeLayout
