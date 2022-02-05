@@ -19,20 +19,45 @@
         android:id="@+id/rv_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/remove_cart"
+        app:layout_constraintBottom_toTopOf="@+id/checkout_linear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2" />
 
-    <TextView
-        android:id="@+id/remove_cart"
+    <LinearLayout
+        android:id="@+id/checkout_linear"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/tag_color"
-        android:gravity="center"
-        android:text="CheckOut!"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            app:cardCornerRadius="32dp"
+            app:cardBackgroundColor="@color/tag_color"
+            app:strokeColor="@color/black"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="-32dp"
+            app:strokeWidth="2dp"
+            android:foreground="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/checkout_cart"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="top|center"
+                android:paddingTop="16dp"
+                android:text="CheckOut!"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
