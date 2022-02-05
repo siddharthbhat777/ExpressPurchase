@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
         <activity
+            android:name=".CustomerProfile"
+            android:exported="false" />
+        <activity
             android:name=".Activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ExpressPurchase">
@@ -22,7 +25,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<!--            //this is to show the splash screen on app launch-->
+            <!-- //this is to show the splash screen on app launch -->
         </activity>
         <activity
             android:name=".Activities.WalletActivity"
