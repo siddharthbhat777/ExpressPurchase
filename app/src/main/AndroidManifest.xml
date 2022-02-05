@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,23 +14,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
         <activity
-            android:name=".WalletActivity"
+            android:name=".Activities.WalletActivity"
             android:exported="false" />
         <activity
-            android:name=".ShoppingCartActivity"
+            android:name=".Activities.ShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name=".About"
+            android:name=".Activities.About"
             android:exported="false" />
         <activity
-            android:name=".ItemDetails"
+            android:name=".Activities.ItemDetails"
             android:exported="false" />
         <activity
-            android:name=".Settings"
+            android:name=".Activities.Settings"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Activities.MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ExpressPurchase">
             <intent-filter>

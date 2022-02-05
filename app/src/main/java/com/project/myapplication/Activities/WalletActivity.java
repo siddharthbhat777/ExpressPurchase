@@ -1,8 +1,10 @@
-package com.project.myapplication;
+package com.project.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.project.myapplication.R;
 
 public class WalletActivity extends AppCompatActivity {
 

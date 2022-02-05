@@ -29,11 +29,10 @@
         android:id="@+id/remove_cart"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/ic_launcher_background"
-        android:fontFamily="@font/bahnschrift"
+        android:background="@color/tag_color"
         android:gravity="center"
         android:text="CheckOut!"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
