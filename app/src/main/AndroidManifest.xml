@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
         <activity
-            android:name=".CustomerProfile"
+            android:name=".Activities.CustomerProfile"
             android:exported="false" />
         <activity
             android:name=".Activities.SplashActivity"
