@@ -35,6 +35,7 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
 
     @Override
     protected void onBindViewHolder(@NonNull expressPurchaseViewHolder holder, int position, @NonNull ExpressPurchaseModel model) {
+        realm = Realm.getDefaultInstance();
         holder.itemNameTV.setText(model.getItemName());
         holder.itemPriceTV.setText(String.valueOf(model.getItemPrice()));
         try {
