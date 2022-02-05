@@ -16,6 +16,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.project.myapplication.Activities.ItemDetails;
 import com.project.myapplication.Activities.MainActivity;
+import com.project.myapplication.Activities.ShoppingCartActivity;
 import com.project.myapplication.Model.CartModel;
 import com.project.myapplication.Model.ExpressPurchaseModel;
 import com.project.myapplication.R;
@@ -55,7 +56,13 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
                 MainActivity.mDrawerLayout.getContext().startActivity(intent);
             }
         });
-        holder.addtocart.setOnClickListener(new View.OnClickListener() {
+
+        CartModel user = realm.where(CartModel.class).equalTo("itemImage", model.getItemImage()).findFirst();
+
+        if (user == null) {
+            // Not Exists
+
+            holder.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CartModel cmodel = new CartModel();
@@ -72,14 +79,29 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
                         // inside on execute method we are calling a method
                         // to copy to real m database from our modal class.
                         realm.copyToRealmOrUpdate(cmodel);
-                        holder.addtocart.setEnabled(false);
-                        holder.cart.setEnabled(false);
-                        holder.cart.setText("Added !");
+                        holder.cart.setText("Visit to Cart !");
                         holder.addtocart.setCardBackgroundColor(holder.addtocart.getContext().getResources().getColor(R.color.purple));
+
+                        holder.cart.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                holder.addtocart.getContext().startActivity(new Intent(holder.addtocart.getContext(), ShoppingCartActivity.class));
+                            }
+                        });
                     }
                 });
             }
         });
+    }else{
+            holder.cart.setText("Visit to Cart !");
+            holder.addtocart.setCardBackgroundColor(holder.addtocart.getContext().getResources().getColor(R.color.purple));
+
+            holder.cart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.addtocart.getContext().startActivity(new Intent(holder.addtocart.getContext(), ShoppingCartActivity.class));
+                }
+            });}
     }
 
     @NonNull
