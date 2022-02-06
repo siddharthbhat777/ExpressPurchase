@@ -57,7 +57,6 @@ public class ItemDetails extends AppCompatActivity {
 
     private void addtocart() {
 
-
         CartModel user = realm.where(CartModel.class).equalTo("itemImage", image).findFirst();
 
         if (user == null) {
@@ -102,7 +101,7 @@ public class ItemDetails extends AppCompatActivity {
                             cart.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    startActivity(new Intent(getApplicationContext(),ShoppingCartActivity.class));
+                                    startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
                                 }
                             });
                         }
@@ -118,10 +117,16 @@ public class ItemDetails extends AppCompatActivity {
             cart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getApplicationContext(),ShoppingCartActivity.class));
+                    startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
                 }
             });
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 }

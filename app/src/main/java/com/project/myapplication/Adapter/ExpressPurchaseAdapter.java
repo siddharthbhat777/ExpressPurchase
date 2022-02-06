@@ -57,7 +57,6 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
                 MainActivity.mDrawerLayout.getContext().startActivity(intent);
             }
         });
-
         CartModel user = realm.where(CartModel.class).equalTo("itemImage", model.getItemImage()).findFirst();
 
         if (user == null) {

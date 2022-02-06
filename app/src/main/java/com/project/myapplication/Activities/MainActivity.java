@@ -2,6 +2,7 @@ package com.project.myapplication.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
@@ -54,6 +55,8 @@ import com.project.myapplication.Model.CategoryModel;
 import com.project.myapplication.Adapter.ExpressPurchaseAdapter;
 import com.project.myapplication.Model.ExpressPurchaseModel;
 import com.project.myapplication.R;
+import com.project.myapplication.databinding.ActivityMainBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
     CategoryAdapter categoryAdapter;
     ArrayList<CategoryModel> list;
 
+    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
+
 
     RecyclerView recyclerViewItems;
 
@@ -87,15 +93,21 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
     RecyclerView rv_chip;
 
+    ActivityMainBinding binding; // to access all the items of layout easily
+
 //    ExecutorService service = Executors.newSingleThreadExecutor(); // for doing work in background thread
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         initChips();
+
+        //profile
+        setdataindrawer();
 
         //Status Bar Color
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.purple));
@@ -165,6 +177,13 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
             }
         });
 
+        binding.profileCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),CustomerProfile.class));
+            }
+        });
+
         // Setup Navigation Drawer Layout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
@@ -181,12 +200,12 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 //
-//        mDrawerLayout.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                mDrawerToggle.syncState();
-//            }
-//        });
+        mDrawerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mDrawerToggle.syncState();
+            }
+        });
 
         settingsCv = findViewById(R.id.settingsCardView);
         aboutCv = findViewById(R.id.aboutCardView);
@@ -240,6 +259,17 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
             }
         });
 
+    }
+
+  private void setdataindrawer() {
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personPhoto = acct.getPhotoUrl().toString();
+
+            Picasso.get().load(personPhoto).into(binding.profilePictureDrawer);
+            binding.profileNameDrawer.setText(personName);
+
+        }
     }
 
     private void initChips() {
