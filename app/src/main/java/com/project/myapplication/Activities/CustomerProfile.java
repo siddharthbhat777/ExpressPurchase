@@ -1,6 +1,8 @@
 package com.project.myapplication.Activities;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,11 +22,15 @@ import com.project.myapplication.databinding.ActivityCustomerProfileBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CustomerProfile extends AppCompatActivity {
 
     ActivityCustomerProfileBinding binding;
-    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+    ExecutorService service = Executors.newSingleThreadExecutor(); // for doing work in background
+    // BACKGROUND THREAD MEANS :- like when u download any file on chrome than if u exist that app and open another app than the download will not pause because that is doing worki n background!
+    GoogleSignInAccount acct ;
 
 
     @Override
@@ -32,61 +38,59 @@ public class CustomerProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCustomerProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         setdata();
+
 
     }
 
     private void setdata() {
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personEmail = acct.getEmail();
-            String personPhoto = acct.getPhotoUrl().toString();
 
-            Picasso.get().load(personPhoto).into(binding.imageView6);
-            binding.textView4.setText(personName);
-            binding.textView7.setText(personEmail);
 
-            binding.editTextTextPersonName.setFocusable(false);
-            binding.button4.setVisibility(View.GONE);
 
-            binding.editTextTextPersonName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    binding.button4.setVisibility(View.VISIBLE);
-                }
-            });
+                if (acct != null) {
+                    String personName = acct.getDisplayName();
+                    String personEmail = acct.getEmail();
+                    String personPhoto = acct.getPhotoUrl().toString();
 
-            FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    String address = value.getString("address");
-                    binding.editTextTextPersonName.setText(address);
-                }
-            });
+                    Picasso.get().load(personPhoto).into(binding.imageView6);
+                    binding.textView4.setText(personName);
+                    binding.textView7.setText(personEmail);
 
-            binding.button4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("address", binding.editTextTextPersonName.getText().toString());
 
-                    FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(getParent(), new OnCompleteListener<Void>() {
+                    FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-
-                                binding.editTextTextPersonName.setFocusable(false);
-                                binding.button4.setVisibility(View.GONE);
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
+                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (value != null) {
+                                String address = value.getString("address");
+                                binding.editTextTextPersonName.setText(address);
                             }
                         }
                     });
-                }
-            });
 
-        }
-    }
+                binding.button4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("address", binding.editTextTextPersonName.getText().toString());
+
+                        FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(CustomerProfile.this, "Updated!", Toast.LENGTH_SHORT).show();
+                                    binding.editTextTextPersonName.setClickable(false);
+                                    binding.button4.setVisibility(View.GONE);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
+                }
+
+            }
+
 }

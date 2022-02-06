@@ -76,13 +76,13 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
     CategoryAdapter categoryAdapter;
     ArrayList<CategoryModel> list;
 
-    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+    GoogleSignInAccount acct;
 
 
 
     RecyclerView recyclerViewItems;
 
-    CardView settingsCv, aboutCv, walletCv;
+    CardView settingsCv, aboutCv, walletCv, profileCv, viewOrdersCv;
 
     SharedPreferences sharedPreferences;
 
@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        acct = GoogleSignIn.getLastSignedInAccount(this);
 
         initChips();
 
@@ -210,6 +212,8 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         settingsCv = findViewById(R.id.settingsCardView);
         aboutCv = findViewById(R.id.aboutCardView);
         walletCv = findViewById(R.id.walletCardView);
+        profileCv = findViewById(R.id.profileCardView);
+        viewOrdersCv = findViewById(R.id.viewOrdersCardView);
 
         settingsCv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +227,30 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, About.class);
+                startActivity(intent);
+            }
+        });
+
+        walletCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, WalletActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profileCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CustomerProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        viewOrdersCv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ViewOrders.class);
                 startActivity(intent);
             }
         });

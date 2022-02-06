@@ -17,6 +17,9 @@
             android:name=".Activities.CustomerProfile"
             android:exported="true" />
         <activity
+            android:name=".Activities.ViewOrders"
+            android:exported="true" />
+        <activity
             android:name=".Activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ExpressPurchase">
