@@ -42,6 +42,11 @@ public class SplashActivity extends AppCompatActivity {
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
+
+
+                // web secreat id :- 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
+                // web client id :- 1060018672946-40ipgpeomre764gse0dpeo9phc95gg8a.apps.googleusercontent.com
+
                 .build();
         mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
