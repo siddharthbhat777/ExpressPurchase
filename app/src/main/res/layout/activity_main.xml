@@ -194,13 +194,24 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/profilePictureDrawer"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="30dp"
-                            app:srcCompat="@drawable/ic_day_mode" />
+                        <com.google.android.material.card.MaterialCardView
+                            app:strokeWidth="5dp"
+                            app:strokeColor="@android:color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:background="#00FFFFFF"
+                            android:backgroundTint="#00000000"
+                            app:cardCornerRadius="100dp">
+
+                            <ImageView
+                                android:id="@+id/profilePictureDrawer"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_profile"/>
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:id="@+id/profileNameDrawer"
@@ -210,7 +221,7 @@
                             android:layout_marginTop="20dp"
                             android:gravity="center"
                             android:text="TextView"
-                            android:textColor="@android:color/white"
+                            android:textColor="@android:color/black"
                             android:textSize="34sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -229,7 +240,6 @@
                         android:id="@+id/profileCardView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="8dp"
                         android:layout_weight="1"
                         android:backgroundTint="#00000000"
                         android:clickable="true"
@@ -338,7 +348,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="50dp"
                             android:gravity="center_vertical"
-                            android:text="Your wallet"
+                            android:text="View Orders"
                             android:textColor="@color/black"
                             android:textSize="24sp"
                             android:textStyle="bold" />
