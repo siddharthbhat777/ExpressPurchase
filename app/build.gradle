@@ -57,5 +57,10 @@ dependencies {
 
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
+    //RazorPay
+    implementation 'com.razorpay:checkout:1.6.4'
+
+
+
 
 }

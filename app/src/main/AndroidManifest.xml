@@ -13,6 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
+
+
+        <receiver
+            android:name="com.razorpay.RzpTokenReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="rzp.device_token.share" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.razorpay.CheckoutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@style/CheckoutTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <data
+                    android:host="rzp.io"
+                    android:scheme="io.rzp" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.CustomerProfile"
             android:exported="true" />
@@ -23,12 +46,12 @@
             android:name=".Activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ExpressPurchase">
+            <!-- //this is to show the splash screen on app launch -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- //this is to show the splash screen on app launch -->
         </activity>
         <activity
             android:name=".Activities.WalletActivity"
@@ -41,14 +64,22 @@
             android:exported="true" />
         <activity
             android:name=".Activities.ItemDetails"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <data
+                    android:host="rzp.io"
+                    android:scheme="io.rzp" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.Settings"
             android:exported="true"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="true" >
+            android:exported="true">
+
 
         </activity>
     </application>
