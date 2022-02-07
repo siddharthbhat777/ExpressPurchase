@@ -159,6 +159,8 @@
             android:backgroundTint="@color/profile_text_color"
             app:cardCornerRadius="20dp"
             app:cardElevation="4dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
             app:layout_constraintStart_toStartOf="@+id/linearLayout3"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
@@ -167,11 +169,13 @@
 
             <Button
                 android:id="@+id/add_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="#00FFFFFF"
                 android:backgroundTint="#00000000"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:text="Add Money"
                 android:textColor="@color/white" />
 

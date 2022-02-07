@@ -22,6 +22,7 @@
     <color name="image_background_tint">#ABDFDBDB</color>
     <color name="edit_text_hint">#474242</color>
     <color name="search_background">#C2B9B9</color>
+    <color name="current_order">#C2B9B9</color>
     <color name="tag_color">#C072CD</color>
     <color name="profile_text_color">#69057A</color>
 </resources>
