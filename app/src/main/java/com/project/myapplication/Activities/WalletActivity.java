@@ -46,9 +46,11 @@ public class WalletActivity extends AppCompatActivity {
             FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    String amountinstring = value.getString("amounts");
-                    amounts = Math.round(Float.parseFloat(amountinstring) * 100);
-                    binding.textView13.setText(amountinstring);
+                    if (value != null) {
+                        String amountinstring = value.getString("amounts");
+                        amounts = Math.round(Float.parseFloat(amountinstring) * 100);
+                        binding.textView13.setText(amountinstring);
+                    }
                 }
             });
         }
