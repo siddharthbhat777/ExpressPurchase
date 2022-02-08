@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
-
+        <activity
+            android:name=".Activities.PaymentOptions"
+            android:exported="false" />
 
         <receiver
             android:name="com.razorpay.RzpTokenReceiver"
@@ -46,6 +48,7 @@
             android:name=".Activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ExpressPurchase">
+
             <!-- //this is to show the splash screen on app launch -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,6 +70,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <data
                     android:host="rzp.io"
                     android:scheme="io.rzp" />
@@ -78,10 +82,7 @@
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="true">
-
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
