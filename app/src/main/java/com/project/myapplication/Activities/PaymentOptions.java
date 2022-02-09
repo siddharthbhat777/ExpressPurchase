@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.project.myapplication.R;
+
 public class PaymentOptions extends AppCompatActivity {
 
     @Override
