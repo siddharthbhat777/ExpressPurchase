@@ -35,9 +35,35 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        mAuth = FirebaseAuth.getInstance(); FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        //setup signinmethod
-        setupsignin();
+
+        if (currentUser != null) {
+            // dialog will not show because user is already signin
+            Thread thread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        sleep(1000); // screen will be visible for 1 second!
+                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        finish();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    super.run();
+                }
+            };
+            thread.start();
+        } else {
+
+
+            //setup signinmethod
+            setupsignin();
+            signin(); // showing dialog
+        }
+
 
     }
 
@@ -61,7 +87,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void setupsignin() {
 
-        mAuth = FirebaseAuth.getInstance();
 
         // Configure Google Sign In
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -105,34 +130,5 @@ public class SplashActivity extends AppCompatActivity {
 
     //        });
 //    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null) {
-            // dialog will not show because user is already signin
-            Thread thread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        sleep(1000); // screen will be visible for 1 second!
-                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        finish();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    super.run();
-                }
-            };
-            thread.start();
-        } else {
-
-
-            signin(); // showing dialog
-        }
-
-    }
 }
