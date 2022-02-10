@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 
 import com.project.myapplication.R;
@@ -15,6 +18,7 @@ public class Settings extends AppCompatActivity {
 
     SwitchCompat switchTheme;
     SharedPreferences sharedPreferences = null;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,13 @@ public class Settings extends AppCompatActivity {
                     editor.putBoolean("night_mode", false);
                     editor.apply();
                 }
+            }
+        });
+        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.this, PaymentOptions.class);
+                startActivity(intent);
             }
         });
     }

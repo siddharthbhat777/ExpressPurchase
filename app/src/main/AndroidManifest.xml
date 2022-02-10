@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
         <activity
+            android:name=".Activities.PaymentSuccessful"
+            android:exported="false" />
+        <activity
             android:name=".Activities.PaymentOptions"
             android:exported="false" />
 
@@ -82,7 +85,7 @@
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
