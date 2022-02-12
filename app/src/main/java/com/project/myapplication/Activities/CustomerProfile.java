@@ -1,8 +1,6 @@
 package com.project.myapplication.Activities;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,7 +28,7 @@ public class CustomerProfile extends AppCompatActivity {
     ActivityCustomerProfileBinding binding;
     ExecutorService service = Executors.newSingleThreadExecutor(); // for doing work in background
     // BACKGROUND THREAD MEANS :- like when u download any file on chrome than if u exist that app and open another app than the download will not pause because that is doing worki n background!
-    GoogleSignInAccount acct ;
+    GoogleSignInAccount acct;
 
 
     @Override
@@ -47,50 +45,66 @@ public class CustomerProfile extends AppCompatActivity {
     private void setdata() {
 
 
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personEmail = acct.getEmail();
+            String personPhoto = acct.getPhotoUrl().toString();
 
-                if (acct != null) {
-                    String personName = acct.getDisplayName();
-                    String personEmail = acct.getEmail();
-                    String personPhoto = acct.getPhotoUrl().toString();
-
-                    Picasso.get().load(personPhoto).into(binding.imageView6);
-                    binding.textView4.setText(personName);
-                    binding.textView7.setText(personEmail);
-
+            Picasso.get().load(personPhoto).into(binding.imageView6);
+            binding.textView4.setText(personName);
+            binding.textView7.setText(personEmail);
 
 
-                    FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (value != null) {
+                        String address = value.getString("address");
+                        binding.editTextTextPersonName.setText(address);
+                        binding.textView8.setText(address);
+                    }
+                }
+            });
+
+            binding.button4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    binding.linearLayout6.setVisibility(View.INVISIBLE);
+                    binding.editTextTextPersonName.setVisibility(View.VISIBLE);
+                    binding.button4.setText("Update");
+
+                    binding.button4.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if (value != null) {
-                                String address = value.getString("address");
-                                binding.editTextTextPersonName.setText(address);
+                        public void onClick(View v) {
+
+                            if (binding.editTextTextPersonName.getText().toString().isEmpty()) {
+                                binding.editTextTextPersonName.setError("Required Field!");
+                            } else {
+
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("address", binding.editTextTextPersonName.getText().toString());
+
+                                FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            binding.linearLayout6.setVisibility(View.VISIBLE);
+                                            binding.editTextTextPersonName.setVisibility(View.INVISIBLE);
+                                            binding.button4.setText("Successfully Updated!");
+                                            binding.button4.setClickable(false);
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }
                         }
                     });
-
-                binding.button4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("address", binding.editTextTextPersonName.getText().toString());
-
-                        FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(CustomerProfile.this, "Updated!", Toast.LENGTH_SHORT).show();
-                                    binding.editTextTextPersonName.setClickable(false);
-                                    binding.button4.setVisibility(View.GONE);
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
-                });
                 }
+            });
+        }
 
-            }
+    }
 
 }
