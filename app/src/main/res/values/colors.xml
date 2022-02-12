@@ -25,4 +25,6 @@
     <color name="past_order">#C2B9B9</color>
     <color name="tag_color">#C072CD</color>
     <color name="profile_text_color">#69057A</color>
+    <color name="green_for_payment_success">#60D865</color>
+    <color name="light_blue_card">#2196F3</color>
 </resources>

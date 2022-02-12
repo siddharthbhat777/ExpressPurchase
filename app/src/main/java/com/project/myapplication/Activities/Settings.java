@@ -58,7 +58,7 @@ public class Settings extends AppCompatActivity {
         findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Settings.this, PaymentOptions.class);
+                Intent intent = new Intent(Settings.this, PaymentSuccessful.class);
                 startActivity(intent);
             }
         });

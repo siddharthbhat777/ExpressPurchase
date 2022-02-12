@@ -36,6 +36,7 @@
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/night_thumb_false.xml" value="0.290625" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/night_thumb_true.xml" value="0.290625" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/outer_profile_circle.xml" value="0.2145" />
+        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/payment_success_green_linear.xml" value="0.2145" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/profile_elements_bg.xml" value="0.2145" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/profile_linear_circle.xml" value="0.2005" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/rounded_corners.xml" value="0.2005" />
@@ -46,8 +47,8 @@
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_customer_profile.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_item_details.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_payment_options.xml" value="0.205859375" />
-        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_payment_successful.xml" value="0.205859375" />
+        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_payment_options.xml" value="0.1" />
+        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_payment_successful.xml" value="0.2" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_settings.xml" value="0.2" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_shopping_cart.xml" value="0.176" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_splash.xml" value="0.205859375" />
@@ -57,6 +58,7 @@
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/activity_wallet.xml" value="0.2" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/cartitem_design.xml" value="0.264" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/fragment_navigation_drawer.xml" value="0.27447916666666666" />
+        <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/paid_items_single_item.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/single_category.xml" value="0.205859375" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/single_item_main_recycler_view.xml" value="0.2" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/layout/view_orders_past_single_item.xml" value="0.205859375" />
