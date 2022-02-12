@@ -21,7 +21,7 @@ public class ItemDetails extends AppCompatActivity {
     TextView itemNameSingle, itemDescSingle, itemSalesmanName, itemPriceSingle;
     ImageView itemImageSingle;
     CardView addtocart;
-    Button cart;
+    Button cart, button2;
     private Realm realm;
 
 
@@ -39,6 +39,7 @@ public class ItemDetails extends AppCompatActivity {
         itemPriceSingle = findViewById(R.id.itemPriceInside);
         itemImageSingle = findViewById(R.id.itemImageInside);
         addtocart = findViewById(R.id.addtocart);
+        button2 = findViewById(R.id.button2);
         cart = findViewById(R.id.button);
 
         name = getIntent().getStringExtra("item_name");
@@ -53,6 +54,18 @@ public class ItemDetails extends AppCompatActivity {
         itemDescSingle.setText(desc);
         itemPriceSingle.setText(price);
         addtocart();
+        buynow();
+    }
+
+    private void buynow() {
+
+        Intent intent = new Intent(getApplicationContext(), PaymentOptions.class);
+        intent.putExtra("item_name", name);
+        intent.putExtra("item_desc", desc);
+        intent.putExtra("item_price", String.valueOf(price));
+        intent.putExtra("item_salesman_name", salesman);
+        intent.putExtra("item_image", image);
+        startActivity(intent);
     }
 
     private void addtocart() {
@@ -121,12 +134,6 @@ public class ItemDetails extends AppCompatActivity {
                 }
             });
         }
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
     }
 }

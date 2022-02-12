@@ -61,26 +61,31 @@ public class WalletActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (acct != null) {
-                    String personEmail = acct.getEmail();
-                    String moreamount = binding.amountEditText.getText().toString().substring(1);
-                    int newamount = Math.round(Float.parseFloat(moreamount) * 100);
+                    if (!(amounts == 10000 && amounts > 10000)) {
+                        String personEmail = acct.getEmail();
+                        String moreamount = binding.amountEditText.getText().toString().substring(1);
+                        int newamount = Math.round(Float.parseFloat(moreamount) * 100);
 
-                    int add = newamount + amounts;
+                        int add = newamount + amounts;
 
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("amounts", String.valueOf(add));
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("amounts", String.valueOf(add));
 
-                    FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(WalletActivity.this, new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(WalletActivity.this, "Money Added!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
+                        FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(WalletActivity.this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(WalletActivity.this, "Money Added!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
 
-                    });
+                        });
+                    } else {
+                        Toast.makeText(getApplicationContext(), "You had exceed your Wallet Limit ! Not able to add more money", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             }
         });
