@@ -58,14 +58,19 @@ public class ItemDetails extends AppCompatActivity {
     }
 
     private void buynow() {
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PaymentOptions.class);
+                intent.putExtra("item_name", name);
+                intent.putExtra("item_desc", desc);
+                intent.putExtra("item_price", String.valueOf(price));
+                intent.putExtra("item_salesman_name", salesman);
+                intent.putExtra("item_image", image);
+                startActivity(intent);
+            }
+        });
 
-        Intent intent = new Intent(getApplicationContext(), PaymentOptions.class);
-        intent.putExtra("item_name", name);
-        intent.putExtra("item_desc", desc);
-        intent.putExtra("item_price", String.valueOf(price));
-        intent.putExtra("item_salesman_name", salesman);
-        intent.putExtra("item_image", image);
-        startActivity(intent);
     }
 
     private void addtocart() {

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -37,6 +38,7 @@ public class PaymentOptions extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getdatafromintent() {
         name = getIntent().getStringExtra("item_name");
         salesman = getIntent().getStringExtra("item_salesman_name");
@@ -48,6 +50,7 @@ public class PaymentOptions extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setdata() {
 
         Picasso.get().load(image).into(binding.imageView10);
@@ -58,7 +61,9 @@ public class PaymentOptions extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void checkifeligibleforwallet() {
+        acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
             String personEmail = acct.getEmail();
             FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -160,17 +165,24 @@ public class PaymentOptions extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showrazorpay() {
-        Random random = new Random();
-        random.ints(10000000, 1000000000);
-        String random_num = random.toString();
-        Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
-        intent.putExtra("item_name", name);
-        intent.putExtra("item_desc", desc);
-        intent.putExtra("item_price", String.valueOf(price));
-        intent.putExtra("item_salesman_name", salesman);
-        intent.putExtra("item_image", image);
-        intent.putExtra("date/time", System.currentTimeMillis());
-        intent.putExtra("invoice_number", random_num);
-        startActivity(intent);
+        binding.button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Random random = new Random();
+                random.ints(10000000, 1000000000);
+                String random_num = random.toString();
+                Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
+                intent.putExtra("item_name", name);
+                intent.putExtra("item_desc", desc);
+                intent.putExtra("item_price", String.valueOf(price));
+                intent.putExtra("item_salesman_name", salesman);
+                intent.putExtra("item_image", image);
+                intent.putExtra("date/time", System.currentTimeMillis());
+                intent.putExtra("invoice_number", random_num);
+                startActivity(intent);
+            }
+        });
     }
 }
