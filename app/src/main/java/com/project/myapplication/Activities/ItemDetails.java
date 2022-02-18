@@ -2,6 +2,7 @@ package com.project.myapplication.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -51,7 +52,7 @@ public class ItemDetails extends AppCompatActivity {
         Picasso.get().load(image).into(itemImageSingle);
         itemNameSingle.setText(name);
         itemSalesmanName.setText(salesman);
-        itemDescSingle.setText(desc);
+        itemDescSingle.setText(Html.fromHtml(desc));
         itemPriceSingle.setText(price);
         addtocart();
         buynow();

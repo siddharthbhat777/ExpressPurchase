@@ -71,7 +71,7 @@
                 <pl.droidsonroids.gif.GifImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/check_mark"
+                    android:src="@drawable/check_mark_final"
                     android:tint="@color/white"
                     android:visibility="visible"
                     app:loopCount="1" />
@@ -320,6 +320,7 @@
                         android:text="9999"
                         android:textColor="@color/white"
                         android:textSize="34sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView40"
                         app:layout_constraintStart_toEndOf="@+id/textView40"
                         app:layout_constraintTop_toTopOf="@+id/textView40" />
@@ -332,6 +333,7 @@
                         android:text="₹"
                         android:textColor="@color/white"
                         android:textSize="34sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView38"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView38"
@@ -347,6 +349,7 @@
                         android:text="You have won\ncashback of"
                         android:textColor="@color/white"
                         android:textSize="24sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView36" />
@@ -360,6 +363,7 @@
                         android:text="Congratulations!!!"
                         android:textColor="@color/white"
                         android:textSize="34sp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
