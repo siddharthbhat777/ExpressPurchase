@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         mAuth = FirebaseAuth.getInstance(); FirebaseUser currentUser = mAuth.getCurrentUser();
 
 
@@ -44,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        sleep(1000); // screen will be visible for 1 second!
+                        sleep(3000); // screen will be visible for 1 second!
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                         //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
