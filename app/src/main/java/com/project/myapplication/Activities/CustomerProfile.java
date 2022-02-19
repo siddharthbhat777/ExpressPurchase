@@ -66,44 +66,51 @@ public class CustomerProfile extends AppCompatActivity {
                 }
             });
 
-            binding.button4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            changeAddress();
 
-                    binding.linearLayout6.setVisibility(View.INVISIBLE);
-                    binding.editTextTextPersonName.setVisibility(View.VISIBLE);
-                    binding.button4.setText("Update");
 
-                    binding.button4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (binding.editTextTextPersonName.getText().toString().isEmpty()) {
-                                binding.editTextTextPersonName.setError("Required Field!");
-                            } else {
-
-                                HashMap<String, Object> map = new HashMap<>();
-                                map.put("address", binding.editTextTextPersonName.getText().toString());
-
-                                FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            binding.linearLayout6.setVisibility(View.VISIBLE);
-                                            binding.editTextTextPersonName.setVisibility(View.INVISIBLE);
-                                            binding.button4.setText("Successfully Updated!");
-                                            binding.button4.setClickable(false);
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-            });
         }
+
+    }
+
+    private void changeAddress() {
+        binding.button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                binding.linearLayout6.setVisibility(View.INVISIBLE);
+                binding.editTextTextPersonName.setVisibility(View.VISIBLE);
+                binding.button4.setText("Update");
+
+                binding.button4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (binding.editTextTextPersonName.getText().toString().isEmpty()) {
+                            binding.editTextTextPersonName.setError("Required Field!");
+                        } else {
+
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("address", binding.editTextTextPersonName.getText().toString());
+
+                            FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).set(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        binding.linearLayout6.setVisibility(View.VISIBLE);
+                                        binding.editTextTextPersonName.setVisibility(View.INVISIBLE);
+                                        binding.button4.setText("Change Address");
+                                        changeAddress();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
 
     }
 

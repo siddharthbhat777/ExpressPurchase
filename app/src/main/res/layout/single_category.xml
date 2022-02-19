@@ -4,9 +4,9 @@
     android:id="@+id/categoryView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/_6sdp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="32dp"
+    app:cardCornerRadius="@dimen/_25sdp"
     app:cardPreventCornerOverlap="true">
 
     <RelativeLayout
@@ -17,13 +17,13 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
+            android:layout_margin="@dimen/_6sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_4sdp"
             android:text="category"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

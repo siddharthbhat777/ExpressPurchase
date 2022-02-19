@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ import io.realm.Realm;
 
 public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurchaseModel, ExpressPurchaseAdapter.expressPurchaseViewHolder> {
 
-    private Realm realm;
+//    private Realm realm;
 
 
     public ExpressPurchaseAdapter(@NonNull FirebaseRecyclerOptions<ExpressPurchaseModel> options) {
@@ -35,7 +36,7 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
 
     @Override
     protected void onBindViewHolder(@NonNull expressPurchaseViewHolder holder, int position, @NonNull ExpressPurchaseModel model) {
-        realm = Realm.getDefaultInstance();
+//        realm = Realm.getDefaultInstance();
         holder.itemNameTV.setText(model.getItemName());
         holder.itemPriceTV.setText(String.valueOf(model.getItemPrice()));
         try {
@@ -57,51 +58,51 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
                 MainActivity.mDrawerLayout.getContext().startActivity(intent);
             }
         });
-        CartModel user = realm.where(CartModel.class).equalTo("itemImage", model.getItemImage()).findFirst();
+//        CartModel user = realm.where(CartModel.class).equalTo("itemImage", model.getItemImage()).findFirst();
+//
+//        if (user == null) {
+//            // Not Exists
+//
+//            holder.cart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CartModel cmodel = new CartModel();
+//                cmodel.setItemName(model.getItemName());
+//                cmodel.setItemPrice(model.getItemPrice());
+//                cmodel.setItemImage(model.getItemImage());
+///*
+//                realm = Realm.getDefaultInstance();
 
-        if (user == null) {
-            // Not Exists
 
-            holder.cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CartModel cmodel = new CartModel();
-                cmodel.setItemName(model.getItemName());
-                cmodel.setItemPrice(model.getItemPrice());
-                cmodel.setItemImage(model.getItemImage());
-
-                realm = Realm.getDefaultInstance();
-
-
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        // inside on execute method we are calling a method
-                        // to copy to real m database from our modal class.
-                        realm.copyToRealmOrUpdate(cmodel);
-                        holder.cart.setText("Visit to Cart !");
-                        holder.addtocart.setCardBackgroundColor(holder.addtocart.getContext().getResources().getColor(R.color.purple));
-
-                        holder.cart.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                holder.addtocart.getContext().startActivity(new Intent(holder.addtocart.getContext(), ShoppingCartActivity.class));
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    }else{
-            holder.cart.setText("Visit to Cart !");
-            holder.addtocart.setCardBackgroundColor(holder.addtocart.getContext().getResources().getColor(R.color.purple));
-
-            holder.cart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holder.addtocart.getContext().startActivity(new Intent(holder.addtocart.getContext(), ShoppingCartActivity.class));
-                }
-            });}
+//                realm.executeTransaction(new Realm.Transaction() {
+//                    @Override
+//                    public void execute(Realm realm) {
+//                        // inside on execute method we are calling a method
+//                        // to copy to real m database from our modal class.
+//                        realm.copyToRealmOrUpdate(cmodel);
+//                        holder.cart.setText("Visit to Cart !");
+//                        holder.addtocart.setCardBackgroundColor(holder.addtocart.getContext().getResources().getColor(R.color.purple));
+//
+//                        holder.cart.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                holder.addtocart.getContext().startActivity(new Intent(holder.addtocart.getContext(), ShoppingCartActivity.class));
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//        });
+//    }else{
+//            holder.cart.setText("Visit to Cart !");
+//            holder.addtocart.setCardBackgroundColor(holder.addtocart.getContext().getResources().getColor(R.color.purple));
+//
+//            holder.cart.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holder.addtocart.getContext().startActivity(new Intent(holder.addtocart.getContext(), ShoppingCartActivity.class));
+//                }
+//            });}*/
     }
 
     @NonNull
@@ -115,9 +116,9 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
 
         ImageView itemImageIV;
         TextView itemNameTV, itemPriceTV, itemDescTV, itemSalesmanTV;
-        CardView itemCardViewCV, addtocart;
+        LinearLayout itemCardViewCV; //addtocart;
         View view;
-        Button cart;
+        //Button cart;
 
         public expressPurchaseViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -128,8 +129,8 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
             itemDescTV = itemView.findViewById(R.id.itemDesc);
             itemSalesmanTV = itemView.findViewById(R.id.salesmanName);
             itemCardViewCV = itemView.findViewById(R.id.itemCardView);
-            addtocart = itemView.findViewById(R.id.cardView3);
-            cart = itemView.findViewById(R.id.button3);
+            //addtocart = itemView.findViewById(R.id.cardView3);
+            //cart = itemView.findViewById(R.id.button3);
             this.view = itemView;
         }
     }

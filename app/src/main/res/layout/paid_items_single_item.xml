@@ -10,7 +10,7 @@
         android:layout_weight="1"
         android:text="99."
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:inputType="textMultiLine"
         android:text="Item Name"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:text="99"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
 
     <TextView
@@ -41,6 +41,6 @@
         android:layout_weight="2"
         android:text="99999"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
 </LinearLayout>

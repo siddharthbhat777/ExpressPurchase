@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/green_for_payment_success"/>
-    <corners android:bottomRightRadius="32dp" android:bottomLeftRadius="32dp"/>
-    <size android:height="150dp"/>
+    <solid android:color="@color/purple"/>
+    <corners android:bottomRightRadius="@dimen/_25sdp" android:bottomLeftRadius="@dimen/_25sdp"/>
+    <size android:height="@dimen/_115sdp"/>
 
 </shape>

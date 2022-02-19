@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/_154sdp"
+        android:layout_height="@dimen/_154sdp"
         android:foreground="@color/image_background_tint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,10 +44,10 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:text="Past Orders:"
                 android:textColor="@color/profile_text_color"
-                android:textSize="20sp"
+                android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
@@ -56,8 +56,8 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -68,16 +68,16 @@
                 android:id="@+id/materialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/_12sdp"
                 app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="32dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_3sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView19"
                 app:strokeColor="@color/black"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/_1sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -87,9 +87,9 @@
                         android:id="@+id/linearLayout4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="18dp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_14sdp"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toTopOf="@+id/cardView7"
                         app:layout_constraintStart_toStartOf="parent"
@@ -101,47 +101,47 @@
                             android:layout_height="wrap_content"
                             android:text="Invoice Number:"
                             android:textColor="@color/profile_text_color"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textView14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/_3sdp"
                             android:text="Number of products:"
                             android:textColor="@color/profile_text_color"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textView15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/_3sdp"
                             android:text="Total Price:"
                             android:textColor="@color/profile_text_color"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textView16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/_3sdp"
                             android:text="Date of delivery:"
                             android:textColor="@color/profile_text_color"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="18dp"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_14sdp"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toTopOf="@+id/cardView7"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -154,17 +154,17 @@
                             android:layout_height="wrap_content"
                             android:text="1234567890"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textView24"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/_3sdp"
                             android:text="99"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -176,20 +176,20 @@
                                 android:id="@+id/textView17"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/_3sdp"
                                 android:text="₹"
                                 android:textColor="@color/black"
-                                android:textSize="20sp"
+                                android:textSize="@dimen/_15sdp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/textView25"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/_3sdp"
                                 android:text="9999999"
                                 android:textColor="@color/black"
-                                android:textSize="20sp"
+                                android:textSize="@dimen/_15sdp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -197,10 +197,10 @@
                             android:id="@+id/textView26"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/_3sdp"
                             android:text="31/12/2022"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -232,11 +232,11 @@
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:text="Current Orders:"
                 android:textColor="@color/profile_text_color"
-                android:textSize="20sp"
+                android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

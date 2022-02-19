@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="@dimen/_154sdp"
+            android:layout_height="@dimen/_154sdp"
             android:foreground="@color/image_background_tint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,19 +63,19 @@
                         android:id="@+id/cardView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        app:cardCornerRadius="100dp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        app:cardCornerRadius="@dimen/_77sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:strokeColor="@color/black"
-                        app:strokeWidth="5dp">
+                        app:strokeWidth="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/imageView6"
-                            android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_width="@dimen/_154sdp"
+                            android:layout_height="@dimen/_154sdp"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             tools:src="@tools:sample/avatars" />
@@ -85,12 +85,12 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="@dimen/_25sdp"
                         android:background="@drawable/profile_elements_bg"
-                        android:padding="8dp"
+                        android:padding="@dimen/_6sdp"
                         android:text="TextView"
                         android:textColor="@color/profile_text_color"
-                        android:textSize="34sp"
+                        android:textSize="@dimen/_26sdp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -100,18 +100,17 @@
                         android:id="@+id/editTextTextPersonName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
                         android:background="@drawable/profile_elements_bg"
                         android:ems="10"
                         android:gravity="top"
                         android:hint="Enter Your address Here . . ."
 
-
                         android:inputType="textMultiLine"
                         android:lines="5"
-                        android:padding="16dp"
+                        android:padding="@dimen/_12sdp"
                         android:textColorHint="@color/edit_text_hint"
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -122,9 +121,9 @@
                         android:id="@+id/linearLayout6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_marginRight="@dimen/_12sdp"
                         android:background="@drawable/profile_elements_bg"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -136,24 +135,24 @@
                             android:id="@+id/textView9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginLeft="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
                             android:layout_weight="1"
                             android:text="You live at:"
                             android:textColor="@color/profile_text_color"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textView8"
-                            android:layout_width="379dp"
+                            android:layout_width="@dimen/_292sdp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="@dimen/_6sdp"
                             android:inputType="textMultiLine|text"
-                            android:padding="16sp"
+                            android:padding="@dimen/_12sdp"
                             android:text="TextView"
                             android:textColor="@color/black"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/_14sdp" />
                     </LinearLayout>
 
 
@@ -161,12 +160,12 @@
                         android:id="@+id/lEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_marginRight="@dimen/_12sdp"
                         android:background="@drawable/profile_elements_bg"
                         android:orientation="horizontal"
-                        android:padding="8dp"
+                        android:padding="@dimen/_6sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -179,7 +178,7 @@
                             android:layout_gravity="center_vertical"
                             android:text="Email:"
                             android:textColor="@color/profile_text_color"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/_18sdp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -187,10 +186,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="16dp"
+                            android:layout_marginStart="@dimen/_12sdp"
                             android:text="emailaddress@gmail.com"
                             android:textColor="@color/black"
-                            android:textSize="24sp" />
+                            android:textSize="@dimen/_18sdp" />
                     </LinearLayout>
 
 
@@ -198,10 +197,10 @@
                         android:id="@+id/cardView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
                         app:cardBackgroundColor="@color/profile_text_color"
-                        app:cardCornerRadius="32dp"
+                        app:cardCornerRadius="@dimen/_25sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -210,10 +209,10 @@
 
                         <Button
                             android:id="@+id/button4"
-                            android:layout_width="250dp"
+                            android:layout_width="@dimen/_192sdp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="@dimen/_6sdp"
+                            android:layout_marginRight="@dimen/_6sdp"
                             android:background="#00000000"
                             android:text="Change Address"
                             android:textColor="@color/white" />

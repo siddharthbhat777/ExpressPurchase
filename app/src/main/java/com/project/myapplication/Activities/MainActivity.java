@@ -24,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -256,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         });
 
         recyclerViewItems = findViewById(R.id.itemsRV);
-        recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewItems.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
         FirebaseRecyclerOptions<ExpressPurchaseModel> options =
                 new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()

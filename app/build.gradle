@@ -64,6 +64,7 @@ dependencies {
     //gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
 
-
+    //sdp resizing
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
 }

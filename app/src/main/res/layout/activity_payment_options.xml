@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/_154sdp"
+        android:layout_height="@dimen/_154sdp"
         android:foreground="@color/image_background_tint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,11 +54,11 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/toConstraint"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="8dp"
+                    android:layout_height="@dimen/_154sdp"
+                    android:layout_margin="@dimen/_6sdp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="32dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="@dimen/_25sdp"
+                    app:cardElevation="@dimen/_3sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
