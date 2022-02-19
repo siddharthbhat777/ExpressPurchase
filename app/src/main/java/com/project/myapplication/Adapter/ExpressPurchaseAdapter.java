@@ -116,7 +116,7 @@ public class ExpressPurchaseAdapter extends FirebaseRecyclerAdapter<ExpressPurch
 
         ImageView itemImageIV;
         TextView itemNameTV, itemPriceTV, itemDescTV, itemSalesmanTV;
-        LinearLayout itemCardViewCV; //addtocart;
+        CardView itemCardViewCV; //addtocart;
         View view;
         //Button cart;
 
