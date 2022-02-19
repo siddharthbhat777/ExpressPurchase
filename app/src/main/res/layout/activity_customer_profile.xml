@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
                         android:layout_marginBottom="@dimen/_12sdp"
-                        app:cardBackgroundColor="@color/profile_text_color"
+                        app:cardBackgroundColor="@color/purple"
                         app:cardCornerRadius="@dimen/_25sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -215,7 +215,7 @@
                             android:layout_marginRight="@dimen/_6sdp"
                             android:background="#00000000"
                             android:text="Change Address"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/full_white" />
                     </androidx.cardview.widget.CardView>
 
 

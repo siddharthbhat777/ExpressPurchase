@@ -30,4 +30,5 @@
     <color name="green_for_payment_success">#60D865</color>
     <color name="light_blue_card">#2196F3</color>
     <color name="main_item_border">#00000000</color>
+    <color name="full_white">#FFFFFFFF</color>
 </resources>

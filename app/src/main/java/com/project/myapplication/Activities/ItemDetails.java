@@ -116,6 +116,7 @@ public class ItemDetails extends AppCompatActivity {
                             realm.copyToRealmOrUpdate(cmodel);
                             cart.setText("Visit to Cart !");
                             addtocart.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.purple));
+                            cart.setTextColor(getResources().getColor(R.color.full_white));
 
                             cart.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -132,6 +133,7 @@ public class ItemDetails extends AppCompatActivity {
             // exist
             cart.setText("Visit to Cart !");
             addtocart.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.purple));
+            cart.setTextColor(getResources().getColor(R.color.full_white));
 
             cart.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -58,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             holder.textView.setTextColor(context.getResources().getColor(R.color.white));//#000000
         } else {
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.tag_color));
-            holder.textView.setTextColor(context.getResources().getColor(R.color.black));//#ffffff
+            holder.textView.setTextColor(context.getResources().getColor(R.color.full_white));//#ffffff
         }
     }
 
