@@ -38,14 +38,14 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
-            app:cardCornerRadius="@dimen/_25sdp"
-            app:cardBackgroundColor="@color/tag_color"
-            app:strokeColor="@color/black"
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginBottom="-32dp"
-            app:strokeWidth="@dimen/_2sdp"
-            android:foreground="?attr/selectableItemBackground">
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/tag_color"
+            app:cardCornerRadius="@dimen/_25sdp"
+            app:strokeColor="@color/full_white"
+            app:strokeWidth="@dimen/_2sdp">
 
             <TextView
                 android:id="@+id/checkout_cart"
@@ -54,7 +54,7 @@
                 android:gravity="top|center"
                 android:paddingTop="@dimen/_12sdp"
                 android:text="CheckOut!"
-                android:textColor="@color/black"
+                android:textColor="@color/full_white"
                 android:textSize="@dimen/_18sdp" />
 
         </com.google.android.material.card.MaterialCardView>
