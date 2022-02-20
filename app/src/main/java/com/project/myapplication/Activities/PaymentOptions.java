@@ -1,10 +1,12 @@
 package com.project.myapplication.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -17,17 +19,23 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.project.myapplication.databinding.ActivityPaymentOptionsBinding;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.Random;
 
-public class PaymentOptions extends AppCompatActivity {
+public class PaymentOptions extends AppCompatActivity implements PaymentResultListener {
     ActivityPaymentOptionsBinding binding;
-    int wallet_amounts, item_price;
+    int wallet_amounts;
+    int item_price;
     String name, salesman, desc, image, price;
 
     GoogleSignInAccount acct;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,19 +63,21 @@ public class PaymentOptions extends AppCompatActivity {
 
         Picasso.get().load(image).into(binding.imageView10);
         binding.textView22.setText(name);
-        binding.textView32.setText(price);
-        item_price = Integer.parseInt(price);
+        binding.textView32.setText("₹ "+price);
         checkifeligibleforwallet();
+
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void checkifeligibleforwallet() {
+        item_price = Math.round(Float.parseFloat(price));
+//        Toast.makeText(getApplicationContext(), "amount in item"+String.valueOf(item_price), Toast.LENGTH_SHORT).show();
+
         acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
             String personEmail = acct.getEmail();
-            FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
+            FirebaseFirestore.getInstance().collection("User").document(personEmail).collection("Amount").document("moneyinaccount").addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null) {
@@ -75,7 +85,7 @@ public class PaymentOptions extends AppCompatActivity {
                         wallet_amounts = Integer.parseInt(amountinstring);
 
 
-//                        Toast.makeText(getApplicationContext(), wallet_amounts, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "amounr in wallet"+String.valueOf(wallet_amounts), Toast.LENGTH_SHORT).show();
 
                         if (item_price > 10000) {
                             //invisible
@@ -147,42 +157,83 @@ public class PaymentOptions extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                Random random = new Random();
-                random.ints(10000000, 1000000000);
-                String random_num = random.toString();
+                Random r = new Random();
+                int i1 = r.nextInt(10000000 - 10000) +10000 ;
                 Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
                 intent.putExtra("item_name", name);
                 intent.putExtra("item_desc", desc);
                 intent.putExtra("item_price", String.valueOf(price));
                 intent.putExtra("item_salesman_name", salesman);
                 intent.putExtra("item_image", image);
-                intent.putExtra("date/time", System.currentTimeMillis());
-                intent.putExtra("invoice_number", random_num);
+                intent.putExtra("date", System.currentTimeMillis());
+                intent.putExtra("invoice_number", String.valueOf(i1));
+                intent.putExtra("ID", "wallet");
                 startActivity(intent);
+                finish();
+
             }
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showrazorpay() {
+
         binding.button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Activity activity = PaymentOptions.this;
+                final Checkout co = new Checkout();
+                try {
+                    JSONObject options = new JSONObject();
+                    options.put("name", "Express Purchase");
+                    options.put("description", "Payment for the Selected Item");
+                    //You can omit the image option to fetch the image from dashboard
+                    options.put("currency", "INR");
+                    // amount is in paise so please multiple it by 100
+                    //Payment failed Invalid amount (should be passed in integer paise. Minimum value is 100 paise, i.e. ₹ 1)
+                    options.put("amount", item_price);
+                    JSONObject preFill = new JSONObject();
+                    // put mobile number
+                    options.put("prefill.contact", "9113618974");
+
+                    // put email
+                    options.put("prefill.email", "express@purchase.com");
+
+                    options.put("prefill", preFill);
+
+                    co.setKeyID("rzp_test_niDBTfGnyFEjJS");
+                    co.open(activity, options);
 
 
-                Random random = new Random();
-                random.ints(10000000, 1000000000);
-                String random_num = random.toString();
-                Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
-                intent.putExtra("item_name", name);
-                intent.putExtra("item_desc", desc);
-                intent.putExtra("item_price", String.valueOf(price));
-                intent.putExtra("item_salesman_name", salesman);
-                intent.putExtra("item_image", image);
-                intent.putExtra("date/time", System.currentTimeMillis());
-                intent.putExtra("invoice_number", random_num);
-                startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onPaymentSuccess(String s) {
+        Random r = new Random();
+        int i1 = r.nextInt(10000000 - 10000) +10000 ;
+        Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
+        intent.putExtra("item_name", name);
+        intent.putExtra("item_desc", desc);
+        intent.putExtra("item_price", String.valueOf(price));
+        intent.putExtra("item_salesman_name", salesman);
+        intent.putExtra("item_image", image);
+        intent.putExtra("date/time", System.currentTimeMillis());
+        intent.putExtra("invoice_number", String.valueOf(i1));
+        intent.putExtra("ID", "razorpay");
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -70,7 +70,7 @@
                 android:ems="5"
                 android:gravity="center"
                 android:hint="Enter amount to add"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:textSize="@dimen/_18sdp" />
         </LinearLayout>
 
@@ -156,11 +156,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:backgroundTint="@color/purple"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
+            android:backgroundTint="@color/profile_text_color"
             app:cardCornerRadius="@dimen/_15sdp"
             app:cardElevation="@dimen/_3sdp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
             app:layout_constraintStart_toStartOf="@+id/linearLayout3"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
@@ -177,7 +177,7 @@
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="Add Money"
-                android:textColor="@color/full_white" />
+                android:textColor="@color/white" />
 
         </com.google.android.material.card.MaterialCardView>
 

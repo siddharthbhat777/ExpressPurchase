@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,7 +28,6 @@ import java.util.HashMap;
 public class WalletActivity extends AppCompatActivity {
     ActivityWalletBinding binding;
     GoogleSignInAccount acct;
-    int amounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,57 +35,82 @@ public class WalletActivity extends AppCompatActivity {
         binding = ActivityWalletBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
         onclick();
         getruppee();
-        setruppee();
 
     }
 
     private void getruppee() {
         if (acct != null) {
             String personEmail = acct.getEmail();
-            FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            FirebaseFirestore.getInstance().collection("User").document(personEmail).collection("Amount").document("moneyinaccount").addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (value != null) {
+                    if (value.exists()) {
                         String amountinstring = value.getString("amounts");
-                        amounts = Math.round(Float.parseFloat(amountinstring) * 100);
                         binding.textView13.setText(amountinstring);
+                        setruppee(amountinstring);
+
+                    } else {
+                        setvalue();
                     }
                 }
             });
         }
     }
 
-    private void setruppee() {
+    private void setvalue() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("amounts", "1");
+        FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Amount").document("moneyinaccount").set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                //
+            }
+        });
+    }
+
+    private void setruppee(String amount) {
         binding.addMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (acct != null) {
-                    if (!(amounts == 10000 && amounts > 10000)) {
-                        String personEmail = acct.getEmail();
-                        String moreamount = binding.amountEditText.getText().toString().substring(1);
-                        int newamount = Math.round(Float.parseFloat(moreamount) * 100);
+                    String moreamount = binding.amountEditText.getText().toString();
 
-                        int add = newamount + amounts;
+                    int oldone = Integer.parseInt(amount);
+                    if (!moreamount.isEmpty()) {
 
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("amounts", String.valueOf(add));
+                        if (!(oldone >= 10000)) {
+                            String personEmail = acct.getEmail();
+                            int newone = Integer.parseInt(moreamount);
 
-                        FirebaseFirestore.getInstance().collection("User").document(personEmail).set(map).addOnCompleteListener(WalletActivity.this, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(WalletActivity.this, "Money Added!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
-                                }
+                            int finalone = newone + oldone;
+
+
+                            if (finalone <= 10000) {
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("amounts", String.valueOf(finalone));
+                                FirebaseFirestore.getInstance().collection("User").document(personEmail).collection("Amount").document("moneyinaccount").update(map).addOnCompleteListener(WalletActivity.this, new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(WalletActivity.this, "Money Added!", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Failed ! Something Went Wrong", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                });
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), "You had exceed your Wallet Limit!", Toast.LENGTH_SHORT).show();
+
                             }
-
-                        });
-                    } else {
-                        Toast.makeText(getApplicationContext(), "You had exceed your Wallet Limit ! Not able to add more money", Toast.LENGTH_SHORT).show();
-
+                        } } else {
+                        binding.amountEditText.setError("Please Enter Something Here!");
                     }
                 }
             }

@@ -38,6 +38,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/textVibew11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name:"
+                    android:textColor="@color/profile_text_color"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+                <TextView
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,6 +98,14 @@
                 app:layout_constraintStart_toEndOf="@+id/linearLayout4"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <TextView
+                    android:id="@+id/textViewn21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="item"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/textView21"
                     android:layout_width="wrap_content"
@@ -150,7 +166,7 @@
                 android:id="@+id/cardView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/purple"
+                app:cardBackgroundColor="@color/profile_text_color"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -163,8 +179,8 @@
                     android:layout_height="wrap_content"
                     android:background="#00000000"
                     android:backgroundTint="#00000000"
-                    android:text="VIEW DETAILS"
-                    android:textColor="@color/full_white" />
+                    android:text="CONTACT NOW"
+                    android:textColor="@color/white" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

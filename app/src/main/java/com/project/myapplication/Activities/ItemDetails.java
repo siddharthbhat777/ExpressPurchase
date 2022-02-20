@@ -116,12 +116,19 @@ public class ItemDetails extends AppCompatActivity {
                             realm.copyToRealmOrUpdate(cmodel);
                             cart.setText("Visit to Cart !");
                             addtocart.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.purple));
-                            cart.setTextColor(getResources().getColor(R.color.full_white));
 
                             cart.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
+                                    Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
+                                    intent.putExtra("item_name", name);
+                                    intent.putExtra("item_desc",desc);
+                                    intent.putExtra("item_price",price);
+                                    intent.putExtra("item_salesman_name" ,salesman);
+                                    intent.putExtra("item_image",image);
+                                    intent.putExtra("code","1");
+                                    startActivity(intent);
+                                    finish();
                                 }
                             });
                         }
@@ -133,13 +140,20 @@ public class ItemDetails extends AppCompatActivity {
             // exist
             cart.setText("Visit to Cart !");
             addtocart.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.purple));
-            cart.setTextColor(getResources().getColor(R.color.full_white));
 
             cart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
-                }
+                    Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
+                    intent.putExtra("item_name", name);
+                    intent.putExtra("item_desc",desc);
+                    intent.putExtra("item_price",price);
+                    intent.putExtra("item_salesman_name" ,salesman);
+                    intent.putExtra("item_image",image);
+                    intent.putExtra("code","1");
+
+                    startActivity(intent);
+                    finish();                }
             });
         }
 

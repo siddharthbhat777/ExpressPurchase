@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:text="Payment\nSuccessful"
-                    android:textColor="@color/full_white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_26sdp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +76,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/check_mark_final"
-                    android:tint="@color/full_white"
+                    android:tint="@color/white"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -84,119 +84,6 @@
                     app:loopCount="1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/toConstraint"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_154sdp"
-                android:layout_margin="@dimen/_12sdp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/_25sdp"
-                app:cardElevation="@dimen/_3sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                app:strokeColor="@color/black"
-                app:strokeWidth="@dimen/_1sdp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/materialCardView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_12sdp"
-                        app:cardCornerRadius="@dimen/_12sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:strokeColor="@color/black"
-                        app:strokeWidth="@dimen/_2sdp">
-
-                        <ImageView
-                            android:id="@+id/imageView10"
-                            android:layout_width="@dimen/_77sdp"
-                            android:layout_height="@dimen/_77sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/app_icon" />
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_25sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:text="Person Name"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/materialCardView4"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView29"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
-                        android:inputType="textMultiLine"
-                        android:lines="3"
-                        android:text="Address"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView22"
-                        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginBottom="@dimen/_12sdp"
-                        android:text="Wallet Money:"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView29"
-                        app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-                    <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:text="₹"
-                        android:textColor="@color/price_color"
-                        android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView30"
-                        app:layout_constraintStart_toEndOf="@+id/textView30"
-                        app:layout_constraintTop_toTopOf="@+id/textView30"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <TextView
-                        android:id="@+id/textView32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:text="99999"
-                        android:textColor="@color/price_color"
-                        android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView31"
-                        app:layout_constraintEnd_toEndOf="@+id/textView29"
-                        app:layout_constraintStart_toEndOf="@+id/textView31"
-                        app:layout_constraintTop_toTopOf="@+id/textView31" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/textView33"
@@ -209,7 +96,7 @@
                 android:textSize="@dimen/_18sdp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toConstraint" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <LinearLayout
                 android:id="@+id/linearLayout5"
@@ -265,59 +152,81 @@
                     android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
                 android:id="@+id/recyclerView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginRight="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+                app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                android:text="_________________________________________________________________________"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/totalPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_25sdp"
-                android:text="99999"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView35" />
+                <TextView
+                    android:id="@+id/itemNameSudccess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Item Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="textMultiLine"
+                    android:lines="2"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/itemPriceSudccess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Price"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cashbackCard"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_154sdp"
-                android:layout_margin="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                android:backgroundTint="@color/ic_launcher_background"
                 app:cardBackgroundColor="@color/light_blue_card"
                 app:cardCornerRadius="@dimen/_15sdp"
-                android:backgroundTint="@color/ic_launcher_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalPrice"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
                 app:strokeColor="@color/black"
                 app:strokeWidth="@dimen/_3sdp">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/congrats"
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent">
 
                     <TextView
@@ -326,7 +235,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
                         android:text="9999"
-                        android:textColor="@color/full_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_26sdp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView40"
@@ -339,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_25sdp"
                         android:text="₹"
-                        android:textColor="@color/full_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_26sdp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView38"
@@ -355,7 +264,7 @@
                         android:layout_marginTop="@dimen/_25sdp"
                         android:layout_marginBottom="@dimen/_25sdp"
                         android:text="You have won\ncashback of"
-                        android:textColor="@color/full_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_18sdp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -369,7 +278,7 @@
                         android:layout_marginLeft="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_25sdp"
                         android:text="Congratulations!!!"
-                        android:textColor="@color/full_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_26sdp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -383,9 +292,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_6sdp"
-                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginRight="@dimen/_6sdp"
-                app:cardBackgroundColor="@color/purple"
+                app:cardBackgroundColor="@color/profile_text_color"
                 app:cardCornerRadius="@dimen/_12sdp"
                 app:cardElevation="@dimen/_3sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -400,7 +309,7 @@
                     android:background="#00000000"
                     android:backgroundTint="#00000000"
                     android:text="View Orders"
-                    android:textColor="@color/full_white" />
+                    android:textColor="@color/white" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -412,7 +321,7 @@
                 android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginRight="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_12sdp"
-                app:cardBackgroundColor="@color/purple"
+                app:cardBackgroundColor="@color/profile_text_color"
                 app:cardCornerRadius="@dimen/_12sdp"
                 app:cardElevation="@dimen/_3sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -428,7 +337,7 @@
                     android:background="#00000000"
                     android:backgroundTint="#00000000"
                     android:text="Continue Shopping"
-                    android:textColor="@color/full_white" />
+                    android:textColor="@color/white" />
 
             </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
