@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -142,6 +141,9 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
 
                         } else if (item_price <= 10000 && wallet_amounts > item_price) {
 
+                            binding.materialCardView2.setVisibility(View.GONE);
+                            binding.materialCardView3.setVisibility(View.VISIBLE);
+
                             binding.checkBox.setText("Pay Using Wallet!");
                             binding.checkBox.setTextColor(Color.BLACK);
 
@@ -186,7 +188,6 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     private void addmoney() {
 
 
-
         binding.button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +197,6 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     }
 
     private void payfromwallet() {
-
 
 
         binding.button8.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +225,6 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     private void showrazorpay() {
 
 
-
         binding.button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,7 +238,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                     options.put("currency", "INR");
                     // amount is in paise so please multiple it by 100
                     //Payment failed Invalid amount (should be passed in integer paise. Minimum value is 100 paise, i.e. ₹ 1)
-                    options.put("amount", item_price*100);
+                    options.put("amount", item_price * 100);
                     JSONObject preFill = new JSONObject();
                     // put mobile number
                     options.put("prefill.contact", "9113618974");
