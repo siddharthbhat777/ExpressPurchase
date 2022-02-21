@@ -99,12 +99,20 @@ public class PaymentSuccessful extends AppCompatActivity {
                     total = Integer.parseInt(amountinstring);
                     itemprice = Integer.parseInt(item_price);
 
-                    Random r = new Random();
-                    int i1 = r.nextInt(80 - 65) + 65;
+                    int newamounts;
 
-                    binding.textView41.setText(String.valueOf(i1));
+                    if (!ID.equals("razorpay")) {
 
-                    int newamounts = total - itemprice + i1;
+                        Random r = new Random();
+                        int i1 = r.nextInt(80 - 65) + 65;
+
+                        binding.textView41.setText(String.valueOf(i1));
+
+                        newamounts = total - itemprice + i1;
+                    }else{
+                        newamounts = total - itemprice;
+                        binding.cashbackCard.setVisibility(View.GONE);
+                    }
 
 //                    Toast.makeText(getApplicationContext(), "new" + String.valueOf(newamounts), Toast.LENGTH_SHORT).show();
 
