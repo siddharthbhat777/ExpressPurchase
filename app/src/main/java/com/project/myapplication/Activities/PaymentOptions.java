@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,6 +33,8 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     int wallet_amounts;
     int item_price;
     String name, salesman, desc, image, price;
+    String type = "";
+
 
     GoogleSignInAccount acct;
 
@@ -63,7 +66,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
 
         Picasso.get().load(image).into(binding.imageView10);
         binding.textView22.setText(name);
-        binding.textView32.setText("₹ "+price);
+        binding.textView32.setText("₹ " + price);
         checkifeligibleforwallet();
 
 
@@ -89,52 +92,89 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
 
                         if (item_price > 10000) {
                             //invisible
-                            binding.checkBox.setVisibility(View.GONE);
-                            binding.textView23.setVisibility(View.GONE);
-                            binding.textView27.setVisibility(View.GONE);
+                            binding.materialCardView2.setVisibility(View.GONE);
                             binding.textView28.setVisibility(View.GONE);
+                            binding.checkBox.setVisibility(View.GONE);
                             binding.textView18.setVisibility(View.GONE);
-                            binding.button7.setVisibility(View.GONE);
 
                             //visible
                             binding.radioButton2.setVisibility(View.VISIBLE);
                             binding.imageView8.setVisibility(View.VISIBLE);
-                            binding.materialCardView3.setVisibility(View.VISIBLE);
 
 
                             showrazorpay();
                         } else if (item_price <= 10000 && wallet_amounts < item_price) {
-                            //invisible
-                            binding.textView28.setVisibility(View.GONE);
-                            binding.radioButton2.setVisibility(View.GONE);
-                            binding.imageView8.setVisibility(View.GONE);
-                            binding.textView18.setVisibility(View.GONE);
-                            binding.materialCardView3.setVisibility(View.GONE);
 
-                            //visible
-                            binding.materialCardView2.setVisibility(View.VISIBLE);
-                            binding.checkBox.setVisibility(View.VISIBLE);
+
+                            binding.checkBox.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //express wallet
+                                    binding.radioButton2.setChecked(false);
+
+                                    type = "express";
+                                    binding.materialCardView3.setVisibility(View.GONE);
+                                    binding.materialCardView2.setVisibility(View.VISIBLE);
+
+                                    addmoney();
+
+                                }
+                            });
+                            binding.radioButton2.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //razor pay
+                                    binding.checkBox.setChecked(false);
+                                    type = "razorpay";
+
+                                    binding.materialCardView2.setVisibility(View.GONE);
+                                    binding.materialCardView3.setVisibility(View.VISIBLE);
+
+                                    showrazorpay();
+
+                                }
+                            });
+
                             binding.checkBox.setText("Insufficient Money in Wallet!");
                             binding.checkBox.setTextColor(Color.RED);
-                            binding.textView27.setVisibility(View.VISIBLE);
-                            binding.textView23.setVisibility(View.VISIBLE);
+
                             binding.textView29.setText("Insufficient money need more money ! plzz add the money by clicking on below buttons");
-                            addmoney();
 
-                        } else if (item_price <= 10000 && wallet_amounts > item_price) {     //invisible
-                            binding.textView28.setVisibility(View.GONE);
-                            binding.radioButton2.setVisibility(View.GONE);
-                            binding.imageView8.setVisibility(View.GONE);
-                            binding.textView18.setVisibility(View.GONE);
-                            binding.materialCardView2.setVisibility(View.GONE);
+                        } else if (item_price <= 10000 && wallet_amounts > item_price) {
 
-                            //visible
-                            binding.materialCardView3.setVisibility(View.VISIBLE);
-                            binding.checkBox.setVisibility(View.VISIBLE);
-                            binding.checkBox.setText("Amount Availble in Wallet ");
-                            binding.textView29.setText("CLICK ON BELOW BUTTON TO PAY USING YOUR APP WALLET MONEY.HAVE A CHANCE TO WIN CASHBACK(:");
+                            binding.checkBox.setText("Pay Using Wallet!");
+                            binding.checkBox.setTextColor(Color.BLACK);
 
-                            payfromwallet();
+                            //invisible
+                            binding.checkBox.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //express wallet
+
+
+                                    binding.radioButton2.setChecked(false);
+
+                                    type = "express";
+                                    binding.materialCardView2.setVisibility(View.GONE);
+                                    binding.materialCardView3.setVisibility(View.VISIBLE);
+                                    payfromwallet();
+
+                                }
+                            });
+                            binding.radioButton2.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //razor pay
+                                    binding.checkBox.setChecked(false);
+                                    type = "razorpay";
+
+                                    binding.materialCardView2.setVisibility(View.GONE);
+                                    binding.materialCardView3.setVisibility(View.VISIBLE);
+
+                                    showrazorpay();
+
+                                }
+                            });
                         }
 
                     }
@@ -144,6 +184,9 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     }
 
     private void addmoney() {
+
+
+
         binding.button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,12 +196,15 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     }
 
     private void payfromwallet() {
+
+
+
         binding.button8.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 Random r = new Random();
-                int i1 = r.nextInt(10000000 - 10000) +10000 ;
+                int i1 = r.nextInt(10000000 - 10000) + 10000;
                 Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
                 intent.putExtra("item_name", name);
                 intent.putExtra("item_desc", desc);
@@ -178,6 +224,8 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showrazorpay() {
 
+
+
         binding.button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +239,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                     options.put("currency", "INR");
                     // amount is in paise so please multiple it by 100
                     //Payment failed Invalid amount (should be passed in integer paise. Minimum value is 100 paise, i.e. ₹ 1)
-                    options.put("amount", item_price);
+                    options.put("amount", item_price*100);
                     JSONObject preFill = new JSONObject();
                     // put mobile number
                     options.put("prefill.contact", "9113618974");
@@ -217,7 +265,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     @Override
     public void onPaymentSuccess(String s) {
         Random r = new Random();
-        int i1 = r.nextInt(10000000 - 10000) +10000 ;
+        int i1 = r.nextInt(10000000 - 10000) + 10000;
         Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
         intent.putExtra("item_name", name);
         intent.putExtra("item_desc", desc);

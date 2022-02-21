@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/activity_background"
     tools:context=".Activities.PaymentOptions">
 
@@ -28,6 +29,7 @@
         app:srcCompat="@drawable/app_icon_no_bg" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +40,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -47,9 +49,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="@+id/radioButton2"
-                app:layout_constraintTop_toBottomOf="@+id/radioButton2">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/toConstraint"
@@ -94,14 +94,16 @@
 
                         <TextView
                             android:id="@+id/textView22"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="32dp"
                             android:layout_marginTop="20dp"
-                            android:text="Person Name"
+                            android:maxLines="3"
+                            android:text="Name"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/materialCardView4"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,12 +128,12 @@
                             android:id="@+id/textView32"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:layout_marginEnd="24dp"
                             android:text="99999"
                             android:textColor="@color/price_color"
                             android:textSize="20sp"
                             android:textStyle="bold"
-                            android:layout_marginTop="12dp"
                             app:layout_constraintEnd_toEndOf="@+id/textView29"
                             app:layout_constraintTop_toBottomOf="@+id/textView29" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -151,32 +153,6 @@
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/toConstraint" />
-
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="₹"
-                    android:textColor="@color/price_color"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/checkBox"
-                    app:layout_constraintStart_toEndOf="@+id/checkBox"
-                    app:layout_constraintTop_toTopOf="@+id/checkBox" />
-
-                <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="99999"
-                    android:textColor="@color/price_color"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView23"
-                    app:layout_constraintStart_toEndOf="@+id/textView23"
-                    app:layout_constraintTop_toTopOf="@+id/textView23" />
 
                 <TextView
                     android:id="@+id/textView28"
@@ -240,7 +216,6 @@
                     app:cardBackgroundColor="@color/black"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
-                    app:layout_constraintBottom_toTopOf="@+id/materialCardView3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -262,10 +237,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:cardBackgroundColor="@color/profile_text_color"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
@@ -273,7 +247,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView23">
+                    app:layout_constraintTop_toTopOf="@+id/textView18">
 
                     <Button
                         android:id="@+id/button8"

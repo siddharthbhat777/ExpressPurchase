@@ -203,6 +203,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
