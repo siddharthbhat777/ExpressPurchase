@@ -143,9 +143,10 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
 
                             binding.materialCardView2.setVisibility(View.GONE);
                             binding.materialCardView3.setVisibility(View.VISIBLE);
-
                             binding.checkBox.setText("Pay Using Wallet!");
                             binding.checkBox.setTextColor(Color.BLACK);
+
+                            payfromwallet();
 
                             //invisible
                             binding.checkBox.setOnClickListener(new View.OnClickListener() {
