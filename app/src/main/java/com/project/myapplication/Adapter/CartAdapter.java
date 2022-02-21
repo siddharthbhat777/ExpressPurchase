@@ -1,6 +1,8 @@
 package com.project.myapplication.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,14 +93,33 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                realm.executeTransaction(new Realm.Transaction() {
+
+                new AlertDialog.Builder(context)
+                        .setTitle("Remove Item")
+                        .setMessage("Are you sure to remove this item from your cart ?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                realm.executeTransaction(new Realm.Transaction() {
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        RealmResults<CartModel> result = realm.where(CartModel.class).equalTo("itemImage", model.getItemImage()).findAll();
+                                        result.deleteAllFromRealm();
+                                        notifyItemRemoved(position);
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     @Override
-                    public void execute(Realm realm) {
-                        RealmResults<CartModel> rows = realm.where(CartModel.class).equalTo("itemImage", model.getItemImage()).findAll();
-                        rows.deleteAllFromRealm();
-                        notifyItemRemoved(position);
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
-                });
+                })
+
+
+                        .setCancelable(false).show();
+
+
             }
         });
 

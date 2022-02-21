@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.project.myapplication.Model.CartModel;
 import com.project.myapplication.R;
@@ -19,10 +18,9 @@ import io.realm.Realm;
 
 public class ItemDetails extends AppCompatActivity {
 
-    TextView itemNameSingle, itemDescSingle, itemSalesmanName, itemPriceSingle;
+    TextView itemNameSingle, itemDescSingle, itemSalesmanName, itemPriceSingle, atc, bn;
     ImageView itemImageSingle;
-    CardView addtocart;
-    Button cart, button2;
+    LinearLayout addToCart, buyNow;
     private Realm realm;
 
 
@@ -39,9 +37,11 @@ public class ItemDetails extends AppCompatActivity {
         itemSalesmanName = findViewById(R.id.salesmanName);
         itemPriceSingle = findViewById(R.id.itemPriceInside);
         itemImageSingle = findViewById(R.id.itemImageInside);
-        addtocart = findViewById(R.id.addtocart);
-        button2 = findViewById(R.id.button2);
-        cart = findViewById(R.id.button);
+        addToCart = findViewById(R.id.addToCartClick);
+        buyNow = findViewById(R.id.buyNowClick);
+        atc = findViewById(R.id.atcTV);
+        bn = findViewById(R.id.buyTV);
+        //cart = findViewById(R.id.button);
 
         name = getIntent().getStringExtra("item_name");
         salesman = getIntent().getStringExtra("item_salesman_name");
@@ -59,7 +59,7 @@ public class ItemDetails extends AppCompatActivity {
     }
 
     private void buynow() {
-        button2.setOnClickListener(new View.OnClickListener() {
+        buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PaymentOptions.class);
@@ -81,9 +81,10 @@ public class ItemDetails extends AppCompatActivity {
         if (user == null) {
             // Not Exists
 
-            cart.setOnClickListener(new View.OnClickListener() {
+            addToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     CartModel cmodel = new CartModel();
                     // on below line we are getting id for the course which we are storing.
                     Number id = realm.where(CartModel.class).max("id");
@@ -114,10 +115,11 @@ public class ItemDetails extends AppCompatActivity {
                             // inside on execute method we are calling a method
                             // to copy to real m database from our modal class.
                             realm.copyToRealmOrUpdate(cmodel);
-                            cart.setText("Visit to Cart !");
-                            addtocart.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.purple));
+                            atc.setText("VIEW CART");
 
-                            cart.setOnClickListener(new View.OnClickListener() {
+                            addToCart.setBackgroundResource(R.drawable.linear_item_details_atc_clicked);
+
+                            addToCart.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
@@ -138,12 +140,12 @@ public class ItemDetails extends AppCompatActivity {
             });
         } else {
             // exist
-            cart.setText("Visit to Cart !");
-            addtocart.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.purple));
-
-            cart.setOnClickListener(new View.OnClickListener() {
+            atc.setText("VIEW CART");
+            addToCart.setBackgroundResource(R.drawable.linear_item_details_atc_clicked);
+            addToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
                     intent.putExtra("item_name", name);
                     intent.putExtra("item_desc",desc);
@@ -153,7 +155,8 @@ public class ItemDetails extends AppCompatActivity {
                     intent.putExtra("code","1");
 
                     startActivity(intent);
-                    finish();                }
+                    finish();
+                    }
             });
         }
 

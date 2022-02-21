@@ -10,6 +10,7 @@
     <color name="grey">#757575</color>
     <color name="dark_grey">#434242</color>
     <color name="purple">#523251</color>
+    <color name="purple_light_new">#664065</color>
     <color name="purple_old">#69057A</color>
     <color name="purple_light_old">#C072CD</color>
     <color name="price_color">#4CAF50</color>
