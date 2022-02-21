@@ -27,11 +27,11 @@
                 android:layout_marginLeft="@dimen/_6sdp"
                 android:layout_marginRight="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_6sdp"
-                android:background="@color/tag_color"
-                android:backgroundTint="@color/tag_color"
+                android:background="@color/purple"
+                android:backgroundTint="@color/purple"
+                android:foreground="?attr/selectableItemBackground"
                 app:cardCornerRadius="@dimen/_25sdp"
                 app:cardElevation="@dimen/_3sdp"
-                android:foreground="?attr/selectableItemBackground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -54,7 +54,7 @@
                     android:elevation="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="Remove from Cart"
-                    android:textColor="@color/black"
+                    android:textColor="@color/full_white"
                     android:textSize="@dimen/_18sdp" />
             </androidx.cardview.widget.CardView>
 
