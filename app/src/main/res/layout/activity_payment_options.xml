@@ -40,8 +40,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/linearProceedToPay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/toConstraint"
@@ -64,7 +64,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:strokeColor="@color/black"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="@dimen/_1sdp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -75,17 +75,17 @@
                             android:id="@+id/materialCardView4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            app:cardCornerRadius="16dp"
+                            android:layout_margin="@dimen/_12sdp"
+                            app:cardCornerRadius="@dimen/_12sdp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:strokeColor="@color/black"
-                            app:strokeWidth="2dp">
+                            app:strokeWidth="@dimen/_2sdp">
 
                             <ImageView
                                 android:id="@+id/imageView10"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
+                                android:layout_width="@dimen/_77sdp"
+                                android:layout_height="@dimen/_77sdp"
                                 android:scaleType="centerCrop"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -96,12 +96,12 @@
                             android:id="@+id/textView22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:maxLines="3"
                             android:text="Name"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/materialCardView4"
@@ -111,13 +111,13 @@
                             android:id="@+id/textView29"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_12sdp"
                             android:inputType="textMultiLine"
                             android:lines="3"
                             android:text="TextView"
                             android:textColor="@color/black"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/_9sdp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/textView22"
@@ -128,11 +128,11 @@
                             android:id="@+id/textView32"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginEnd="24dp"
+                            android:layout_marginTop="@dimen/_9sdp"
+                            android:layout_marginEnd="@dimen/_18sdp"
                             android:text="99999"
                             android:textColor="@color/price_color"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_15sdp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="@+id/textView29"
                             app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -144,11 +144,11 @@
                     android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     android:text="Use express wallet"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_15sdp"
                     android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +158,7 @@
                     android:id="@+id/textView28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     android:text="______________________________________________________________"
                     android:textColor="@color/edit_text_hint"
                     android:visibility="visible"
@@ -171,10 +171,10 @@
                     android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     android:text="Pay with:"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_15sdp"
                     android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="@+id/checkBox"
@@ -182,9 +182,9 @@
 
                 <ImageView
                     android:id="@+id/imageView8"
-                    android:layout_width="300dp"
-                    android:layout_height="120dp"
-                    android:layout_marginStart="24dp"
+                    android:layout_width="@dimen/_231sdp"
+                    android:layout_height="@dimen/_92sdp"
+                    android:layout_marginStart="@dimen/_18sdp"
                     android:background="@android:color/white"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="@+id/radioButton2"
@@ -195,7 +195,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     android:text="______________________________or______________________________"
                     android:textColor="@color/edit_text_hint"
                     android:visibility="visible"
@@ -208,14 +208,14 @@
                     android:id="@+id/materialCardView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_25sdp"
+                    android:layout_marginBottom="@dimen/_25sdp"
                     android:visibility="visible"
                     app:cardBackgroundColor="@color/black"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardElevation="@dimen/_3sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -232,37 +232,41 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:layout_marginEnd="8dp"
-                    android:visibility="gone"
-                    app:cardBackgroundColor="@color/profile_text_color"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView18">
-
-                    <Button
-                        android:id="@+id/button8"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#00000000"
-                        android:backgroundTint="#00000000"
-                        android:text="Proceed to pay"
-                        android:textColor="@color/white" />
-
-                </com.google.android.material.card.MaterialCardView>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearProceedToPay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:background="@drawable/linear_proceed_to_pay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00000000"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/ptpTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="PROCEED TO PAY"
+                    android:textColor="@color/full_white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

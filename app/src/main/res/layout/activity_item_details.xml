@@ -52,7 +52,7 @@
                 android:gravity="center"
                 android:text="ADD TO CART"
                 android:textColor="@color/full_white"
-                android:textSize="16sp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:gravity="center"
                 android:text="BUY NOW"
                 android:textColor="@color/full_white"
-                android:textSize="16sp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold" />
         </LinearLayout>
 

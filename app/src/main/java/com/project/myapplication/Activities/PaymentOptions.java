@@ -112,7 +112,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                     binding.radioButton2.setChecked(false);
 
                                     type = "express";
-                                    binding.materialCardView3.setVisibility(View.GONE);
+                                    binding.linearProceedToPay.setVisibility(View.GONE);
                                     binding.materialCardView2.setVisibility(View.VISIBLE);
 
                                     addmoney();
@@ -127,7 +127,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                     type = "razorpay";
 
                                     binding.materialCardView2.setVisibility(View.GONE);
-                                    binding.materialCardView3.setVisibility(View.VISIBLE);
+                                    binding.linearProceedToPay.setVisibility(View.VISIBLE);
 
                                     showrazorpay();
 
@@ -142,7 +142,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                         } else if (item_price <= 10000 && wallet_amounts > item_price) {
 
                             binding.materialCardView2.setVisibility(View.GONE);
-                            binding.materialCardView3.setVisibility(View.VISIBLE);
+                            binding.linearProceedToPay.setVisibility(View.VISIBLE);
                             binding.checkBox.setText("Pay Using Wallet!");
                             binding.checkBox.setTextColor(Color.BLACK);
 
@@ -159,7 +159,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
 
                                     type = "express";
                                     binding.materialCardView2.setVisibility(View.GONE);
-                                    binding.materialCardView3.setVisibility(View.VISIBLE);
+                                    binding.linearProceedToPay.setVisibility(View.VISIBLE);
                                     payfromwallet();
 
                                 }
@@ -172,7 +172,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                     type = "razorpay";
 
                                     binding.materialCardView2.setVisibility(View.GONE);
-                                    binding.materialCardView3.setVisibility(View.VISIBLE);
+                                    binding.linearProceedToPay.setVisibility(View.VISIBLE);
 
                                     showrazorpay();
 
@@ -200,7 +200,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     private void payfromwallet() {
 
 
-        binding.button8.setOnClickListener(new View.OnClickListener() {
+        binding.linearProceedToPay.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
@@ -226,7 +226,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     private void showrazorpay() {
 
 
-        binding.button8.setOnClickListener(new View.OnClickListener() {
+        binding.linearProceedToPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Activity activity = PaymentOptions.this;
