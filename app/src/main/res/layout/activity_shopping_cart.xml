@@ -52,10 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_69sdp"
                 android:gravity="top|center"
-                android:paddingTop="@dimen/_12sdp"
-                android:text="CheckOut!"
+                android:paddingTop="@dimen/_15sdp"
+                android:text="PROCEED TO CHECKOUT"
                 android:textColor="@color/full_white"
-                android:textSize="@dimen/_18sdp" />
+                android:textSize="@dimen/_15sdp" />
 
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

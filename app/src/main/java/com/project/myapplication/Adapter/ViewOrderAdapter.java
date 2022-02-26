@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.project.myapplication.Model.ViewOrderModel;
 import com.project.myapplication.R;
 
@@ -78,7 +79,7 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView invoice, noofproduct, totalprice, dateofdeliver,textViewn21;
-        Button ViewDetail;
+        MaterialCardView ViewDetail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,7 +89,7 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
             totalprice = itemView.findViewById(R.id.textView25);
             dateofdeliver = itemView.findViewById(R.id.textView26);
             textViewn21 = itemView.findViewById(R.id.textViewn21);
-            ViewDetail = itemView.findViewById(R.id.button5);
+            ViewDetail = itemView.findViewById(R.id.viewOrdersButton);
         }
     }
 }

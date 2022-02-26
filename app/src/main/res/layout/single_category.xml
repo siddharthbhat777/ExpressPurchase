@@ -21,6 +21,7 @@
             android:paddingHorizontal="@dimen/_8sdp"
             android:paddingVertical="@dimen/_4sdp"
             android:text="category"
+            android:textStyle="bold"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp" />

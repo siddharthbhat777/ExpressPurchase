@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_14sdp"
                 app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/_14sdp"
+                app:cardCornerRadius="@dimen/_25sdp"
                 app:cardElevation="@dimen/_3sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -91,7 +91,7 @@
                         android:layout_marginTop="@dimen/_14sdp"
                         android:layout_marginBottom="@dimen/_14sdp"
                         android:orientation="vertical"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView7"
+                        app:layout_constraintBottom_toTopOf="@+id/viewOrdersButton"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -152,7 +152,7 @@
                         android:layout_marginEnd="@dimen/_14sdp"
                         android:layout_marginBottom="@dimen/_14sdp"
                         android:orientation="vertical"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView7"
+                        app:layout_constraintBottom_toTopOf="@+id/viewOrdersButton"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/linearLayout4"
                         app:layout_constraintTop_toTopOf="parent">
@@ -161,8 +161,10 @@
                             android:id="@+id/textView2d1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ems="6"
+                            android:lines="1"
+                            android:singleLine="false"
                             android:text="item"
-                            android:singleLine="true"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14sdp"
                             android:textStyle="bold" />
@@ -223,26 +225,28 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView7"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/viewOrdersButton"
+                        style="@style/ViewOrderButtonShape"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/purple"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent">
 
-                        <Button
-                            android:id="@+id/button5"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/textView31"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:backgroundTint="#00000000"
-                            android:text="CONTACT NOW"
-                            android:textColor="@color/full_white" />
-                    </androidx.cardview.widget.CardView>
+                            android:layout_gravity="center"
+                            android:text="CONTACT US"
+                            android:textColor="@color/full_white"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -253,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:text="Current Orders:"
+                android:text="Current Order:"
                 android:textColor="@color/profile_text_color"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"

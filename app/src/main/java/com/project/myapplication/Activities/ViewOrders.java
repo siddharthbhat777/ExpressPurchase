@@ -45,7 +45,7 @@ public class ViewOrders extends AppCompatActivity {
     }
 
     private void onclick(String invoice_number) {
-        binding.button5.setOnClickListener(new View.OnClickListener() {
+        binding.viewOrdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_SEND);

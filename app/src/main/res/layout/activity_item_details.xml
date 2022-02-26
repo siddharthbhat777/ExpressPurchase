@@ -24,47 +24,65 @@
         android:id="@+id/linearLayout8"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/linear_item_details_bottom_buttons_shape"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/addToCartClick"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_38sdp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:background="@drawable/linear_item_details_atc"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/purple_light_new"
+            style="@style/AddToCartCardShape"
+            app:strokeWidth="@dimen/_1sdp"
+            app:strokeColor="@color/black"
+            app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/atcTV"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="ADD TO CART"
-                android:textColor="@color/full_white"
-                android:textSize="@dimen/_12sdp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:layout_height="match_parent">
 
-        <LinearLayout
+                <TextView
+                    android:id="@+id/atcTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="ADD TO CART"
+                    android:textColor="@color/full_white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/buyNowClick"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:background="@drawable/linear_item_details_buy"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/purple_light_new"
+            style="@style/BuyNowCardShape"
+            app:strokeWidth="@dimen/_1sdp"
+            app:strokeColor="@color/black"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/buyTV"
@@ -77,7 +95,9 @@
                 android:textColor="@color/full_white"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold" />
-        </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 

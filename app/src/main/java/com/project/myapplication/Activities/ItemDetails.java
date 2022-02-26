@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.card.MaterialCardView;
 import com.project.myapplication.Model.CartModel;
 import com.project.myapplication.R;
 import com.squareup.picasso.Picasso;
@@ -20,7 +21,7 @@ public class ItemDetails extends AppCompatActivity {
 
     TextView itemNameSingle, itemDescSingle, itemSalesmanName, itemPriceSingle, atc, bn;
     ImageView itemImageSingle;
-    LinearLayout addToCart, buyNow;
+    MaterialCardView addToCart, buyNow;
     private Realm realm;
 
 
@@ -117,7 +118,7 @@ public class ItemDetails extends AppCompatActivity {
                             realm.copyToRealmOrUpdate(cmodel);
                             atc.setText("VIEW CART");
 
-                            addToCart.setBackgroundResource(R.drawable.linear_item_details_atc_clicked);
+                            addToCart.setCardBackgroundColor(getResources().getColor(R.color.purple));
 
                             addToCart.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -141,7 +142,7 @@ public class ItemDetails extends AppCompatActivity {
         } else {
             // exist
             atc.setText("VIEW CART");
-            addToCart.setBackgroundResource(R.drawable.linear_item_details_atc_clicked);
+            addToCart.setCardBackgroundColor(getResources().getColor(R.color.purple));
             addToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -236,37 +236,43 @@
 
         </ScrollView>
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/linearProceedToPay"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_38sdp"
-            android:background="@drawable/linear_proceed_to_pay"
+            android:layout_height="@dimen/_76sdp"
+            android:layout_marginBottom="@dimen/_minus38sdp"
+            app:cardBackgroundColor="@color/purple"
+            app:cardCornerRadius="@dimen/_18sdp"
+            app:cardMaxElevation="@dimen/_25sdp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/black"
+            app:strokeWidth="@dimen/_1sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="#00000000"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/ptpTV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_gravity="center|top"
+                    android:gravity="center|top"
+                    android:paddingTop="@dimen/_12sdp"
                     android:text="PROCEED TO PAY"
                     android:textColor="@color/full_white"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
