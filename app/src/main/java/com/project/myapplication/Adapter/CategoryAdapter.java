@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.project.myapplication.Interfaces.CategoryClickInterface;
 import com.project.myapplication.Model.CategoryModel;
 import com.project.myapplication.R;
@@ -69,7 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardView;
+        MaterialCardView cardView;
         TextView textView;
 
         public ViewHolder(@NonNull View itemView) {
