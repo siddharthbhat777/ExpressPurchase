@@ -21,14 +21,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/no_money" />
+            app:srcCompat="@drawable/limit_reached" />
 
         <TextView
             android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Insufficient Funds"
+            android:text="Limit Reached"
             android:textColor="@color/black"
             android:textSize="@dimen/_26sdp"
             android:textStyle="bold"
@@ -46,9 +46,9 @@
             android:lines="2"
             android:paddingLeft="@dimen/_12sdp"
             android:paddingRight="@dimen/_12sdp"
-            android:text="Add more money in wallet to use it."
+            android:text="You cannot use more than\n₹ 10,000 /- from wallet."
             android:textColor="@color/black"
-            android:textSize="@dimen/_18sdp"
+            android:textSize="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

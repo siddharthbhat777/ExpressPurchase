@@ -55,4 +55,16 @@
         <item name="cornerSizeBottomRight">@dimen/_25sdp</item>
     </style>
 
+    <style name="DialogButton" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/for_dialog_button</item>
+    </style>
+
+    <style name="for_dialog_button" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/_12sdp</item>
+        <item name="cornerSizeBottomRight">@dimen/_12sdp</item>
+    </style>
+
 </resources>
