@@ -14,8 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressPurchase">
         <activity
+            android:name=".Activities.Preferences"
+            android:exported="false" />
+        <activity
             android:name=".Activities.PaymentSuccessful"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".Activities.PaymentOptions"
             android:exported="true" />

@@ -49,5 +49,17 @@ public class ShoppingCartActivity extends AppCompatActivity {
             // Show anything when there is nothing in cart
         }
 
+        gettotalprice(list);
+
+    }
+
+    private int gettotalprice(List<CartModel> mItems) {
+        adapter.notifyDataSetChanged();
+        int total = 0;
+        for (int i = 0; i < mItems.size(); i++) {
+            total += Integer.parseInt(String.valueOf(mItems.get(i).getItemPrice()));
+        }
+        Toast.makeText(getApplicationContext(), String.valueOf(total), Toast.LENGTH_SHORT).show();
+        return total;
     }
 }

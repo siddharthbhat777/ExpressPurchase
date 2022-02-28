@@ -51,14 +51,15 @@ public class Settings extends AppCompatActivity {
                     switchTheme.setChecked(false);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("night_mode", false);
-                    editor.apply();
+                    editor.apply()                                      ;
                 }
             }
         });
-        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.preferencesCardView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Settings.this, PaymentSuccessful.class);
+                Intent intent = new Intent(Settings.this, Preferences.class);
                 startActivity(intent);
             }
         });

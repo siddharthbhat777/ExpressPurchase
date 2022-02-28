@@ -259,27 +259,14 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         recyclerViewItems = findViewById(R.id.itemsRV);
         recyclerViewItems.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
-        FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
-                        .build();
-
-        adapter = new ExpressPurchaseAdapter(options);
-        recyclerViewItems.setAdapter(adapter);
+   setuprv();
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 findViewById(R.id.loadingLayout).setVisibility(View.GONE);
                 findViewById(R.id.main_bg_img).setVisibility(View.VISIBLE);
-
-                FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                        new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                                .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
-                                .build();
-                adapter = new ExpressPurchaseAdapter(options);
-                adapter.startListening();
-                recyclerViewItems.setAdapter(adapter);
+setuprv();
             }
 
             @Override
@@ -355,22 +342,11 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
 
     @Override
     public void onClick(int position, CategoryModel name) {
@@ -416,5 +392,42 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         return super.onOptionsItemSelected(item);
     }
 
+    public void setuprv() {
+        Log.d("TAG", "setuprv: "+acct.getId());
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        FirebaseFirestore.getInstance().collection("User").document(account.getEmail()).collection("Preferences").document(account.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value != null) {
 
+                    String pref = value.getString("preference");
+                    if (pref.equals("general")) {
+                        FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                                new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
+                                        .build();
+                        adapter = new ExpressPurchaseAdapter(options);
+                        adapter.startListening();
+                        recyclerViewItems.setAdapter(adapter);
+                    } else {
+                        FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                                new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("preference").equalTo(pref), ExpressPurchaseModel.class)
+                                        .build();
+                        adapter = new ExpressPurchaseAdapter(options);
+                        adapter.startListening();
+                        recyclerViewItems.setAdapter(adapter);
+                    }
+                } else {
+                    FirebaseRecyclerOptions<ExpressPurchaseModel> options =
+                            new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                                    .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
+                                    .build();
+                    adapter = new ExpressPurchaseAdapter(options);
+                    adapter.startListening();
+                    recyclerViewItems.setAdapter(adapter);
+                }
+            }
+        });
+    }
 }
