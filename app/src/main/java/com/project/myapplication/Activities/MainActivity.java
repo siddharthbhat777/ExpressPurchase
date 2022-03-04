@@ -2,7 +2,6 @@ package com.project.myapplication.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
@@ -31,16 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -60,10 +49,7 @@ import com.project.myapplication.databinding.ActivityMainBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements CategoryClickInterface {
 
@@ -77,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
     CategoryAdapter categoryAdapter;
     ArrayList<CategoryModel> list;
 
-    GoogleSignInAccount acct;
+    GoogleSignInAccount currentUserAccount;
 
 
 
@@ -105,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        acct = GoogleSignIn.getLastSignedInAccount(this);
+        currentUserAccount = GoogleSignIn.getLastSignedInAccount(this);
 
         initChips();
 
@@ -259,14 +245,14 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         recyclerViewItems = findViewById(R.id.itemsRV);
         recyclerViewItems.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
-   setuprv();
+   setupRecyclerView();
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 findViewById(R.id.loadingLayout).setVisibility(View.GONE);
                 findViewById(R.id.main_bg_img).setVisibility(View.VISIBLE);
-setuprv();
+setupRecyclerView();
             }
 
             @Override
@@ -278,9 +264,9 @@ setuprv();
     }
 
   private void setdataindrawer() {
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personPhoto = acct.getPhotoUrl().toString();
+        if (currentUserAccount != null) {
+            String personName = currentUserAccount.getDisplayName();
+            String personPhoto = currentUserAccount.getPhotoUrl().toString();
 
             Picasso.get().load(personPhoto).into(binding.profilePictureDrawer);
             binding.profileNameDrawer.setText(personName);
@@ -392,15 +378,24 @@ setuprv();
         return super.onOptionsItemSelected(item);
     }
 
-    public void setuprv() {
-        Log.d("TAG", "setuprv: "+acct.getId());
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        FirebaseFirestore.getInstance().collection("User").document(account.getEmail()).collection("Preferences").document(account.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+    public void setupRecyclerView() {
+        Log.d("TAG", "setuprv: "+ currentUserAccount.getId());
+        // Unnecessary instance of GoogleSignInAccount
+        // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (currentUserAccount == null || currentUserAccount.getEmail() == null || currentUserAccount.getId() == null) {
+            Toast.makeText(this, "Error: Unable to get account detail please try again", Toast.LENGTH_LONG).show();
+            return;
+        }
+        FirebaseFirestore.getInstance().collection("User").document(currentUserAccount.getEmail()).collection("Preferences").document(currentUserAccount.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (value != null) {
 
                     String pref = value.getString("preference");
+                    if (pref == null) {
+                        Toast.makeText(MainActivity.this, "Error: Could not fetch preferences", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (pref.equals("general")) {
                         FirebaseRecyclerOptions<ExpressPurchaseModel> options =
                                 new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
