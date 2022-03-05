@@ -13,10 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.myapplication.Model.CartModel;
 import com.project.myapplication.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.realm.Realm;
@@ -24,13 +30,12 @@ import io.realm.RealmResults;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
-    List<CartModel> list;
+    ArrayList<CartModel> list;
     Context context;
-    int quantity = 1;
-    int price;
-    Realm realm;
+    int price,current_pos;
+    GoogleSignInAccount acct;
 
-    public CartAdapter(List<CartModel> list, Context context) {
+    public CartAdapter(ArrayList<CartModel> list, Context context) {
         this.list = list;
         this.context = context;
         this.notifyDataSetChanged();
@@ -46,29 +51,42 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CartModel model = list.get(position);
-
-        realm = Realm.getDefaultInstance();
+        acct = GoogleSignIn.getLastSignedInAccount(context);
 
         price = model.getItemPrice();
+
+
 
         Picasso.get().load(model.getItemImage()).into(holder.thumbnail);
         holder.title.setText(model.getItemName());
         holder.price.setText("₹ " + String.valueOf(model.getItemPrice()));
-        holder.quantity.setText(String.valueOf(quantity));
+        holder.quantity.setText(String.valueOf(model.getQuantity()));
 
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (quantity==15){
+                if (model.getQuantity()==15){
                     //nothing
                 }
                 else {
                     price = price + model.getItemPrice();
 
                     holder.price.setText("₹ " + String.valueOf(price));
-                    quantity++;
-                    holder.quantity.setText(String.valueOf(quantity));
+                    model.setQuantity(model.getQuantity()+1);;
+
+                    HashMap<String,Object> map = new HashMap<>();
+                    map.put("quantity",model.getQuantity());
+
+
+                    FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Cart")
+                            .document(model.getItemName()).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                        }
+                        });
+
+                            holder.quantity.setText(String.valueOf(model.getQuantity()));
                 }
 
             }
@@ -76,16 +94,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quantity == 1) {
+                if (model.getQuantity() == 1) {
                     //do nothing
-                    holder.quantity.setText(String.valueOf(quantity));
+                    holder.quantity.setText(String.valueOf(model.getQuantity()));
 
                 } else {
                     price = price - model.getItemPrice();
-                    holder.price.setText("₹ " + String.valueOf(price));
-                    quantity--;
 
-                    holder.quantity.setText(String.valueOf(quantity));
+                    holder.price.setText("₹ " + String.valueOf(price));
+                    model.setQuantity(model.getQuantity()-1);;
+
+                    HashMap<String,Object> map = new HashMap<>();
+                    map.put("quantity",model.getQuantity());
+
+                    FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Cart")
+                            .document(model.getItemName()).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                        }
+                    });
+                    holder.quantity.setText(String.valueOf(model.getQuantity()));
 
                 }
             }
@@ -93,21 +121,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+current_pos = position;
                 new AlertDialog.Builder(context)
                         .setTitle("Remove Item")
                         .setMessage("Are you sure to remove this item from your cart ?")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                realm.executeTransaction(new Realm.Transaction() {
+                                FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Cart")
+                                        .document(model.getItemName()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void execute(Realm realm) {
-                                        RealmResults<CartModel> result = realm.where(CartModel.class).equalTo("itemImage", model.getItemImage()).findAll();
-                                        result.deleteAllFromRealm();
-                                        notifyItemRemoved(position);
+                                    public void onSuccess(Void unused) {
+                                        notifyItemRemoved(current_pos);
+
                                     }
-                                });
+                                })
+;
                             }
                         }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     @Override

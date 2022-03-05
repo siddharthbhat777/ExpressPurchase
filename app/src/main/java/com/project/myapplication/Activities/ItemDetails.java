@@ -8,12 +8,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.project.myapplication.Model.CartModel;
 import com.project.myapplication.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import io.realm.Realm;
 
@@ -26,12 +37,13 @@ public class ItemDetails extends AppCompatActivity {
 
 
     private String name, salesman, desc, image, price;
+    private GoogleSignInAccount acct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
-        realm = Realm.getDefaultInstance();
+        acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
         itemNameSingle = findViewById(R.id.itemNameInside);
         itemDescSingle = findViewById(R.id.itemDesc);
@@ -75,91 +87,79 @@ public class ItemDetails extends AppCompatActivity {
 
     }
 
-    private void addtocart() {
+    private void addtocart() {                    String personEmail = acct.getEmail();
 
-        CartModel user = realm.where(CartModel.class).equalTo("itemImage", image).findFirst();
+        FirebaseFirestore.getInstance().collection("User").document(personEmail).collection("Cart")
+                .document(name).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                     if (value.exists()){
+                        //Item is in the cart before
+                         atc.setText("VIEW CART");
+                         addToCart.setCardBackgroundColor(getResources().getColor(R.color.purple));
+                         addToCart.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
 
-        if (user == null) {
-            // Not Exists
+                                 Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
+                                 intent.putExtra("item_name", name);
+                                 intent.putExtra("item_desc",desc);
+                                 intent.putExtra("item_price",price);
+                                 intent.putExtra("item_salesman_name" ,salesman);
+                                 intent.putExtra("item_image",image);
+                                 intent.putExtra("code","1");
 
-            addToCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                                 startActivity(intent);
+                                 finish();
+                             }
+                         });
+                     }else{
 
-                    CartModel cmodel = new CartModel();
-                    // on below line we are getting id for the course which we are storing.
-                    Number id = realm.where(CartModel.class).max("id");
-
-                    // on below line we are
-                    // creating a variable for our id.
-                    long nextId;
-
-                    // validating if id is null or not.
-                    if (id == null) {
-                        // if id is null
-                        // we are passing it as 1.
-                        nextId = 1;
-                    } else {
-                        // if id is not null then
-                        // we are incrementing it by 1
-                        nextId = id.intValue() + 1;
-                    }
-                    cmodel.setId(nextId);
-                    cmodel.setItemName(name);
-                    cmodel.setItemPrice(Integer.parseInt(price));
-                    cmodel.setItemImage(image);
+                         addToCart.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
 
 
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            // inside on execute method we are calling a method
-                            // to copy to real m database from our modal class.
-                            realm.copyToRealmOrUpdate(cmodel);
-                            atc.setText("VIEW CART");
+                                 CartModel cmodel = new CartModel();
+                                 cmodel.setItemName(name);
+                                 cmodel.setItemPrice(Integer.parseInt(price));
+                                 cmodel.setQuantity(Integer.parseInt("1"));
+                                 cmodel.setItemImage(image);
 
-                            addToCart.setCardBackgroundColor(getResources().getColor(R.color.purple));
+                                 FirebaseFirestore.getInstance().collection("User").document(personEmail).collection("Cart")
+                                         .document(name).set(cmodel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                     @Override
+                                     public void onSuccess(Void unused) {
 
-                            addToCart.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
-                                    intent.putExtra("item_name", name);
-                                    intent.putExtra("item_desc",desc);
-                                    intent.putExtra("item_price",price);
-                                    intent.putExtra("item_salesman_name" ,salesman);
-                                    intent.putExtra("item_image",image);
-                                    intent.putExtra("code","1");
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-                        }
-                    });
 
-                }
-            });
-        } else {
-            // exist
-            atc.setText("VIEW CART");
-            addToCart.setCardBackgroundColor(getResources().getColor(R.color.purple));
-            addToCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                                         atc.setText("VIEW CART");
 
-                    Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
-                    intent.putExtra("item_name", name);
-                    intent.putExtra("item_desc",desc);
-                    intent.putExtra("item_price",price);
-                    intent.putExtra("item_salesman_name" ,salesman);
-                    intent.putExtra("item_image",image);
-                    intent.putExtra("code","1");
+                                         addToCart.setCardBackgroundColor(getResources().getColor(R.color.purple));
 
-                    startActivity(intent);
-                    finish();
-                    }
-            });
+                                         addToCart.setOnClickListener(new View.OnClickListener() {
+                                             @Override
+                                             public void onClick(View v) {
+                                                 Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
+                                                 intent.putExtra("item_name", name);
+                                                 intent.putExtra("item_desc",desc);
+                                                 intent.putExtra("item_price",price);
+                                                 intent.putExtra("item_salesman_name" ,salesman);
+                                                 intent.putExtra("item_image",image);
+                                                 intent.putExtra("code","1");
+                                                 startActivity(intent);
+                                                 finish();
+                                             }
+                                         });
+                                     }
+                                 });
+
+                             }
+                         });
+                     }
+            }
+        });
+
+
         }
 
     }
-}

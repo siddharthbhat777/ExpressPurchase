@@ -3,20 +3,18 @@ package com.project.myapplication.Model;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class CartModel extends RealmObject {
+public class CartModel  {
     private String itemName;
     private int itemPrice;
     private String itemImage;
+    int quantity;
 
-    @PrimaryKey
-    private long id;
-
-    public long getId() {
-        return id;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getItemName() {
@@ -37,6 +35,9 @@ public class CartModel extends RealmObject {
 
     public String getItemImage() {
         return itemImage;
+    }
+
+    public CartModel() {
     }
 
     public void setItemImage(String itemImage) {
