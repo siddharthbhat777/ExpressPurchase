@@ -53,7 +53,8 @@
         <activity
             android:name=".Activities.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.ExpressPurchase">
+            android:theme="@style/Theme.ExpressPurchase"
+            android:noHistory="true">
 
             <!-- //this is to show the splash screen on app launch -->
             <intent-filter>

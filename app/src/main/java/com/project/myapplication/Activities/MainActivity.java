@@ -3,6 +3,7 @@ package com.project.myapplication.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,37 +52,38 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements CategoryClickInterface {
 
-    EditText searchEditText;
-    CardView voiceSearchCardView;
+    private EditText searchEditText;
+    private CardView voiceSearchCardView;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    ExpressPurchaseAdapter adapter;
+    private ExpressPurchaseAdapter adapter;
 
-    CategoryAdapter categoryAdapter;
-    ArrayList<CategoryModel> list;
+    private CategoryAdapter categoryAdapter;
+    private ArrayList<CategoryModel> list;
 
-    GoogleSignInAccount currentUserAccount;
+    private GoogleSignInAccount currentUserAccount;
 
 
 
-    RecyclerView recyclerViewItems;
+    private RecyclerView recyclerViewItems;
 
-    CardView settingsCv, aboutCv, walletCv, profileCv, viewOrdersCv;
+    private CardView settingsCv, aboutCv, walletCv, profileCv, viewOrdersCv;
 
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
     public static DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
 
     private ActionBarDrawerToggle mDrawerToggle;
 
-    RecyclerView rv_chip;
+    private RecyclerView rv_chip;
 
-    ActivityMainBinding binding; // to access all the items of layout easily
+    private ActivityMainBinding binding; // to access all the items of layout easily
 
 //    ExecutorService service = Executors.newSingleThreadExecutor(); // for doing work in background thread
 
@@ -96,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         initChips();
 
         //profile
-        setdataindrawer();
+        populateDrawerUI();
 
         //Status Bar Color
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.purple));
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mToolbar = (Toolbar) findViewById(R.id.action_bar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
@@ -245,14 +248,14 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         recyclerViewItems = findViewById(R.id.itemsRV);
         recyclerViewItems.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
-   setupRecyclerView();
-
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 findViewById(R.id.loadingLayout).setVisibility(View.GONE);
                 findViewById(R.id.main_bg_img).setVisibility(View.VISIBLE);
-setupRecyclerView();
+
+                setupRecyclerView();
             }
 
             @Override
@@ -261,9 +264,10 @@ setupRecyclerView();
             }
         });
 
+
     }
 
-  private void setdataindrawer() {
+  private void populateDrawerUI() {
         if (currentUserAccount != null) {
             String personName = currentUserAccount.getDisplayName();
             String personPhoto = currentUserAccount.getPhotoUrl().toString();
@@ -286,17 +290,15 @@ setupRecyclerView();
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 list.clear();
                 list.add(new CategoryModel("All"));
+                assert value != null;
                 for (DocumentSnapshot snapshot : value.getDocuments()) {
                     CategoryModel model = snapshot.toObject(CategoryModel.class);
                     list.add(model);
                 }
-                categoryAdapter.notifyDataSetChanged();
+                categoryAdapter = new CategoryAdapter(MainActivity.this, list, MainActivity.this);
+                rv_chip.setAdapter(categoryAdapter);
             }
         });
-
-
-        categoryAdapter = new CategoryAdapter(this, list, this);
-        rv_chip.setAdapter(categoryAdapter);
     }
 
 
@@ -306,9 +308,7 @@ setupRecyclerView();
                 new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("search").startAt(s).endAt(s + "\uf8ff"), ExpressPurchaseModel.class)
                         .build();
-        adapter = new ExpressPurchaseAdapter(options);
-        adapter.startListening();
-        recyclerViewItems.setAdapter(adapter);
+        updateOption(options);
     }
 
     @Override
@@ -342,25 +342,17 @@ setupRecyclerView();
 
     private void showCategoryWiseData(CategoryModel model) {
 
+        FirebaseRecyclerOptions<ExpressPurchaseModel> options;
         if (model.getCategoryName().equals("All")) {
-
-            FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                    new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                            .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
-                            .build();
-            adapter = new ExpressPurchaseAdapter(options);
-            adapter.startListening();
-            recyclerViewItems.setAdapter(adapter);
+            options = new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                    .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("preference"), ExpressPurchaseModel.class)
+                    .build();
         } else {
-
-            FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                    new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                            .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("category").equalTo(model.getCategoryName()), ExpressPurchaseModel.class)
-                            .build();
-            adapter = new ExpressPurchaseAdapter(options);
-            adapter.startListening();
-            recyclerViewItems.setAdapter(adapter);
+            options = new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                    .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("category").equalTo(model.getCategoryName()), ExpressPurchaseModel.class)
+                    .build();
         }
+        updateOption(options);
     }
 
     @Override
@@ -379,50 +371,56 @@ setupRecyclerView();
     }
 
     public void setupRecyclerView() {
-        Log.d("TAG", "setuprv: "+ currentUserAccount.getId());
-        // Unnecessary instance of GoogleSignInAccount
-        // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
         if (currentUserAccount == null || currentUserAccount.getEmail() == null || currentUserAccount.getId() == null) {
             Toast.makeText(this, "Error: Unable to get account detail please try again", Toast.LENGTH_LONG).show();
             return;
         }
+
         FirebaseFirestore.getInstance().collection("User").document(currentUserAccount.getEmail()).collection("Preferences").document(currentUserAccount.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (value != null) {
-
                     String pref = value.getString("preference");
-                    if (pref == null) {
-                        Toast.makeText(MainActivity.this, "Error: Could not fetch preferences", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (pref.equals("general")) {
-                        FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                                new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
-                                        .build();
-                        adapter = new ExpressPurchaseAdapter(options);
-                        adapter.startListening();
-                        recyclerViewItems.setAdapter(adapter);
-                    } else {
-                        FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                                new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                                        .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("preference").equalTo(pref), ExpressPurchaseModel.class)
-                                        .build();
-                        adapter = new ExpressPurchaseAdapter(options);
-                        adapter.startListening();
-                        recyclerViewItems.setAdapter(adapter);
-                    }
+                    setRecyclerViewQuery(pref);
                 } else {
-                    FirebaseRecyclerOptions<ExpressPurchaseModel> options =
-                            new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
-                                    .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
-                                    .build();
-                    adapter = new ExpressPurchaseAdapter(options);
-                    adapter.startListening();
-                    recyclerViewItems.setAdapter(adapter);
+                    setRecyclerViewQuery(null);
                 }
             }
         });
+
+    }
+
+    private void setRecyclerViewQuery(String preferences) {
+
+        // Declaring variable for FirebaseRecyclerOptions
+        FirebaseRecyclerOptions<ExpressPurchaseModel> options;
+
+        // Null check over preference
+        if (preferences == null) {
+            options = new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                    .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
+                    .build();
+        } else {
+            options = new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
+                    .setQuery(FirebaseDatabase.getInstance().getReference().child("items").orderByChild("preference").equalTo(preferences), ExpressPurchaseModel.class)
+                    .build();
+        }
+
+        // Setting adapter with assigned options
+        setAdapter(options);
+    }
+
+    private void setAdapter(FirebaseRecyclerOptions<ExpressPurchaseModel> options) {
+        adapter = new ExpressPurchaseAdapter(options);
+        adapter.startListening();
+        recyclerViewItems.setAdapter(adapter);
+        showCategoryWiseData(new CategoryModel("All"));
+    }
+
+    private void updateOption(FirebaseRecyclerOptions<ExpressPurchaseModel> options) {
+        adapter.updateOptions(options);
+        adapter.startListening();
+        recyclerViewItems.setAdapter(adapter);
     }
 }
