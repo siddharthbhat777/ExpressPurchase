@@ -32,7 +32,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     ArrayList<CartModel> list;
     Context context;
-    int price,current_pos;
+    int current_pos;
     GoogleSignInAccount acct;
 
     public CartAdapter(ArrayList<CartModel> list, Context context) {
@@ -53,7 +53,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         CartModel model = list.get(position);
         acct = GoogleSignIn.getLastSignedInAccount(context);
 
-        price = model.getItemPrice();
 
 
 
@@ -70,13 +69,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     //nothing
                 }
                 else {
-                    price = price + model.getItemPrice();
+                    model.setItemPrice(model.getItemPrice()*model.getQuantity());
 
-                    holder.price.setText("₹ " + String.valueOf(price));
                     model.setQuantity(model.getQuantity()+1);;
 
                     HashMap<String,Object> map = new HashMap<>();
                     map.put("quantity",model.getQuantity());
+                    map.put("itemPrice",model.getItemPrice());
 
 
                     FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Cart")
@@ -85,6 +84,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                         public void onSuccess(Void unused) {
                         }
                         });
+                    holder.price.setText("₹ " + String.valueOf(model.getItemPrice()));
 
                             holder.quantity.setText(String.valueOf(model.getQuantity()));
                 }
@@ -99,13 +99,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     holder.quantity.setText(String.valueOf(model.getQuantity()));
 
                 } else {
-                    price = price - model.getItemPrice();
+                    model.setItemPrice(model.getItemPrice()*model.getQuantity());
 
-                    holder.price.setText("₹ " + String.valueOf(price));
                     model.setQuantity(model.getQuantity()-1);;
 
                     HashMap<String,Object> map = new HashMap<>();
                     map.put("quantity",model.getQuantity());
+                    map.put("itemPrice",model.getItemPrice());
 
                     FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Cart")
                             .document(model.getItemName()).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -114,6 +114,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                         }
                     });
                     holder.quantity.setText(String.valueOf(model.getQuantity()));
+                    holder.price.setText("₹ " + String.valueOf(model.getItemPrice()));
 
                 }
             }
