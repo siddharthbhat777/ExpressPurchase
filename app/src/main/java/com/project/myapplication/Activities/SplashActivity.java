@@ -1,14 +1,16 @@
 package com.project.myapplication.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
-import android.widget.VideoView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -21,114 +23,114 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.project.myapplication.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class SplashActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
 
+    private FirebaseAuth mAuth;
 
-    private static final int RC_SIGN_IN = 0;
-    private GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        mAuth = FirebaseAuth.getInstance();
     }
 
-        @Override
-        protected void onStart() {
+    private boolean isSignedIn() {
+        return mAuth.getCurrentUser() != null;
+    }
 
-            mAuth = FirebaseAuth.getInstance();
-            FirebaseUser user = mAuth.getCurrentUser();
-            if (user != null) {
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-                Thread thread = new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            sleep(3000); // screen will be visible for 3 second!
-                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                            //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            startActivity(intent);
-                            finish();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        super.run();
-                    }
-                };
-                thread.start();
-
-            } else {
-                    setupsignin();
+        // Check if user is already signedIn or not
+        if (isSignedIn()) {
+            //If signed in create a timer to call main activity after 3 seconds
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
                 }
+            }, 3000);
 
-            super.onStart();
+        } else {
+            // Else start signIn process
+            initSignInProcess();
+
         }
 
-            private void setupsignin () {
+    }
 
-                GoogleSignInOptions gso = new GoogleSignInOptions
-                        .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
-                mAuth = FirebaseAuth.getInstance();
-                mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-                signIn();
-            }
+    private void initSignInProcess() {
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("1060018672946-40ipgpeomre764gse0dpeo9phc95gg8a.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
+        signIn(googleSignInClient);
+    }
 
-            private void signIn () {
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-            }
+    private void signIn(GoogleSignInClient client) {
 
-            @Override
-            public void onActivityResult ( int requestCode, int resultCode, Intent data){
-                super.onActivityResult(requestCode, resultCode, data);
+        Intent signInIntent = client.getSignInIntent();
 
-                // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-                if (requestCode == RC_SIGN_IN) {
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                    try {
-                        // Google Sign In was successful, authenticate with Firebase
-                        GoogleSignInAccount account = task.getResult(ApiException.class);
-                        firebaseAuthWithGoogle(account.getIdToken());
-                    } catch (ApiException e) {
-                        // Google Sign In failed, update UI appropriately
-                        Log.println(Log.ASSERT, "sign-in", "failed" + e.getStatusCode());
+        ActivityResultLauncher<Intent> signInActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+
+                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                        try {
+                            // Google Sign In was successful, authenticate with Firebase
+                            GoogleSignInAccount account = task.getResult(ApiException.class);
+                            assert account != null;
+                            firebaseAuthWithGoogle(account.getIdToken());
+                        } catch (ApiException e) {
+                            // Google Sign In failed, update UI appropriately
+                            Toast.makeText(SplashActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
 
+                        }
                     }
                 }
-            }
+        );
 
-            private void firebaseAuthWithGoogle (String idToken) {
-                AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-                mAuth.signInWithCredential(credential)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
+        signInActivityResultLauncher.launch(signInIntent);
 
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    android.content.Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    if (getIntent().getExtras() != null)
-                                        intent.putExtras(getIntent().getExtras());
-                                    startActivity(intent);
-                                    finish();
-                                } else {
+    }
 
-                                    // If sign in fails, display a message to the user.
-                                    Log.println(Log.ASSERT, "failure", task.getException().toString());
-                                }
-                            }
-                        });
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
 
-            }
+                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            if (getIntent().getExtras() != null)
+                                intent.putExtras(getIntent().getExtras());
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+
+                            // If sign in fails, display a message to the user.
+                            assert task.getException() != null;
+                            Toast.makeText(SplashActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+    }
 
 }
