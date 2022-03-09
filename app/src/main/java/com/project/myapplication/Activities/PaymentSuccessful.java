@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import com.project.myapplication.Model.ViewOrderModel;
 import com.project.myapplication.databinding.ActivityPaymentSuccessfulBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -57,8 +58,10 @@ public class PaymentSuccessful extends AppCompatActivity {
 
         account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-        binding.itemNameSudccess.setText(item_name);
-        binding.itemPriceSudccess.setText(item_price);
+        binding.itemNameSuccess.setText(item_name);
+        binding.itemPriceSuccess.setText(item_price);
+        binding.salesmanName.setText(item_salesman_name);
+        Picasso.get().load(item_image).into(binding.pImg);
 
 
         ViewOrderModel model = new ViewOrderModel(invoice_number, "1", item_price, System.currentTimeMillis(), item_name);

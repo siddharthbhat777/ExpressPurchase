@@ -6,8 +6,26 @@ import io.realm.annotations.PrimaryKey;
 public class CartModel  {
     private String itemName;
     private int itemPrice;
+    private int newprice;
     private String itemImage;
+    long time;
     int quantity;
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public int getNewprice() {
+        return newprice;
+    }
+
+    public void setNewprice(int newprice) {
+        this.newprice = newprice;
+    }
 
     public int getQuantity() {
         return quantity;

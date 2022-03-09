@@ -3,16 +3,13 @@ package com.project.myapplication.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,9 +39,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.project.myapplication.Adapter.CategoryAdapter;
+import com.project.myapplication.Adapter.ExpressPurchaseAdapter;
 import com.project.myapplication.Interfaces.CategoryClickInterface;
 import com.project.myapplication.Model.CategoryModel;
-import com.project.myapplication.Adapter.ExpressPurchaseAdapter;
 import com.project.myapplication.Model.ExpressPurchaseModel;
 import com.project.myapplication.R;
 import com.project.myapplication.databinding.ActivityMainBinding;
@@ -67,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
     private ArrayList<CategoryModel> list;
 
     private GoogleSignInAccount currentUserAccount;
-
 
 
     private RecyclerView recyclerViewItems;
@@ -172,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         binding.profileCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),CustomerProfile.class));
+                startActivity(new Intent(getApplicationContext(), CustomerProfile.class));
             }
         });
 
@@ -246,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         });
 
         recyclerViewItems = findViewById(R.id.itemsRV);
-        recyclerViewItems.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerViewItems.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             @Override
@@ -267,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
     }
 
-  private void populateDrawerUI() {
+    private void populateDrawerUI() {
         if (currentUserAccount != null) {
             String personName = currentUserAccount.getDisplayName();
             String personPhoto = currentUserAccount.getPhotoUrl().toString();
@@ -316,15 +312,13 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         super.onActivityResult(requestCode, resultCode, data);
 
         //if (requestCode == 2) {
-            if (resultCode == RESULT_OK & null != data) {
-                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                searchEditText.setText(result.get(0));
-            }
+        if (resultCode == RESULT_OK & null != data) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            searchEditText.setText(result.get(0));
+        }
         //}
 
     }
-
-
 
 
     @Override
@@ -397,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         FirebaseRecyclerOptions<ExpressPurchaseModel> options;
 
         // Null check over preference
-        if (preferences == null) {
+        if (preferences == null || preferences.equals("general")) {
             options = new FirebaseRecyclerOptions.Builder<ExpressPurchaseModel>()
                     .setQuery(FirebaseDatabase.getInstance().getReference().child("items"), ExpressPurchaseModel.class)
                     .build();
@@ -415,10 +409,10 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         adapter = new ExpressPurchaseAdapter(options);
         adapter.startListening();
         recyclerViewItems.setAdapter(adapter);
-        showCategoryWiseData(new CategoryModel("All"));
     }
 
     private void updateOption(FirebaseRecyclerOptions<ExpressPurchaseModel> options) {
+        adapter = new ExpressPurchaseAdapter(options);
         adapter.updateOptions(options);
         adapter.startListening();
         recyclerViewItems.setAdapter(adapter);

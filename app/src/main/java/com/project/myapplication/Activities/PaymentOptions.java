@@ -104,6 +104,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                             showrazorpay();
                         } else if (item_price <= 10000 && wallet_amounts < item_price) {
 
+                            binding.textView18.setVisibility(View.VISIBLE);
 
                             binding.checkBox.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -136,7 +137,6 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
 
                             binding.checkBox.setText("Insufficient Money in Wallet!");
                             binding.checkBox.setTextColor(Color.RED);
-
                             binding.textView29.setText("Insufficient money need more money ! plzz add the money by clicking on below buttons");
 
                         } else if (item_price <= 10000 && wallet_amounts > item_price) {
@@ -144,7 +144,8 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                             binding.materialCardView2.setVisibility(View.GONE);
                             binding.linearProceedToPay.setVisibility(View.VISIBLE);
                             binding.checkBox.setText("Pay Using Wallet!");
-                            binding.checkBox.setTextColor(Color.BLACK);
+                            binding.textView29.setText("Pay Using the following Option ! Will get Cashback if u buy this item with the app Wallet");
+                            binding.checkBox.setTextColor(Color.WHITE);
 
                             payfromwallet();
 

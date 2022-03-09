@@ -98,120 +98,111 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout5"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/singleItemSuccessfulCard"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginRight="@dimen/_12sdp"
+                app:cardBackgroundColor="@color/purple"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_3sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView33">
+                app:layout_constraintTop_toBottomOf="@+id/textView33"
+                app:strokeColor="@color/full_white"
+                app:strokeWidth="@dimen/_1sdp">
 
-                <TextView
-                    android:id="@+id/srNo"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/singleItemSuccessfulLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sr.\nNo."
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
+                    android:layout_margin="@dimen/_6sdp">
 
-                <TextView
-                    android:id="@+id/itemNameSuccess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:text="Item Name"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView7"
+                        android:layout_width="@dimen/_77sdp"
+                        android:layout_height="@dimen/_77sdp"
+                        app:cardCornerRadius="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/noOfItems"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="textMultiLine"
-                    android:lines="2"
-                    android:text="No. of\nitems"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/p_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:srcCompat="@drawable/app_icon" />
 
-                <TextView
-                    android:id="@+id/itemPriceSuccess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Price"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-                android:id="@+id/recyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent">
+                    </com.google.android.material.card.MaterialCardView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/itemNameSuccess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="Item Name"
+                        android:textColor="@color/full_white"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/materialCardView7"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/itemNameSudccess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:text="Item Name"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/salesman_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:text="salesman"
+                        android:textColor="@color/light_blue_card"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/itemPriceSuccess"
+                        app:layout_constraintStart_toEndOf="@+id/materialCardView7"
+                        app:layout_constraintTop_toBottomOf="@+id/itemNameSuccess" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="textMultiLine"
-                    android:lines="2"
-                    android:text="1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/rupeeSymbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:text="₹"
+                        android:textColor="@color/light_green"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/materialCardView7" />
 
-                <TextView
-                    android:id="@+id/itemPriceSudccess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Price"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/itemPriceSuccess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:text="9999"
+                        android:textColor="@color/light_green"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/rupeeSymbol" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <!--        let me do    -->
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cashbackCard"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_154sdp"
-                android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginRight="@dimen/_6sdp"
                 android:backgroundTint="@color/ic_launcher_background"
                 app:cardBackgroundColor="@color/light_blue_card"
@@ -219,7 +210,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
+                app:layout_constraintTop_toBottomOf="@id/singleItemSuccessfulCard"
                 app:strokeColor="@color/black"
                 app:strokeWidth="@dimen/_3sdp">
 

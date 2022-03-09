@@ -19,13 +19,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.myapplication.R;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -92,7 +95,7 @@ public class SplashActivity extends AppCompatActivity {
                             // Google Sign In was successful, authenticate with Firebase
                             GoogleSignInAccount account = task.getResult(ApiException.class);
                             assert account != null;
-                            firebaseAuthWithGoogle(account.getIdToken());
+                            firebaseAuthWithGoogle(account.getIdToken(),account.getEmail(),account.getGivenName());
                         } catch (ApiException e) {
                             // Google Sign In failed, update UI appropriately
                             Toast.makeText(SplashActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -107,7 +110,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
+    private void firebaseAuthWithGoogle(String idToken,String gmail,String name) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -116,11 +119,21 @@ public class SplashActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
-                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                            if (getIntent().getExtras() != null)
-                                intent.putExtras(getIntent().getExtras());
-                            startActivity(intent);
-                            finish();
+                            HashMap<String,Object> map = new HashMap();
+                            map.put("name", name);
+
+                            FirebaseFirestore.getInstance().collection("User").document(gmail).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                                    if (getIntent().getExtras() != null)
+                                        intent.putExtras(getIntent().getExtras());
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+                            });
 
                         } else {
 

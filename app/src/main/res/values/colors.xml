@@ -29,6 +29,7 @@
     <color name="tag_color">#664065</color>
     <color name="profile_text_color">#523251</color>
     <color name="green_for_payment_success">#60D865</color>
+    <color name="light_green">#03E80C</color>
     <color name="light_blue_card">#2196F3</color>
     <color name="main_item_border">#00000000</color>
     <color name="full_white">#FFFFFFFF</color>
