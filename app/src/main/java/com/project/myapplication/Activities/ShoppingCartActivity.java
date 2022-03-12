@@ -1,6 +1,7 @@
 package com.project.myapplication.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ShoppingCartActivity extends AppCompatActivity implements PaymentResultListener {
 
@@ -135,13 +137,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements PaymentRe
 
     @Override
     public void onPaymentSuccess(String s) {
-//        Random r = new Random();
-//        int i1 = r.nextInt(10000000 - 10000) + 10000;
-//        Intent intent = new Intent(getApplicationContext(), PaymentSuccessful.class);
-//        intent.putExtra("date/time", System.currentTimeMillis());
-//        intent.putExtra("invoice_number", String.valueOf(i1));
-//        startActivity(intent);
-//        finish();
+        Random r = new Random();
+        int i1 = r.nextInt(10000000 - 10000) + 10000;
+        Intent intent = new Intent(getApplicationContext(), CartSuccessful.class);
+        intent.putExtra("date/time", System.currentTimeMillis());
+        intent.putExtra("invoice_number", String.valueOf(i1));
+        startActivity(intent);
+        finish();
     }
 
     @Override

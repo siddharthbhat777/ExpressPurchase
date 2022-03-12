@@ -163,6 +163,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
                 tools:listitem="@layout/single_item_option" />
 
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total : Rs 111"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView3"
                 android:layout_width="match_parent"
@@ -178,7 +189,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/_15sdp"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView2">
+                app:layout_constraintTop_toBottomOf="@+id/textView45">
 
                 <Button
                     android:id="@+id/button8"

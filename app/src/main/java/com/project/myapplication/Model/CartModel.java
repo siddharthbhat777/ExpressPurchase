@@ -1,15 +1,21 @@
 package com.project.myapplication.Model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
-public class CartModel  {
-    private String itemName;
-    private int itemPrice;
-    private int newprice;
-    private String itemImage;
+public class CartModel {
+    String itemName;
+    int itemPrice;
+    int newprice;
+    String itemImage;
     long time;
     int quantity;
+
+    public CartModel(String itemName, int itemPrice, int newprice, String itemImage, long time, int quantity) {
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.newprice = newprice;
+        this.itemImage = itemImage;
+        this.time = time;
+        this.quantity = quantity;
+    }
 
     public long getTime() {
         return time;
