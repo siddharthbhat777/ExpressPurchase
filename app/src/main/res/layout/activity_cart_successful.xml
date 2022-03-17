@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:text="Total : Rs 111"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:textColor="@color/purple"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
