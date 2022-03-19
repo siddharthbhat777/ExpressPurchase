@@ -204,7 +204,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView6"
-            android:layout_width="171dp"
+            android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_6sdp"
             app:cardBackgroundColor="@color/purple_light_new"
@@ -237,7 +237,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cancel"
-            android:layout_width="172dp"
+            android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_6sdp"
             app:cardBackgroundColor="@color/purple_light_new"
