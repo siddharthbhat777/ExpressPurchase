@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_25sdp"
+    android:layout_margin="@dimen/_15sdp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/_12sdp"
     app:cardElevation="@dimen/_3sdp"
@@ -236,6 +236,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cancel"
             android:layout_width="172dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_6sdp"

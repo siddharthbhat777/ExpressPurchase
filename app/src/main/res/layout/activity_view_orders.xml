@@ -243,7 +243,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="CONTACT US"
+                            android:text="VIEW DETAIL"
                             android:textColor="@color/full_white"
                             android:textStyle="bold" />
                     </com.google.android.material.card.MaterialCardView>
