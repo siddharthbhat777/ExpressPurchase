@@ -129,6 +129,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                     binding.radioButton2.setChecked(false);
 
                                     type = "express";
+                                    binding.textView18.setVisibility(View.VISIBLE);
                                     binding.materialCardView2.setVisibility(View.VISIBLE);
 
                                     addmoney();
@@ -143,6 +144,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                     type = "razorpay";
 
                                     binding.materialCardView2.setVisibility(View.GONE);
+                                    binding.textView18.setVisibility(View.GONE);
                                     binding.linearProceedToPay.setVisibility(View.VISIBLE);
 
                                     showrazorpay();
@@ -153,8 +155,9 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                         } else if (item_price <= 10000 && wallet_amounts > item_price) {
 
                             binding.materialCardView2.setVisibility(View.GONE);
+                            binding.textView18.setVisibility(View.GONE);
                             binding.linearProceedToPay.setVisibility(View.VISIBLE);
-                            binding.checkBox.setTextColor(Color.WHITE);
+                            //binding.checkBox.setTextColor(Color.WHITE);
 
                             payfromwallet();
 
@@ -169,6 +172,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
 
                                     type = "express";
                                     binding.materialCardView2.setVisibility(View.GONE);
+                                    binding.textView18.setVisibility(View.GONE);
                                     binding.linearProceedToPay.setVisibility(View.VISIBLE);
                                     payfromwallet();
 
@@ -182,6 +186,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                     type = "razorpay";
 
                                     binding.materialCardView2.setVisibility(View.GONE);
+                                    binding.textView18.setVisibility(View.GONE);
                                     binding.linearProceedToPay.setVisibility(View.VISIBLE);
 
                                     showrazorpay();
@@ -197,37 +202,37 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     }
 
     private void addmoney() {
-binding.linearProceedToPay.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-        final Dialog dialog = new Dialog(PaymentOptions.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-        dialog.setContentView(R.layout.insufficient_funds_dialog);
-
-        CardView ok = (CardView) dialog.findViewById(R.id.ok);
-
-
-        ok.setOnClickListener(new View.OnClickListener() {
+        binding.linearProceedToPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-                binding.button7.setOnClickListener(new View.OnClickListener() {
+
+                final Dialog dialog = new Dialog(PaymentOptions.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                dialog.setContentView(R.layout.insufficient_funds_dialog);
+
+                CardView ok = (CardView) dialog.findViewById(R.id.ok);
+
+
+                ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getApplicationContext(), WalletActivity.class));
+                        dialog.dismiss();
+                        binding.button7.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(new Intent(getApplicationContext(), WalletActivity.class));
+                            }
+                        });
                     }
                 });
+
+
+                dialog.show();
+
             }
         });
-
-
-        dialog.show();
-
-    }
-});
     }
 
     private void payfromwallet() {

@@ -235,14 +235,25 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <LinearLayout
+            android:layout_width="@dimen/_2sdp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/cancel"
+            app:layout_constraintEnd_toStartOf="@+id/cancel"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView6"
+            app:layout_constraintTop_toTopOf="@+id/cancel"></LinearLayout>
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cancel"
             android:layout_width="185dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
             android:layout_marginTop="@dimen/_6sdp"
             app:cardBackgroundColor="@color/purple_light_new"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView6"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
             <LinearLayout

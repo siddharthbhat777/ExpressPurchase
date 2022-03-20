@@ -40,8 +40,10 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_minus2sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            android:layout_marginBottom="-32dp"
+            android:layout_marginRight="@dimen/_minus2sdp"
+            android:layout_marginBottom="@dimen/_minus25sdp"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="@color/tag_color"

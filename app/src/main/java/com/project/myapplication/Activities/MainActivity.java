@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -73,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
     private SharedPreferences sharedPreferences;
 
     public static DrawerLayout mDrawerLayout;
-    private Toolbar mToolbar;
 
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -111,12 +111,19 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
         // Setup Actionbar / Toolbar
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        mToolbar = (Toolbar) findViewById(R.id.action_bar);
-        setSupportActionBar(mToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
+//        mToolbar = (Toolbar) findViewById(R.id.action_bar);
+//        mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+//        ActionBar actionbar = getSupportActionBar();
+//        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
+//        actionbar.setDisplayHomeAsUpEnabled(true);
+//        setSupportActionBar(mToolbar);
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+//        mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
         //getSupportActionBar().setLogo(R.drawable.action_bar_logo);
 

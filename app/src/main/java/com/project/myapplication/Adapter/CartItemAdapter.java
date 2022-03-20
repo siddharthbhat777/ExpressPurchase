@@ -35,7 +35,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         CartModel model = list.get(position);
-        holder.sno.setText(String.valueOf(position));
+        holder.sno.setText(String.valueOf(position+1));
         holder.price.setText(String.valueOf(model.getNewprice()));
         holder.name.setText(String.valueOf(model.getItemName()));
         holder.quantity.setText(String.valueOf(model.getQuantity()));

@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MET College Projects/ExpressPurchase/app/src/main/res/layout/activity_cart_successful.xml" value="0.2" />
+        <entry key="..\:/MET College Projects/ExpressPurchase/app/src/main/res/layout/activity_payment_options.xml" value="0.27447916666666666" />
+        <entry key="..\:/MET College Projects/ExpressPurchase/app/src/main/res/layout/activity_payment_successful.xml" value="0.27447916666666666" />
+        <entry key="..\:/MET College Projects/ExpressPurchase/app/src/main/res/layout/activity_shopping_cart.xml" value="0.264" />
+        <entry key="..\:/MET College Projects/ExpressPurchase/app/src/main/res/layout/cartitem_design.xml" value="0.16" />
+        <entry key="..\:/MET College Projects/ExpressPurchase/app/src/main/res/layout/order_details.xml" value="0.264" />
+        <entry key="..\:/MET College Projects/ExpressPurchase/app/src/main/res/layout/paid_items_single_item.xml" value="0.27447916666666666" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.290625" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable-v24/linear_item_details_atc_clicked.xml" value="0.2145" />
         <entry key="..\:/MET College Projects/Sem 1 Project/ExpressPurchase/app/src/main/res/drawable/background.xml" value="0.290625" />
