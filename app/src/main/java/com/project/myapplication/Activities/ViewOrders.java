@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -71,6 +72,10 @@ public class ViewOrders extends AppCompatActivity {
         int a = sh.getInt("invoice", 0);
 
 // We can then use the data
+        if (String.valueOf(a).equals("")){
+            binding.textView19.setVisibility(View.GONE);
+            binding.materialCardView.setVisibility(View.GONE);
+        }else{
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
@@ -109,10 +114,13 @@ public class ViewOrders extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), "Nothing Here", Toast.LENGTH_SHORT).show();
+                    binding.textView19.setVisibility(View.GONE);
+                    binding.materialCardView.setVisibility(View.GONE);
+//                    Toast.makeText(getApplicationContext(), "Nothing Here", Toast.LENGTH_SHORT).show();
                 }
+            }  });
             }
-        });
+
     }
 
     private void initrv() {
@@ -144,13 +152,13 @@ public class ViewOrders extends AppCompatActivity {
     }
 
     public class ViewDialog {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
         public void showDialog(Activity activity, String item_name, String invoice, String quantitys, String prices, long dateofdelivery, String addres) {
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-            dialog.setCancelable(false);
             dialog.setContentView(R.layout.order_details);
 
             CardView contact = (CardView) dialog.findViewById(R.id.materialCardView6);
@@ -189,6 +197,42 @@ public class ViewOrders extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
+                    final Dialog dialog = new Dialog(activity);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.cancel_order_dialog);
+
+                    CardView yes = (CardView) dialog.findViewById(R.id.yesCancelDialog);
+                    CardView no = (CardView) dialog.findViewById(R.id.noCancelDialog);
+
+
+                    no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    yes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            FirebaseFirestore.getInstance().collection("User").document(account.getEmail()).collection("Orders").document(invoice).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+                                    sharedPreferences.edit().remove("invoice").commit();
+                                    binding.textView19.setVisibility(View.GONE);
+                                    binding.materialCardView.setVisibility(View.GONE);
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
+                    });
+
+
+                    dialog.show();
                 }
             });
 

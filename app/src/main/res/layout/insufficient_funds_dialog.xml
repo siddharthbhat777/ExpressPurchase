@@ -55,12 +55,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ok"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_6sdp"
-            android:orientation="horizontal"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
+            android:orientation="horizontal"
             app:cardBackgroundColor="@color/purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

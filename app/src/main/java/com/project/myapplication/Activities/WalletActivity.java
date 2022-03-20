@@ -1,7 +1,9 @@
 package com.project.myapplication.Activities;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -106,57 +109,75 @@ public class WalletActivity extends AppCompatActivity {
                                 });
 
                             } else {
-                                Toast.makeText(getApplicationContext(), "You had exceed your Wallet Limit!", Toast.LENGTH_SHORT).show();
 
+                                final Dialog dialog = new Dialog(WalletActivity.this);
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                                dialog.setContentView(R.layout.exceed_wallet_limit_dialog);
+
+                                CardView ok = (CardView) dialog.findViewById(R.id.ok);
+
+
+                                ok.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+//                                Toast.makeText(getApplicationContext(), "You had exceed your Wallet Limit!", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                                dialog.show();
                             }
-                        } } else {
-                        binding.amountEditText.setError("Please Enter Something Here!");
+                        }
+                        } else {
+                            binding.amountEditText.setError("Please Enter Something Here!");
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+
+        private void onclick () {
+
+            binding.rs500.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected(binding.rs500, binding.cv500, binding.amountEditText);
+                    deselect(binding.rs1000, binding.cv1000);
+                    deselect(binding.rs2000, binding.cv2000);
+
+                }
+            });
+
+            binding.rs1000.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected(binding.rs1000, binding.cv1000, binding.amountEditText);
+                    deselect(binding.rs500, binding.cv500);
+                    deselect(binding.rs2000, binding.cv2000);
+                }
+            });
+
+            binding.rs2000.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected(binding.rs2000, binding.cv2000, binding.amountEditText);
+                    deselect(binding.rs1000, binding.cv1000);
+                    deselect(binding.rs500, binding.cv500);
+                }
+            });
+        }
+
+        private void deselect (Button btn, MaterialCardView cv){
+            cv.setCardBackgroundColor(getResources().getColor(R.color.white));
+            btn.setTextColor(getResources().getColor(R.color.black));
+        }
+
+        private void selected (Button button, MaterialCardView cv, EditText editText){
+            cv.setCardBackgroundColor(getResources().getColor(R.color.profile_text_color));
+            button.setTextColor(getResources().getColor(R.color.white));
+            String amount = button.getText().toString().substring(1);
+            editText.setText(amount);
+        }
     }
-
-    private void onclick() {
-
-        binding.rs500.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selected(binding.rs500, binding.cv500, binding.amountEditText);
-                deselect(binding.rs1000, binding.cv1000);
-                deselect(binding.rs2000, binding.cv2000);
-
-            }
-        });
-
-        binding.rs1000.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selected(binding.rs1000, binding.cv1000, binding.amountEditText);
-                deselect(binding.rs500, binding.cv500);
-                deselect(binding.rs2000, binding.cv2000);
-            }
-        });
-
-        binding.rs2000.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selected(binding.rs2000, binding.cv2000, binding.amountEditText);
-                deselect(binding.rs1000, binding.cv1000);
-                deselect(binding.rs500, binding.cv500);
-            }
-        });
-    }
-
-    private void deselect(Button btn, MaterialCardView cv) {
-        cv.setCardBackgroundColor(getResources().getColor(R.color.white));
-        btn.setTextColor(getResources().getColor(R.color.black));
-    }
-
-    private void selected(Button button, MaterialCardView cv, EditText editText) {
-        cv.setCardBackgroundColor(getResources().getColor(R.color.profile_text_color));
-        button.setTextColor(getResources().getColor(R.color.white));
-        String amount = button.getText().toString().substring(1);
-        editText.setText(amount);
-    }
-}

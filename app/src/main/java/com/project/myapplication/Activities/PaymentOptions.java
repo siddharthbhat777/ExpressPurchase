@@ -1,23 +1,29 @@
 package com.project.myapplication.Activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.project.myapplication.R;
 import com.project.myapplication.databinding.ActivityPaymentOptionsBinding;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
@@ -79,6 +85,16 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
         acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
             String personEmail = acct.getEmail();
+            FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (value != null) {
+                        String address = value.getString("address");
+                        binding.textView29.setText(address);
+                    }
+                }
+            });
+
             FirebaseFirestore.getInstance().collection("User").document(personEmail).collection("Amount").document("moneyinaccount").addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -113,7 +129,6 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                     binding.radioButton2.setChecked(false);
 
                                     type = "express";
-                                    binding.linearProceedToPay.setVisibility(View.GONE);
                                     binding.materialCardView2.setVisibility(View.VISIBLE);
 
                                     addmoney();
@@ -135,16 +150,10 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                                 }
                             });
 
-                            binding.checkBox.setText("Insufficient Money in Wallet!");
-                            binding.checkBox.setTextColor(Color.RED);
-                            binding.textView29.setText("Insufficient money need more money ! plzz add the money by clicking on below buttons");
-
                         } else if (item_price <= 10000 && wallet_amounts > item_price) {
 
                             binding.materialCardView2.setVisibility(View.GONE);
                             binding.linearProceedToPay.setVisibility(View.VISIBLE);
-                            binding.checkBox.setText("Pay Using Wallet!");
-                            binding.textView29.setText("Pay Using the following Option ! Will get Cashback if u buy this item with the app Wallet");
                             binding.checkBox.setTextColor(Color.WHITE);
 
                             payfromwallet();
@@ -188,14 +197,37 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     }
 
     private void addmoney() {
+binding.linearProceedToPay.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        final Dialog dialog = new Dialog(PaymentOptions.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        dialog.setContentView(R.layout.insufficient_funds_dialog);
+
+        CardView ok = (CardView) dialog.findViewById(R.id.ok);
 
 
-        binding.button7.setOnClickListener(new View.OnClickListener() {
+        ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), WalletActivity.class));
+                dialog.dismiss();
+                binding.button7.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getApplicationContext(), WalletActivity.class));
+                    }
+                });
             }
         });
+
+
+        dialog.show();
+
+    }
+});
     }
 
     private void payfromwallet() {
