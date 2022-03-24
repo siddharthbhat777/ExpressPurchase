@@ -202,7 +202,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_154sdp"
                         android:layout_marginBottom="@dimen/_25sdp"
-                        android:background="@drawable/drawer_menu_profile"
+                        android:background="@drawable/purple_drawer_bg"
                         android:elevation="@dimen/_18sdp"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +212,7 @@
 
                         <com.google.android.material.card.MaterialCardView
                             app:strokeWidth="@dimen/_1sdp"
-                            app:strokeColor="@android:color/black"
+                            app:strokeColor="@color/full_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

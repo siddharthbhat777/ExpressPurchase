@@ -34,7 +34,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginBottom="32dp"
-                        android:background="@drawable/drawer_menu_profile"
+                        android:background="@drawable/purple_drawer_bg"
                         android:elevation="24sp"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
