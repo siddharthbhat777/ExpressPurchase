@@ -180,8 +180,8 @@ public class ViewOrders extends AppCompatActivity {
             TextView price = dialog.findViewById(R.id.tvTotalPrice);
             price.setText(prices);
 
-            TextView address = dialog.findViewById(R.id.tvAddress);
-            address.setText(addres);
+            //TextView address = dialog.findViewById(R.id.tvAddress);
+            //address.setText(addres);
 
 
             TextView date = dialog.findViewById(R.id.tvDate);
