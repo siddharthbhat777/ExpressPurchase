@@ -58,14 +58,14 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <include
             android:id="@+id/action_bar"
-            layout="@layout/action_bar"
+            layout="@layout/main_action_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/searchLayout"
@@ -211,7 +211,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.card.MaterialCardView
-                            app:strokeWidth="@dimen/_4sdp"
+                            app:strokeWidth="@dimen/_1sdp"
                             app:strokeColor="@android:color/black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -235,7 +235,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginStart="@dimen/_15sdp"
+                            android:layout_marginEnd="@dimen/_15sdp"
                             android:gravity="center"
+                            android:lines="1"
+                            android:singleLine="true"
                             android:text="TextView"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_26sdp"

@@ -11,20 +11,49 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.project.myapplication.R;
 
 public class Settings extends AppCompatActivity {
 
     SwitchCompat switchTheme;
     SharedPreferences sharedPreferences = null;
-    Button button;
+    MaterialCardView logoutCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         switchTheme = findViewById(R.id.night_switch_button);
+        logoutCardView = findViewById(R.id.logOutCardView);
+
+        logoutCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoogleSignInOptions gso = new GoogleSignInOptions
+                        .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+                GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(Settings.this, gso);
+                FirebaseAuth.getInstance().signOut();
+                mGoogleSignInClient.signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
+                    }
+                });
+                Toast.makeText(Settings.this, "Signed Out", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //Status Bar Color
         getWindow().setStatusBarColor(ContextCompat.getColor(Settings.this, R.color.purple));
@@ -51,7 +80,7 @@ public class Settings extends AppCompatActivity {
                     switchTheme.setChecked(false);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("night_mode", false);
-                    editor.apply()                                      ;
+                    editor.apply();
                 }
             }
         });

@@ -5,12 +5,14 @@
     android:layout_height="@dimen/_54sdp"
     android:background="@color/purple"
     android:elevation="@dimen/_25sdp"
-    android:foregroundGravity="center">
+    android:foregroundGravity="center"
+    android:id="@+id/my_app_toolbar">
 
     <ImageView
         android:layout_width="@dimen/_154sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/app_icon_new" />
+
 
 </androidx.appcompat.widget.Toolbar>

@@ -66,11 +66,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="@dimen/_15sdp"
                             android:layout_marginTop="20dp"
+                            android:layout_marginEnd="@dimen/_15sdp"
                             android:gravity="center"
-                            android:text="TextView"
+                            android:singleLine="true"
+                            android:text="Express Purchase"
                             android:textColor="@android:color/white"
-                            android:textSize="34sp" />
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 

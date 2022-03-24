@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -113,10 +116,27 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         mDrawerLayout = findViewById(R.id.drawer_layout);
 //        mToolbar = (Toolbar) findViewById(R.id.action_bar);
 //        mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
-        toolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+        RelativeLayout toolbar =  findViewById(R.id.action_bar);
+        ImageView cart, menu;
+        menu= findViewById(R.id.actionbaricon);
+        cart= findViewById(R.id.actionbarcart);
+
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
+                startActivity(intent);            }
+        });
+
+//        setSupportActionBar(toolbar);
 //        ActionBar actionbar = getSupportActionBar();
 //        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
 //        actionbar.setDisplayHomeAsUpEnabled(true);
@@ -178,29 +198,29 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
                 startActivity(new Intent(getApplicationContext(), CustomerProfile.class));
             }
         });
-
-        // Setup Navigation Drawer Layout
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
 //
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
+//        // Setup Navigation Drawer Layout
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+//
+//            @Override
+//            public void onDrawerOpened(View drawerView) {
+//                super.onDrawerOpened(drawerView);
+//            }
+//
+//            @Override
+//            public void onDrawerClosed(View drawerView) {
+//                super.onDrawerClosed(drawerView);
+//            }
+//        };
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
+////
+//        mDrawerLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mDrawerToggle.syncState();
+//            }
+//        });
 
         settingsCv = findViewById(R.id.settingsCardView);
         aboutCv = findViewById(R.id.aboutCardView);
@@ -356,20 +376,7 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
         updateOption(options);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar_right_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
-        startActivity(intent);
-        return super.onOptionsItemSelected(item);
-    }
 
     public void setupRecyclerView() {
 
