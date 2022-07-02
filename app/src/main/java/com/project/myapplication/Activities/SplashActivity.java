@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -25,7 +26,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.project.myapplication.R;
 
 import java.util.HashMap;
@@ -35,7 +39,7 @@ import java.util.TimerTask;
 public class SplashActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-
+    String address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,8 +123,14 @@ public class SplashActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
+                            FirebaseFirestore.getInstance().collection("User").document(gmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    if (value.exists()) {
+                                         address = value.getString("address");
                             HashMap<String,Object> map = new HashMap();
                             map.put("name", name);
+                            map.put("address", address);
 
                             FirebaseFirestore.getInstance().collection("User").document(gmail).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -143,6 +153,7 @@ public class SplashActivity extends AppCompatActivity {
                         }
                     }
                 });
+                        }}});
 
     }
 

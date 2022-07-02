@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -62,6 +63,9 @@ public class CustomerProfile extends AppCompatActivity {
                         String address = value.getString("address");
                         binding.editTextTextPersonName.setText(address);
                         binding.textView8.setText(address);
+                                binding.editTextTextPersonName.setText(address);
+                                binding.textView8.setText(address);
+
                     }
                 }
             });
@@ -93,7 +97,7 @@ public class CustomerProfile extends AppCompatActivity {
                             HashMap<String, Object> map = new HashMap<>();
                             map.put("address", binding.editTextTextPersonName.getText().toString());
 
-                            FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).set(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
+                            FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).update(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {

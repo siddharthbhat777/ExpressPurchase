@@ -67,7 +67,7 @@ public class WalletActivity extends AppCompatActivity {
 
     private void setvalue() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("amounts", "1");
+        map.put("amounts", "0");
         FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Amount").document("moneyinaccount").set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

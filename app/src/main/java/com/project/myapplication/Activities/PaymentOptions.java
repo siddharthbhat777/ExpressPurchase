@@ -3,8 +3,6 @@ package com.project.myapplication.Activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class PaymentOptions extends AppCompatActivity implements PaymentResultListener {
@@ -98,7 +97,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
             FirebaseFirestore.getInstance().collection("User").document(personEmail).collection("Amount").document("moneyinaccount").addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (value != null) {
+                    if (value.exists()) {
                         String amountinstring = value.getString("amounts");
                         wallet_amounts = Integer.parseInt(amountinstring);
 
@@ -195,6 +194,16 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                             });
                         }
 
+                    }else{
+                         HashMap<String, Object> map = new HashMap<>();
+                         map.put("amounts", "0");
+                        FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Amount").document("moneyinaccount").set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                checkifeligibleforwallet();
+                                //
+                            }
+                        });
                     }
                 }
             });
