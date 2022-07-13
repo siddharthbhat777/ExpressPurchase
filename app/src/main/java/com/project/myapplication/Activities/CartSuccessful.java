@@ -92,7 +92,7 @@ public class CartSuccessful extends AppCompatActivity {
             int i1 = r.nextInt(10000000 - 10000) + 10000;
             String invoice_number = String.valueOf(i1);
 
-            ViewOrderModel model = new ViewOrderModel(invoice_number, String.valueOf(models.getQuantity()), String.valueOf(models.getNewprice()), System.currentTimeMillis(), models.getItemName());
+            ViewOrderModel model = new ViewOrderModel(invoice_number, String.valueOf(models.getQuantity()), String.valueOf(models.getNewprice()), System.currentTimeMillis(), models.getItemName(),models.getAddress());
 
             FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Orders").document(invoice_number).set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

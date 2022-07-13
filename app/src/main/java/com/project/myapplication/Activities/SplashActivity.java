@@ -3,11 +3,8 @@ package com.project.myapplication.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -40,6 +37,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     String address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +97,7 @@ public class SplashActivity extends AppCompatActivity {
                             // Google Sign In was successful, authenticate with Firebase
                             GoogleSignInAccount account = task.getResult(ApiException.class);
                             assert account != null;
-                            firebaseAuthWithGoogle(account.getIdToken(),account.getEmail(),account.getGivenName());
+                            firebaseAuthWithGoogle(account.getIdToken(), account.getEmail(), account.getGivenName());
                         } catch (ApiException e) {
                             // Google Sign In failed, update UI appropriately
                             Toast.makeText(SplashActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -114,7 +112,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    private void firebaseAuthWithGoogle(String idToken,String gmail,String name) {
+    private void firebaseAuthWithGoogle(String idToken, String gmail, String name) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -122,38 +120,39 @@ public class SplashActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-
                             FirebaseFirestore.getInstance().collection("User").document(gmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                                     if (value.exists()) {
-                                         address = value.getString("address");
-                            HashMap<String,Object> map = new HashMap();
-                            map.put("name", name);
-                            map.put("address", address);
+                                        address = value.getString("address");
+                                        HashMap<String, Object> map = new HashMap();
+                                        map.put("name", name);
+                                        map.put("address", address);
 
-                            FirebaseFirestore.getInstance().collection("User").document(gmail).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
+                                        FirebaseFirestore.getInstance().collection("User").document(gmail).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
 
-                                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                                    if (getIntent().getExtras() != null)
-                                        intent.putExtras(getIntent().getExtras());
-                                    startActivity(intent);
-                                    finish();
+                                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                                                if (getIntent().getExtras() != null)
+                                                    intent.putExtras(getIntent().getExtras());
+                                                startActivity(intent);
+                                                finish();
 
+                                            }
+                                        });
+
+                                    } else {
+
+                                        // If sign in fails, display a message to the user.
+//                                        assert task.getException() != null;
+                                        Toast.makeText(SplashActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             });
-
-                        } else {
-
-                            // If sign in fails, display a message to the user.
-                            assert task.getException() != null;
-                            Toast.makeText(SplashActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-                        }}});
 
     }
 

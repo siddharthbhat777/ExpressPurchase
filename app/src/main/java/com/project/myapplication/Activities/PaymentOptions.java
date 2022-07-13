@@ -36,7 +36,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
     ActivityPaymentOptionsBinding binding;
     int wallet_amounts;
     int item_price;
-    String name, salesman, desc, image, price;
+    String name, salesman, desc, image, price, address;
     String type = "";
 
 
@@ -60,6 +60,22 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
         desc = getIntent().getStringExtra("item_desc");
         image = getIntent().getStringExtra("item_image");
         price = getIntent().getStringExtra("item_price");
+
+        //Getting Address from Firebase
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (acct != null) {
+            String personEmail = acct.getEmail();
+
+            FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (value != null) {
+                        String address_str = value.getString("address");
+                        address = address_str;
+                    }
+                }
+            });
+        }
 
         setdata();
 
@@ -194,9 +210,9 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                             });
                         }
 
-                    }else{
-                         HashMap<String, Object> map = new HashMap<>();
-                         map.put("amounts", "0");
+                    } else {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("amounts", "0");
                         FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Amount").document("moneyinaccount").set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
@@ -262,6 +278,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                 intent.putExtra("date", System.currentTimeMillis());
                 intent.putExtra("invoice_number", String.valueOf(i1));
                 intent.putExtra("ID", "wallet");
+                intent.putExtra("address", address);
                 startActivity(intent);
                 finish();
 
@@ -322,6 +339,7 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
         intent.putExtra("date/time", System.currentTimeMillis());
         intent.putExtra("invoice_number", String.valueOf(i1));
         intent.putExtra("ID", "razorpay");
+        intent.putExtra("address", address);
         startActivity(intent);
         finish();
     }

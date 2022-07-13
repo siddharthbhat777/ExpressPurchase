@@ -46,6 +46,7 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
         holder.noofproduct.setText(model.getNumber_of_products());
         holder.totalprice.setText(model.getTotal_price());
         holder.textViewn21.setText(model.getItem_name());
+        holder.address.setText(model.getAddress());
         Long currentTime = model.getDate_of_delivery();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd,yyyy");
@@ -78,7 +79,7 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView invoice, noofproduct, totalprice, dateofdeliver,textViewn21;
+        TextView invoice, noofproduct, totalprice, dateofdeliver,textViewn21,address;
         MaterialCardView ViewDetail;
 
         public ViewHolder(@NonNull View itemView) {
@@ -90,6 +91,7 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
             dateofdeliver = itemView.findViewById(R.id.textView26);
             textViewn21 = itemView.findViewById(R.id.textViewn21);
             ViewDetail = itemView.findViewById(R.id.viewOrdersButton);
+            address = itemView.findViewById(R.id.address);
         }
     }
 }

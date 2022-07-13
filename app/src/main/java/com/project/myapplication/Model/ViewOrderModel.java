@@ -1,7 +1,7 @@
 package com.project.myapplication.Model;
 
 public class ViewOrderModel {
-    String invoice_number, number_of_products, total_price, item_name;
+    String invoice_number, number_of_products, total_price, item_name,address;
     long date_of_delivery;
     public String getInvoice_number() {
         return invoice_number;
@@ -46,11 +46,20 @@ public class ViewOrderModel {
     public ViewOrderModel() {
     }
 
-    public ViewOrderModel(String invoice_number, String number_of_products, String total_price, long date_of_delivery, String item_name) {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public ViewOrderModel(String invoice_number, String number_of_products, String total_price, long date_of_delivery, String item_name ,String address) {
         this.invoice_number = invoice_number;
         this.number_of_products = number_of_products;
         this.total_price = total_price;
-        this.date_of_delivery = date_of_delivery;
         this.item_name = item_name;
+        this.address = address;
+        this.date_of_delivery = date_of_delivery;
     }
 }

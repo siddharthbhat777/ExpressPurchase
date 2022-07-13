@@ -29,7 +29,7 @@ import java.util.Random;
 
 public class PaymentSuccessful extends AppCompatActivity {
 
-    String item_name, item_desc, item_price, item_salesman_name, item_image, date, invoice_number, ID;
+    String item_name, item_desc, item_price, item_salesman_name, item_image, date, invoice_number, ID,address;
     GoogleSignInAccount account;
     int total, newamountl, itemprice;
 
@@ -53,6 +53,7 @@ public class PaymentSuccessful extends AppCompatActivity {
         date = getIntent().getStringExtra("date");
         invoice_number = getIntent().getStringExtra("invoice_number");
         ID = getIntent().getStringExtra("ID");
+        address = getIntent().getStringExtra("address");
 
         account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
@@ -62,7 +63,7 @@ public class PaymentSuccessful extends AppCompatActivity {
         Picasso.get().load(item_image).into(binding.pImg);
 
 
-        ViewOrderModel model = new ViewOrderModel(invoice_number, "1", item_price, System.currentTimeMillis(), item_name);
+        ViewOrderModel model = new ViewOrderModel(invoice_number, "1", item_price, System.currentTimeMillis(), item_name,address);
 
         FirebaseFirestore.getInstance().collection("User").document(account.getEmail()).collection("Orders").document(invoice_number).set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

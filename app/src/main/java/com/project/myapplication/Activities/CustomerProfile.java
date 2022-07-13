@@ -97,7 +97,7 @@ public class CustomerProfile extends AppCompatActivity {
                             HashMap<String, Object> map = new HashMap<>();
                             map.put("address", binding.editTextTextPersonName.getText().toString());
 
-                            FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).update(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
+                            FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).set(map).addOnCompleteListener(CustomerProfile.this, new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {

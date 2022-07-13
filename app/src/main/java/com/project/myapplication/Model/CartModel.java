@@ -7,14 +7,16 @@ public class CartModel {
     String itemImage;
     long time;
     int quantity;
+    String address;
 
-    public CartModel(String itemName, int itemPrice, int newprice, String itemImage, long time, int quantity) {
+    public CartModel(String itemName, int itemPrice, int newprice, String itemImage, long time, int quantity , String address) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.newprice = newprice;
         this.itemImage = itemImage;
         this.time = time;
         this.quantity = quantity;
+        this.address = address;
     }
 
     public long getTime() {
@@ -35,6 +37,14 @@ public class CartModel {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setQuantity(int quantity) {

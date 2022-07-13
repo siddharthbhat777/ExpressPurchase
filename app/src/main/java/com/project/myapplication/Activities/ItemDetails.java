@@ -32,7 +32,7 @@ public class ItemDetails extends AppCompatActivity {
     private Realm realm;
 
 
-    private String name, salesman, desc, image, price;
+    private String name, salesman, desc, image, price,address;
     private GoogleSignInAccount acct;
 
     @Override
@@ -63,6 +63,23 @@ public class ItemDetails extends AppCompatActivity {
         itemSalesmanName.setText(salesman);
         itemDescSingle.setText(Html.fromHtml(desc));
         itemPriceSingle.setText(price);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (acct != null) {
+            String personEmail = acct.getEmail();
+
+            FirebaseFirestore.getInstance().collection("User").document(personEmail).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (value != null) {
+                        String address_str = value.getString("address");
+                        address = address_str;
+                    }
+                }
+            });
+        }
+
+
         addtocart();
         buynow();
     }
@@ -105,6 +122,7 @@ public class ItemDetails extends AppCompatActivity {
                             intent.putExtra("item_salesman_name", salesman);
                             intent.putExtra("item_image", image);
                             intent.putExtra("code", "1");
+                            intent.putExtra("address", address);
 
                             startActivity(intent);
                             finish();
