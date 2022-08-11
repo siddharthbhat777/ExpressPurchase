@@ -42,7 +42,7 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         ViewOrderModel model = list.get(position);
-        holder.invoice.setText(model.getInvoice_number());
+        holder.invoice.setText(model.getInvoice_number()); 
         holder.noofproduct.setText(model.getNumber_of_products());
         holder.totalprice.setText(model.getTotal_price());
         holder.textViewn21.setText(model.getItem_name());
