@@ -105,6 +105,7 @@ public class CartSuccessful extends AppCompatActivity {
                 });
                         ViewOrderModel model = new ViewOrderModel(invoice_number, String.valueOf(models.getQuantity()), String.valueOf(models.getNewprice()), System.currentTimeMillis(), models.getItemName(), address);
 
+
                         FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Orders").document(invoice_number).set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {

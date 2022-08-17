@@ -46,8 +46,13 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
         holder.noofproduct.setText(model.getNumber_of_products());
         holder.totalprice.setText(model.getTotal_price());
         holder.textViewn21.setText(model.getItem_name());
-        holder.address.setText(model.getAddress());
+
         Long currentTime = model.getDate_of_delivery();
+        if(model.getAddress()==null){
+            holder.address.setText("No address available.");
+        } else {
+            holder.address.setText(model.getAddress());
+        }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd,yyyy");
         Date date = new Date(currentTime);
@@ -69,6 +74,8 @@ public class ViewOrderAdapter extends RecyclerView.Adapter<ViewOrderAdapter.View
                 }
             }
         });
+
+
 
     }
 
