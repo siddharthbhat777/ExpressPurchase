@@ -68,19 +68,14 @@ public class PaymentSuccessful extends AppCompatActivity {
         FirebaseFirestore.getInstance().collection("User").document(account.getEmail()).collection("Orders").document(invoice_number).set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-
-// Storing data into SharedPreferences
+                // Storing data into SharedPreferences
                 SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
 
-// Creating an Editor object to edit(write to the file)
+                // Creating an Editor object to edit(write to the file)
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
-// Storing the key and its value as the data fetched from edittext
+                // Storing the key and its value as the data fetched from edittext
                 myEdit.putInt("invoice", Integer.parseInt(invoice_number));
-
-// Once the changes have been made,
-// we need to commit to apply those changes made,
-// otherwise, it will throw an error
                 myEdit.commit();
                 cutmoneyifwallet();
                 onclick();
@@ -92,7 +87,6 @@ public class PaymentSuccessful extends AppCompatActivity {
     }
 
     private void cutmoneyifwallet() {
-        //    if (ID.equals("wallet")) {
         FirebaseFirestore.getInstance().collection("User").document(account.getEmail()).collection("Amount").document("moneyinaccount").addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -115,21 +109,9 @@ public class PaymentSuccessful extends AppCompatActivity {
                         newamounts = total - itemprice;
                         binding.cashbackCard.setVisibility(View.GONE);
                     }
-
-//                    Toast.makeText(getApplicationContext(), "new" + String.valueOf(newamounts), Toast.LENGTH_SHORT).show();
-
-// Storing data into SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref2", MODE_PRIVATE);
-
-// Creating an Editor object to edit(write to the file)
                     SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-// Storing the key and its value as the data fetched from edittext
                     myEdit.putString("amount", String.valueOf(newamounts));
-
-// Once the changes have been made,
-// we need to commit to apply those changes made,
-// otherwise, it will throw an error
                     myEdit.commit();
 
 
@@ -140,18 +122,11 @@ public class PaymentSuccessful extends AppCompatActivity {
 
     @Override
     public void onStop() {
-
-        // Retrieving the value using its keys the file name
-// must be same in both saving and retrieving the data
         SharedPreferences sh = getSharedPreferences("MySharedPref2", MODE_APPEND);
-
-// The value will be default as empty string because for
-// the very first time when the app is opened, there is nothing to show
         String s1 = sh.getString("amount", "");
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("amounts", s1);
-//
         FirebaseFirestore.getInstance().collection("User").document(account.getEmail()).collection("Amount").document("moneyinaccount").set(map).addOnCompleteListener(PaymentSuccessful.this, new OnCompleteListener<Void>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

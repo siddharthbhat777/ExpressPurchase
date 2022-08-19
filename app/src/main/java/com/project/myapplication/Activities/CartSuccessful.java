@@ -84,9 +84,6 @@ public class CartSuccessful extends AppCompatActivity {
     }
 
     private void setdata(ArrayList<CartModel> list) {
-//        service.execute(new Runnable() {
-//            @Override
-//            public void run() {
         for (CartModel models : list) {
 
             Random r = new Random();
@@ -98,94 +95,76 @@ public class CartSuccessful extends AppCompatActivity {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null) {
-                         address = value.getString("address");
+                        address = value.getString("address");
 
                     }
                 }
-                });
-                        ViewOrderModel model = new ViewOrderModel(invoice_number, String.valueOf(models.getQuantity()), String.valueOf(models.getNewprice()), System.currentTimeMillis(), models.getItemName(), address);
+            });
+            ViewOrderModel model = new ViewOrderModel(invoice_number, String.valueOf(models.getQuantity()), String.valueOf(models.getNewprice()), System.currentTimeMillis(), models.getItemName(), address);
 
 
-                        FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Orders").document(invoice_number).set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
+            FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Orders").document(invoice_number).set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                    myEdit.putInt("invoice", Integer.parseInt(invoice_number));
+                    myEdit.commit();
 
-// Storing data into SharedPreferences
-                                SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-
-// Creating an Editor object to edit(write to the file)
-                                SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-// Storing the key and its value as the data fetched from edittext
-                                myEdit.putInt("invoice", Integer.parseInt(invoice_number));
-
-// Once the changes have been made,
-// we need to commit to apply those changes made,
-// otherwise, it will throw an error
-                                myEdit.commit();
-
-                            }
-                        });
-                        break;
-
-                    }
+                }
+            });
+            break;
 
         }
-    
-//            }
-//        });
+
+    }
 
 
-            private int gettotalprice (ArrayList < CartModel > mItems) {
-                int total = 0;
-                for (int i = 0; i < mItems.size(); i++) {
-                    total += Integer.parseInt(String.valueOf(mItems.get(i).getNewprice()));
-                }
-                binding.textView45.setText("Total : Rs " + total);
-                return total;
-            }
+    private int gettotalprice(ArrayList<CartModel> mItems) {
+        int total = 0;
+        for (int i = 0; i < mItems.size(); i++) {
+            total += Integer.parseInt(String.valueOf(mItems.get(i).getNewprice()));
+        }
+        binding.textView45.setText("Total : Rs " + total);
+        return total;
+    }
 
-            private void onclick () {
+    private void onclick() {
 
 
-                binding.button8.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(new Intent(getApplicationContext(), ViewOrders.class));
-                        finish();
-                    }
-                });
-                binding.button9.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                    }
-                });
-            }
-
+        binding.button8.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onStop () {
-//        delete from cart
-                for (CartModel model : newlist) {
-                    deleteDatabaseItems(model.getItemName());
+            public void onClick(View v) {
 
-
-                }
-
-
-//        Toast.makeText(getApplicationContext(), "remove", Toast.LENGTH_SHORT).show();
-                super.onStop();
+                startActivity(new Intent(getApplicationContext(), ViewOrders.class));
+                finish();
             }
-
-            private void deleteDatabaseItems (String invoice){
-                FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Cart").document(invoice).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        finish();
-                    }
-                });
-
+        });
+        binding.button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
             }
+        });
+    }
+
+    @Override
+    protected void onStop() {
+        //delete from cart
+        for (CartModel model : newlist) {
+            deleteDatabaseItems(model.getItemName());
         }
+        super.onStop();
+    }
+
+    private void deleteDatabaseItems(String invoice) {
+        FirebaseFirestore.getInstance().collection("User").document(acct.getEmail()).collection("Cart").document(invoice).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                finish();
+            }
+        });
+
+    }
+}

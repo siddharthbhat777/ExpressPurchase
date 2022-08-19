@@ -50,7 +50,6 @@ public class ItemDetails extends AppCompatActivity {
         buyNow = findViewById(R.id.buyNowClick);
         atc = findViewById(R.id.atcTV);
         bn = findViewById(R.id.buyTV);
-        //cart = findViewById(R.id.button);
 
         name = getIntent().getStringExtra("item_name");
         salesman = getIntent().getStringExtra("item_salesman_name");
@@ -116,14 +115,6 @@ public class ItemDetails extends AppCompatActivity {
                         public void onClick(View v) {
 
                             Intent intent = new Intent(MainActivity.mDrawerLayout.getContext(), ShoppingCartActivity.class);
-                            intent.putExtra("item_name", name);
-                            intent.putExtra("item_desc", desc);
-                            intent.putExtra("item_price", price);
-                            intent.putExtra("item_salesman_name", salesman);
-                            intent.putExtra("item_image", image);
-                            intent.putExtra("code", "1");
-                            intent.putExtra("address", address);
-
                             startActivity(intent);
                             finish();
                         }

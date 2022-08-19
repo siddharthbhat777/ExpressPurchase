@@ -95,14 +95,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 if (model.getQuantity() == 1) {
-                    //do nothing
                     holder.quantity.setText(String.valueOf(model.getQuantity()));
-
                 } else {
-
                     model.setQuantity(model.getQuantity()-1);;
                     model.setNewprice(model.getItemPrice()*model.getQuantity());
-
                     HashMap<String,Object> map = new HashMap<>();
                     map.put("quantity",model.getQuantity());
                     map.put("newprice",model.getNewprice());

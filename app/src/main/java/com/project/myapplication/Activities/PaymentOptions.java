@@ -299,20 +299,12 @@ public class PaymentOptions extends AppCompatActivity implements PaymentResultLi
                     JSONObject options = new JSONObject();
                     options.put("name", "Express Purchase");
                     options.put("description", "Payment for the Selected Item");
-                    //You can omit the image option to fetch the image from dashboard
                     options.put("currency", "INR");
-                    // amount is in paise so please multiple it by 100
-                    //Payment failed Invalid amount (should be passed in integer paise. Minimum value is 100 paise, i.e. ₹ 1)
                     options.put("amount", item_price * 100);
                     JSONObject preFill = new JSONObject();
-                    // put mobile number
                     options.put("prefill.contact", "9113618974");
-
-                    // put email
                     options.put("prefill.email", "express@purchase.com");
-
                     options.put("prefill", preFill);
-
                     co.setKeyID("rzp_test_niDBTfGnyFEjJS");
                     co.open(activity, options);
 
