@@ -7,9 +7,6 @@ import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,11 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -53,7 +48,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements CategoryClickInterface {
 
@@ -84,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
     private ActivityMainBinding binding; // to access all the items of layout easily
 
-//    ExecutorService service = Executors.newSingleThreadExecutor(); // for doing work in background thread
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +106,6 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
         // Setup Actionbar / Toolbar
         mDrawerLayout = findViewById(R.id.drawer_layout);
-//        mToolbar = (Toolbar) findViewById(R.id.action_bar);
-//        mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
         RelativeLayout toolbar =  findViewById(R.id.action_bar);
         ImageView cart, menu;
         menu= findViewById(R.id.actionbaricon);
@@ -135,22 +125,6 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
                 Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
                 startActivity(intent);            }
         });
-
-//        setSupportActionBar(toolbar);
-//        ActionBar actionbar = getSupportActionBar();
-//        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
-//        actionbar.setDisplayHomeAsUpEnabled(true);
-//        setSupportActionBar(mToolbar);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-//        mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
-        //getSupportActionBar().setLogo(R.drawable.action_bar_logo);
-
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //manual searching option
         searchEditText = findViewById(R.id.searchEditText);
@@ -198,29 +172,6 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
                 startActivity(new Intent(getApplicationContext(), CustomerProfile.class));
             }
         });
-//
-//        // Setup Navigation Drawer Layout
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//            }
-//
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
-//            }
-//        };
-//        mDrawerLayout.setDrawerListener(mDrawerToggle);
-////
-//        mDrawerLayout.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                mDrawerToggle.syncState();
-//            }
-//        });
 
         settingsCv = findViewById(R.id.settingsCardView);
         aboutCv = findViewById(R.id.aboutCardView);
@@ -338,13 +289,10 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //if (requestCode == 2) {
         if (resultCode == RESULT_OK & null != data) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             searchEditText.setText(result.get(0));
         }
-        //}
-
     }
 
 
@@ -357,7 +305,6 @@ public class MainActivity extends AppCompatActivity implements CategoryClickInte
 
     @Override
     public void onClick(int position, CategoryModel name) {
-//        Toast.makeText(getApplicationContext(), name.getCategoryName(), Toast.LENGTH_SHORT).show();
         showCategoryWiseData(name);
     }
 
